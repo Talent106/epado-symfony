@@ -1,0 +1,63 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-newspaper-o"></i>{% if ad==1 %}{{ 'Wszystkie strony'|trans }}{% else %}{{ 'Moje strony'|trans }}{% endif %}</h1>{% endblock %}
+
+
+{% block content %}
+    
+    {% if(app.user is not null and app.user.type in ['admin','worker','trader'] and ad==1 ) %}
+    <div class="content">
+        {{ filters(filters,filters_params)|raw }}    
+    </div>
+    {% endif %}
+
+    <div class="content">
+        <div class="options">
+        <a href="{{ path('page_form') }}" class="button"><i class="fa fa-plus"></i> {{ 'Dodaj stronę'|trans }}</a>
+        {% if(app.user.type in ['admin','trader'] and ad==1) %}
+            <a href="{{ path('page_type_list') }}" class="button">{{ 'Typy stron'|trans }}</a>
+            <a href="{{ path('page_category_list') }}" class="button">{{ 'Kategorie stron'|trans }}</a>
+        {% endif %} 
+        </div>
+    </div>
+    
+    <div class="content">
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Zdjęcie'|trans }}</th>
+                        <th>{{ 'Opis'|trans }}</th>
+                        <th>{{ 'Wygasa'|trans }}</th>
+                        <th>{{ 'Utworzono'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr class="{% if( not object.enabled ) %}disabled{% endif %}">
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td>
+                        <td><div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': object.avatar })|production }}');"></div></td> 
+                        <td><a href="{{ path('page_form', {'id': object.id}) }}" class="longtext tip" title="{{object.translate(object.locale).name}}">{% if(object.type.id==1) %}<i class="fa fa-fw fa-user"></i>{% elseif(object.type.id==2) %}<i class="fa fa-fw fa-map-marker"></i>{% endif %}{{object.translate(object.locale).name}}</a></td>
+                        <td>
+                            {% if( not object.expired ) %}
+                                {{ 'Nieaktywna'|trans }}
+                            {% else %}
+                                {% if object.expired<nowObject() %}
+                                    <span style="color:red;">{{ object.expired|mydate }}</span>
+                                {% else %}   
+                                    <span>{{ object.expired|mydate }}</span>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>{{ object.created|mydate }}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+            
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie posiadasz dodanych stron. Możesz dodać stronę:'|trans }} <a href="{{ path('page_form') }}">{{ 'tutaj'|trans }}</a>.</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}

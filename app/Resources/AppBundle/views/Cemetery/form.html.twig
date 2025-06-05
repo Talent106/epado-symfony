@@ -1,0 +1,39 @@
+{% set template="admin.html.twig" %}    
+
+{% if app.request.xmlHttpRequest %}
+    {% set template="ajax.html.twig" %}    
+{% endif %}
+
+{% extends template %}
+
+{% block object %}
+    {% if(object.id is defined) %}
+        {{object.serialize|json_encode}}
+    {% endif %}
+{% endblock %}
+
+{% block response %}{% if(response is defined) %}{{response}}{% else %}form{% endif %}{% endblock %}
+
+{% block element %}
+    {% if(object.id is defined) %}
+        {{ include ('AppBundle:Cemetery:element.html.twig', {'object':object}) }}
+    {% endif %}
+{% endblock %}
+
+
+{% block header %}<h1><i class="fa fa-bank"></i>{{ 'Cmentarz'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+
+    <div class="content">
+
+        {{ form_start(form,{'action':extend()}) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}  
+        
+    </div>
+
+
+{% endblock %}

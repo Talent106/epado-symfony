@@ -1,0 +1,1829 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+
+/**
+ * Page
+ *
+ * @ORM\Table(name="page")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity()
+ */
+class Page
+{
+    use ORMBehaviors\Translatable\Translatable;
+    
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Image", inversedBy="pages")
+     * @ORM\JoinColumn(name="default_image_id", referencedColumnName="id", nullable=true)
+     */
+    protected $image;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default": true})
+     */
+    protected $ads=true;  
+    
+    //, cascade={"persist"}
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="page")
+     * @ORM\OrderBy({"sort" = "ASC", "created" = "DESC"})
+     */
+    protected $images;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PageCredentials", mappedBy="page")
+     */
+    protected $credentials;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OrderProduct", mappedBy="page")
+     */
+    protected $order_products;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $family_name;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $alley;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $number; 
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $father;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mother;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $birth_city;
+    
+    /**
+     * @ORM\Column(name="sex", type="string", length=1, nullable=true)
+     */
+    private $sex;
+
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Audiobook", mappedBy="page", cascade={"persist"})
+     * @ORM\OrderBy({"sort" = "ASC", "created" = "DESC"})
+     */
+    protected $audiobooks;
+    
+        
+
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Post", mappedBy="page", cascade={"persist"})
+     */
+    protected $posts;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $count_scan;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $count_normal;
+    
+    
+    /**
+     * @ORM\Column(name="locale", type="string", length=255, nullable=true)
+     */
+    private $locale;
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    protected $special=false; 
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PageCategory", inversedBy="pages", cascade={"persist"})
+     * @ORM\JoinColumn(name="page_category_id", referencedColumnName="id", nullable=true)
+     */
+    protected $category; 
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PageType", inversedBy="pages", cascade={"persist"})
+     * @ORM\JoinColumn(name="page_type_id", referencedColumnName="id", nullable=true)
+     */
+    protected $type;
+    
+    
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Group", inversedBy="pages", cascade={"persist"})
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=true)
+     */
+    protected $group;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Address", inversedBy="pages", cascade={"persist"})
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true)
+     */
+    protected $address;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Localisation", inversedBy="pages", cascade={"persist"})
+     * @ORM\JoinColumn(name="localisation_id", referencedColumnName="id", nullable=true)
+     */
+    protected $localisation;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Family", inversedBy="pages", cascade={"persist"})
+     * @ORM\JoinColumn(name="family_id", referencedColumnName="id", nullable=true)
+     */
+    protected $family;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cemetery", inversedBy="pages", cascade={"persist"})
+     * @ORM\JoinColumn(name="cemetery_id", referencedColumnName="id", nullable=true)
+     */
+    protected $cemetery;   
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="pages", cascade={"persist"})
+     * @ORM\JoinColumn(name="buyer_id", referencedColumnName="id", nullable=true)
+     */
+    protected $buyer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="created_pages", cascade={"persist"})
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", nullable=true)
+     */
+    protected $creator;
+ 
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": true})
+     */
+    protected $enabled=true; 
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": true})
+     */
+    protected $remind=true; 
+    
+    
+    /**
+     * @ORM\Column(name="last_remind", type="date", nullable=true)
+     */
+    protected $last_remind;
+    
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    protected $block=false; 
+    
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": true})
+     */
+    protected $public=true; 
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $remind_days;
+//     * @Assert\NotBlank(groups={"registration"})
+    /**
+     * @ORM\Column(name="code", type="string", length=255, nullable=true)
+     */
+    private $code;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Code", inversedBy="page_side", cascade={"persist"})
+     * @ORM\JoinColumn(name="code_id", referencedColumnName="id", nullable=true)
+     */
+    protected $code_object;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Code", mappedBy="page")
+     */
+    protected $code_object_side;
+    
+    /**
+     * @ORM\Column(name="begin", type="date", nullable=true)
+     */
+    private $begin;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $begin_year;
+    
+    /**
+     * @ORM\Column(name="end", type="date", nullable=true)
+     */
+    private $end;
+    
+ 
+    /**
+     * @ORM\Column(name="expired", type="datetime", nullable=true)
+     */
+    private $expired;
+    
+    /**
+     * @ORM\Column(name="deleted", type="datetime", nullable=true)
+     */
+    private $deleted;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+    
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255, nullable=true)
+     */
+    private $path;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="background", type="string", length=255, nullable=true)
+     */
+    private $background;
+ 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     */
+    private $facebook;   
+    
+
+    /**
+     * @param $method
+     * @param $args
+     *
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+        if (!method_exists(self::getTranslationEntityClass(), $method)) {
+            $method = 'get' . ucfirst($method);
+        }
+
+        return $this->proxyCurrentLocaleTranslation($method, $args);
+    }
+    
+    public function expiredFromProduct($product)
+    {
+        if(is_object($product) && $product->getMonths()){
+            $now=new \DateTime();
+            $months=$product->getMonths();
+            
+            if($this->getExpired()===null || $this->getExpired()<$now){
+                $date=$now->add(new \DateInterval('P'.$months.'M'));     
+            }else{
+                $date=$this->getExpired()->add(new \DateInterval('P'.$months.'M'));
+            }
+            
+            $this->setExpired($date);
+            return $date;
+        }else{
+            return null;
+        }   
+        
+    } 
+    
+    
+    public function getAvatar()
+    {
+        if($this->getImage()){
+           return $this->getImage()->getWebPath();  
+        }
+        else
+        {
+           if($this->getType()->getId()==1) {
+               return 'images/user.png';
+           }    
+           elseif($this->getType()->getId()==2) {
+               return 'images/place.png'; 
+           }else{
+               return 'images/user.png';
+           }    
+        }
+    } 
+    
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     *
+     * @return Page
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set begin
+     *
+     * @param \DateTime $begin
+     *
+     * @return Page
+     */
+    public function setBegin($begin)
+    {
+        $this->begin = $begin;
+
+        return $this;
+    }
+
+    /**
+     * Get begin
+     *
+     * @return \DateTime
+     */
+    public function getBegin()
+    {
+        return $this->begin;
+    }
+
+    /**
+     * Set end
+     *
+     * @param \DateTime $end
+     *
+     * @return Page
+     */
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    /**
+     * Get end
+     *
+     * @return \DateTime
+     */
+    public function getEnd()
+    {
+        return $this->end;
+    }
+
+    /**
+     * Set expired
+     *
+     * @param \DateTime $expired
+     *
+     * @return Page
+     */
+    public function setExpired($expired)
+    {
+        $this->expired = $expired;
+
+        return $this;
+    }
+
+    /**
+     * Get expired
+     *
+     * @return \DateTime
+     */
+    public function getExpired()
+    {
+        return $this->expired;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param \DateTime $deleted
+     *
+     * @return Page
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return \DateTime
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Page
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Page
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \AppBundle\Entity\PageType $type
+     *
+     * @return Page
+     */
+    public function setType(\AppBundle\Entity\PageType $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \AppBundle\Entity\PageType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\User $creator
+     *
+     * @return Page
+     */
+    public function setCreator(\AppBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * Set group
+     *
+     * @param \AppBundle\Entity\Group $group
+     *
+     * @return Page
+     */
+    public function setGroup(\AppBundle\Entity\Group $group = null)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * Get group
+     *
+     * @return \AppBundle\Entity\Group
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     *
+     * @return Page
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Page
+     */
+    public function setImage(\AppBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AppBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Add image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Page
+     */
+    public function addImage(\AppBundle\Entity\Image $image)
+    {
+        $this->images[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \AppBundle\Entity\Image $image
+     */
+    public function removeImage(\AppBundle\Entity\Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function getImagesSort()
+    {
+        //var_dump($this->getImages()); die('test');
+        if($this->getImages()===null) return array();
+        
+        $values = $this->getImages()->getValues();
+        $name='getSort';
+        usort($values, function ($a, $b) use ($name) {
+            return $a->$name()>$b->$name();
+        });
+        return $values;
+    }
+    
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Page
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Page
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param string $postalCode
+     *
+     * @return Page
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postal_code = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return string
+     */
+    public function getPostalCode()
+    {
+        return $this->postal_code;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     *
+     * @return Page
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     *
+     * @return Page
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set country
+     *
+     * @param \AppBundle\Entity\Country $country
+     *
+     * @return Page
+     */
+    public function setCountry(\AppBundle\Entity\Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \AppBundle\Entity\Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set family
+     *
+     * @param \AppBundle\Entity\Family $family
+     *
+     * @return Page
+     */
+    public function setFamily(\AppBundle\Entity\Family $family = null)
+    {
+        $this->family = $family;
+
+        return $this;
+    }
+
+    /**
+     * Get family
+     *
+     * @return \AppBundle\Entity\Family
+     */
+    public function getFamily()
+    {
+        return $this->family;
+    }
+
+    /**
+     * Set cemetery
+     *
+     * @param \AppBundle\Entity\Cemetery $cemetery
+     *
+     * @return Page
+     */
+    public function setCemetery(\AppBundle\Entity\Cemetery $cemetery = null)
+    {
+        $this->cemetery = $cemetery;
+
+        return $this;
+    }
+
+    /**
+     * Get cemetery
+     *
+     * @return \AppBundle\Entity\Cemetery
+     */
+    public function getCemetery()
+    {
+        return $this->cemetery;
+    }
+
+    /**
+     * Set localisation
+     *
+     * @param \AppBundle\Entity\Localisation $localisation
+     *
+     * @return Page
+     */
+    public function setLocalisation(\AppBundle\Entity\Localisation $localisation = null)
+    {
+        $this->localisation = $localisation;
+
+        return $this;
+    }
+
+    /**
+     * Get localisation
+     *
+     * @return \AppBundle\Entity\Localisation
+     */
+    public function getLocalisation()
+    {
+        return $this->localisation;
+    }
+
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return Page
+     */
+    public function addPost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\Post $post
+     */
+    public function removePost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Set remaind
+     *
+     * @param boolean $remaind
+     *
+     * @return Page
+     */
+    public function setRemaind($remaind)
+    {
+        $this->remaind = $remaind;
+
+        return $this;
+    }
+
+    /**
+     * Get remaind
+     *
+     * @return boolean
+     */
+    public function getRemaind()
+    {
+        return $this->remaind;
+    }
+
+    /**
+     * Set remaindDays
+     *
+     * @param integer $remaindDays
+     *
+     * @return Page
+     */
+    public function setRemaindDays($remaindDays)
+    {
+        $this->remaind_days = $remaindDays;
+
+        return $this;
+    }
+
+    /**
+     * Get remaindDays
+     *
+     * @return integer
+     */
+    public function getRemaindDays()
+    {
+        return $this->remaind_days;
+    }
+
+    /**
+     * Set buyer
+     *
+     * @param \AppBundle\Entity\User $buyer
+     *
+     * @return Page
+     */
+    public function setBuyer(\AppBundle\Entity\User $buyer = null)
+    {
+        $this->buyer = $buyer;
+
+        return $this;
+    }
+
+    /**
+     * Get buyer
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getBuyer()
+    {
+        return $this->buyer;
+    }
+
+    /**
+     * Set remind
+     *
+     * @param boolean $remind
+     *
+     * @return Page
+     */
+    public function setRemind($remind)
+    {
+        $this->remind = $remind;
+
+        return $this;
+    }
+
+    /**
+     * Get remind
+     *
+     * @return boolean
+     */
+    public function getRemind()
+    {
+        return $this->remind;
+    }
+
+    /**
+     * Set remindDays
+     *
+     * @param integer $remindDays
+     *
+     * @return Page
+     */
+    public function setRemindDays($remindDays)
+    {
+        $this->remind_days = $remindDays;
+
+        return $this;
+    }
+
+    /**
+     * Get remindDays
+     *
+     * @return integer
+     */
+    public function getRemindDays()
+    {
+        return $this->remind_days;
+    }
+
+    /**
+     * Set block
+     *
+     * @param boolean $block
+     *
+     * @return Page
+     */
+    public function setBlock($block)
+    {
+        $this->block = $block;
+
+        return $this;
+    }
+
+    /**
+     * Get block
+     *
+     * @return boolean
+     */
+    public function getBlock()
+    {
+        return $this->block;
+    }
+
+    /**
+     * Set public
+     *
+     * @param boolean $public
+     *
+     * @return Page
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Get public
+     *
+     * @return boolean
+     */
+    public function getPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * Set sex
+     *
+     * @param string $sex
+     *
+     * @return Page
+     */
+    public function setSex($sex)
+    {
+        $this->sex = $sex;
+
+        return $this;
+    }
+
+    /**
+     * Get sex
+     *
+     * @return string
+     */
+    public function getSex()
+    {
+        return $this->sex;
+    }
+
+    /**
+     * Set countScan
+     *
+     * @param integer $countScan
+     *
+     * @return Page
+     */
+    public function setCountScan($countScan)
+    {
+        $this->count_scan = $countScan;
+
+        return $this;
+    }
+
+    /**
+     * Get countScan
+     *
+     * @return integer
+     */
+    public function getCountScan()
+    {
+        return $this->count_scan;
+    }
+
+    /**
+     * Set countNormal
+     *
+     * @param integer $countNormal
+     *
+     * @return Page
+     */
+    public function setCountNormal($countNormal)
+    {
+        $this->count_normal = $countNormal;
+
+        return $this;
+    }
+
+    /**
+     * Get countNormal
+     *
+     * @return integer
+     */
+    public function getCountNormal()
+    {
+        return $this->count_normal;
+    }
+
+    /**
+     * Set codeObject
+     *
+     * @param \AppBundle\Entity\Code $codeObject
+     *
+     * @return Page
+     */
+    public function setCodeObject(\AppBundle\Entity\Code $codeObject = null)
+    {
+        $this->code_object = $codeObject;
+
+        return $this;
+    }
+
+    /**
+     * Get codeObject
+     *
+     * @return \AppBundle\Entity\Code
+     */
+    public function getCodeObject()
+    {
+        return $this->code_object;
+    }
+
+    /**
+     * Set lastRemind
+     *
+     * @param \DateTime $lastRemind
+     *
+     * @return Page
+     */
+    public function setLastRemind($lastRemind)
+    {
+        $this->last_remind = $lastRemind;
+
+        return $this;
+    }
+
+    /**
+     * Get lastRemind
+     *
+     * @return \DateTime
+     */
+    public function getLastRemind()
+    {
+        return $this->last_remind;
+    }
+
+    /**
+     * Set familyName
+     *
+     * @param string $familyName
+     *
+     * @return Page
+     */
+    public function setFamilyName($familyName)
+    {
+        $this->family_name = $familyName;
+
+        return $this;
+    }
+
+    /**
+     * Get familyName
+     *
+     * @return string
+     */
+    public function getFamilyName()
+    {
+        return $this->family_name;
+    }
+
+    /**
+     * Set father
+     *
+     * @param string $father
+     *
+     * @return Page
+     */
+    public function setFather($father)
+    {
+        $this->father = $father;
+
+        return $this;
+    }
+
+    /**
+     * Get father
+     *
+     * @return string
+     */
+    public function getFather()
+    {
+        return $this->father;
+    }
+
+    /**
+     * Set mother
+     *
+     * @param string $mother
+     *
+     * @return Page
+     */
+    public function setMother($mother)
+    {
+        $this->mother = $mother;
+
+        return $this;
+    }
+
+    /**
+     * Get mother
+     *
+     * @return string
+     */
+    public function getMother()
+    {
+        return $this->mother;
+    }
+
+    /**
+     * Set birthCity
+     *
+     * @param string $birthCity
+     *
+     * @return Page
+     */
+    public function setBirthCity($birthCity)
+    {
+        $this->birth_city = $birthCity;
+
+        return $this;
+    }
+
+    /**
+     * Get birthCity
+     *
+     * @return string
+     */
+    public function getBirthCity()
+    {
+        return $this->birth_city;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Page
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+    
+    
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+        // check if we have an old image path
+        if (isset($this->path)) {
+            // store the old name to delete after the update
+            $this->temp = $this->path;
+            $this->path = null;
+        } else {
+            $this->path = 'initial';
+        }
+    }
+    
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            // do whatever you want to generate a unique name, this is overwritten by double persist in controller
+           $filename = sha1(uniqid(mt_rand(), true));
+           $this->path = $filename.'.'.$this->getFile()->guessExtension();
+           $this->background=$this->getWebPath();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+        //$this->path = $this->getId().'.'.$this->getFile()->guessExtension();
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $test=$this->getFile()->move($this->getUploadRootDir(), $this->path);
+
+        //var_dump($this->path);
+        //die($this->getUploadRootDir());
+        
+        
+        // check if we have an old image
+        if (isset($this->temp)) {
+            // delete the old image
+            if(file_exists($this->getUploadRootDir().'/'.$this->temp))
+            unlink($this->getUploadRootDir().'/'.$this->temp);
+            // clear the temp image path
+            $this->temp = null;
+        }
+        $this->file = null;
+    }
+    
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->temp = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (isset($this->temp)) {
+            unlink($this->temp);
+        }
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    public function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        
+        //die(__DIR__.'/../../../web/'.$this->getUploadDir()); // za daleko wychodzil po wywaleniu katalogu nadrzednego z nazwa firmy
+        return __DIR__.'/../../../web/'.$this->getUploadDir(); // za daleko wychodzil po wywaleniu katalogu nadrzednego z nazwa firmy
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/backgrounds';
+    }
+
+
+    /**
+     * Set background
+     *
+     * @param string $background
+     *
+     * @return Page
+     */
+    public function setBackground($background)
+    {
+        $this->background = $background;
+
+        return $this;
+    }
+
+    /**
+     * Get background
+     *
+     * @return string
+     */
+    public function getBackground()
+    {
+        return $this->background;
+    }
+	
+    /**
+     * Set facebook
+     *
+     * @param string $alley
+     *
+     * @return Page
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    /**
+     * Get facebook
+     *
+     * @return string
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }	
+	
+
+    /**
+     * Set alley
+     *
+     * @param string $alley
+     *
+     * @return Page
+     */
+    public function setAlley($alley)
+    {
+        $this->alley = $alley;
+
+        return $this;
+    }
+
+    /**
+     * Get alley
+     *
+     * @return string
+     */
+    public function getAlley()
+    {
+        return $this->alley;
+    }
+
+    /**
+     * Set number
+     *
+     * @param string $number
+     *
+     * @return Page
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return string
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Add audiobook
+     *
+     * @param \AppBundle\Entity\Audiobook $audiobook
+     *
+     * @return Page
+     */
+    public function addAudiobook(\AppBundle\Entity\Audiobook $audiobook)
+    {
+        $this->audiobooks[] = $audiobook;
+
+        return $this;
+    }
+
+    /**
+     * Remove audiobook
+     *
+     * @param \AppBundle\Entity\Audiobook $audiobook
+     */
+    public function removeAudiobook(\AppBundle\Entity\Audiobook $audiobook)
+    {
+        $this->audiobooks->removeElement($audiobook);
+    }
+
+    /**
+     * Get audiobooks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAudiobooks()
+    {
+        return $this->audiobooks;
+    }
+
+    /**
+     * Add credential
+     *
+     * @param \AppBundle\Entity\PageCredentials $credential
+     *
+     * @return Page
+     */
+    public function addCredential(\AppBundle\Entity\PageCredentials $credential)
+    {
+        $this->credentials[] = $credential;
+
+        return $this;
+    }
+
+    /**
+     * Remove credential
+     *
+     * @param \AppBundle\Entity\PageCredentials $credential
+     */
+    public function removeCredential(\AppBundle\Entity\PageCredentials $credential)
+    {
+        $this->credentials->removeElement($credential);
+    }
+
+    /**
+     * Get credentials
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCredentials()
+    {
+        return $this->credentials;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     *
+     * @return Page
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Set special
+     *
+     * @param boolean $special
+     *
+     * @return Page
+     */
+    public function setSpecial($special)
+    {
+        $this->special = $special;
+
+        return $this;
+    }
+
+    /**
+     * Get special
+     *
+     * @return boolean
+     */
+    public function getSpecial()
+    {
+        return $this->special;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\PageCategory $category
+     *
+     * @return Page
+     */
+    public function setCategory(\AppBundle\Entity\PageCategory $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\PageCategory
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set codeObjectSide
+     *
+     * @param \AppBundle\Entity\Code $codeObjectSide
+     *
+     * @return Page
+     */
+    public function setCodeObjectSide(\AppBundle\Entity\Code $codeObjectSide = null)
+    {
+        $this->code_object_side = $codeObjectSide;
+
+        return $this;
+    }
+
+    /**
+     * Get codeObjectSide
+     *
+     * @return \AppBundle\Entity\Code
+     */
+    public function getCodeObjectSide()
+    {
+        return $this->code_object_side;
+    }
+
+    /**
+     * Add orderProduct
+     *
+     * @param \AppBundle\Entity\OrderProduct $orderProduct
+     *
+     * @return Page
+     */
+    public function addOrderProduct(\AppBundle\Entity\OrderProduct $orderProduct)
+    {
+        $this->order_products[] = $orderProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderProduct
+     *
+     * @param \AppBundle\Entity\OrderProduct $orderProduct
+     */
+    public function removeOrderProduct(\AppBundle\Entity\OrderProduct $orderProduct)
+    {
+        $this->order_products->removeElement($orderProduct);
+    }
+
+    /**
+     * Get orderProducts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrderProducts()
+    {
+        return $this->order_products;
+    }
+
+    /**
+     * Set beginYear
+     *
+     * @param integer $beginYear
+     *
+     * @return Page
+     */
+    public function setBeginYear($beginYear)
+    {
+        $this->begin_year = $beginYear;
+
+        return $this;
+    }
+
+    /**
+     * Get beginYear
+     *
+     * @return integer
+     */
+    public function getBeginYear()
+    {
+        return $this->begin_year;
+    }
+
+    /**
+     * Set ads
+     *
+     * @param boolean $ads
+     *
+     * @return Page
+     */
+    public function setAds($ads)
+    {
+        $this->ads = $ads;
+
+        return $this;
+    }
+
+    /**
+     * Get ads
+     *
+     * @return boolean
+     */
+    public function getAds()
+    {
+        return $this->ads;
+    }
+}

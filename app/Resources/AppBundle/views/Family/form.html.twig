@@ -1,0 +1,74 @@
+{% set template="admin.html.twig" %}    
+
+{% if app.request.xmlHttpRequest %}
+    {% set template="ajax.html.twig" %}    
+{% endif %}
+
+{% extends template %}
+
+{% block object %}
+    {% if(object.id is defined) %}
+        {{object.serialize|json_encode}}
+    {% endif %}
+{% endblock %}
+
+{% block response %}{% if(response is defined) %}{{response}}{% else %}form{% endif %}{% endblock %}
+
+{% block element %}
+    {% if(object.id is defined) %}
+        {{ include ('AppBundle:Family:element.html.twig', {'object':object}) }}
+    {% endif %}
+{% endblock %}
+
+{% block header %}<h1><i class="fa fa-users"></i>{{ 'Rodzina'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+    
+    <div class="content">
+        {% if app.user.havefamilypermission(object,'family_edit') %}
+            {{ form_start(form,{'action':extend()}) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        {% else %}
+            <p class="page">{{ 'Nie masz uprawnień do edycji tej rodziny. Możesz tylko dodawać ją jako rodzina upamiętnionej osoby.'|trans }}</p> 
+        {% endif %}
+    </div>
+
+    
+    {% if object.id and not app.request.xmlHttpRequest %} 
+        
+        <h1><i class="fa fa-lock"></i>{{ 'Uprawnienia'|trans }}</h1>
+        
+        {% if object.credentials|length %}
+            <div class="content list">  
+              {% for c in object.credentials %}
+                <div class="element">
+                    {% if(c.user.avatar) %}
+                    <div class="avatar" style=" background-image:url('/{{ c.user.avatar }}');"></div>
+                    {% endif %}
+                    <div class="data">{{ c.user.fullname }}</div>
+                    <div class="data">{{ app.user.permissiontype(c.type)|trans }}</div>
+                    {% if(app.user.havefamilypermission(object,'admin')) %}
+                    <a href="{{ path('permission',{'id':c.id}) }}" class="button tip" title="{{ 'Edytuj uprawnienia'|trans }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href="{{ path('permission',{'id':c.id,'delete':1}) }}" class="button tip" title="{{ 'Usuń uprawnieania'|trans }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    {% endif %}
+                </div>
+              {% endfor %}
+            </div>  
+        {% endif %} 
+        {% if(app.user.havefamilypermission(object,'admin')) %}
+        <div class="content">    
+            <form action="{{ path('permission') }}" method="post">
+                <p>{{ 'Możesz nadać uprawnienia wybranym osobom. Administratorzy mogą nadawać nowe uprawnienia a redaktorzy mogą mieć dostęp tylko do zmiany wybranych danych. Podaj adres email osoby której chcesz nadać uprawnienia. Osoba ta musi posiadać konto w Epado.'|trans }}</p>
+                <input type="hidden" name="family_id" value="{{ object.id }}" >
+                <input type="email" name="email" placeholder="{{ 'Adres email osoby'|trans }}" value="">
+                <input type="submit" value="{{ 'Dodaj uprawnienia'|trans }}">
+            </form>
+        </div>
+        {% endif %}        
+    {% endif %}
+    
+
+{% endblock %}

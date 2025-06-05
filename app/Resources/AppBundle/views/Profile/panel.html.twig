@@ -1,0 +1,134 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-user"></i>{{ 'Moje konto'|trans }}</h1>{% endblock %}
+{% block title %}{{ 'Panel'|trans }}{% endblock %}
+    
+{% block content %}
+    {% if not app.request.cookies.get('welcomemessage') and app.user.type == 'user' and app.user.pages|length==0 %}
+    <script>
+        function setCookie(c_name,value,expiredays,element)
+	{
+		var exdate=new Date();
+		exdate.setDate(exdate.getDate()+expiredays)
+		document.cookie=c_name+ "=" +escape(value)+
+		((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+                element.parentNode.parentNode.style.display='none';
+	}
+    </script>
+    <div class="content error" style="background-image:none;">
+        <p>{{ 'Witamy w Epado, jeśli zakupiłeś i posiadasz jedną z kopert. dodaj stronę i zapisz ją a następnie wpisz poufny kod aktywacyjny znajdujący się w kopercie. Strona zacznie być wyświetlana w wynikach wyszukiwania.'|trans }}</p>
+        <p>{{ 'Jeśli nie posiadasz koperty z kodem aktywacyjnym. Dodaj stronę, uzupełnij formularze, dodaj zdjęcia i zapisz ją. Po dokonaniu  wyboru jednego z pakietów, opłać i oczekuj na przesyłkę z fizycznym kodem Epado, który nakleisz na nagrobku.'|trans }}</p>
+        <div class="options">
+            <div class="button small" onClick="setCookie('welcomemessage','1',null,this)">{{ 'Nie pokazuj tej informacji ponownie'|trans }}</div>
+        </div>
+    </div>
+    {% endif %}    
+    <div class="content">
+	
+		<div class="row">
+			<div class="col-md-6">
+				<p><b><i class="fa fa-fw fa-user"></i>&nbsp; {{ 'Dane podstawowe'|trans }}:</b></p>
+				<p>
+				{{ 'Adres email'|trans }}: {{ app.user.username }}<br />
+				{{ 'Imię i nazwisko'|trans }}: {{ app.user.firstname }} {{ app.user.lastname }}
+				</p>
+				
+				<p><b><i class="fa fa-fw fa-truck"></i>&nbsp; {{ 'Adres dostawy'|trans }}:</b></p>
+				<p>{{ address(app.user.deliveryaddress)|raw }}</p>
+				<p><b><i class="fa fa-fw fa-credit-card-alt"></i>&nbsp; {{ 'Dane rozliczeniowe'|trans }}:</b></p>
+				<p>{{ address(app.user.billingaddress)|raw }}</p>			
+			</div>
+			
+			<div class="col-md-6">
+			{% if(app.user is not null and app.user.type in ['partner'] ) %}
+				<p><b><i class="fa fa-fw fa-money"></i>&nbsp; {{ 'Twoja sprzedaż'|trans }}:</b></p>
+				
+				<div class="row">
+				
+				
+				<table>
+					<tr>
+						<td>
+							<div class="col-md-5 text-right" style=" background: gold;  color: #FFF !important;   padding: 15px;    border-radius: 5px;margin: 4px;">
+								<div class="huge"><h3 style="line-height: 22px !important;    margin-bottom: -30px;color:#FFF;"><b>{{user.provision}}%</b></h3></div>
+								<div style="color:#FFF;">Twoja prowizja</div>
+							</div>							
+						</td>
+						<td>
+							<div class="col-md-5 text-right" style=" background: #f94646;  color: #FFF !important;   padding: 15px;    border-radius: 5px;margin: 4px;">
+								<div class="huge"><h3 style="line-height: 22px !important;    margin-bottom: -30px;color:#FFF;"><b>1200 PLN brutto</b></h3></div>
+								<div style="color:#FFF;">Sprzedaż ten miesiąc</div>
+							</div>						
+						</td>
+						<td>
+							<div class="col-md-5 text-right" style=" background: #4949cd;  color: #FFF !important;   padding: 15px;    border-radius: 5px;margin: 4px;">
+								<div class="huge"><h3 style="line-height: 22px !important;    margin-bottom: -30px;color:#FFF;"><b>120</b></h3></div>
+								<div style="color:#FFF;">Zamówień ten miesiąc</div>
+							</div>						
+						</td>												
+					</tr>
+				</table>
+				
+									<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+									<script>
+										$(document).ready(function() {
+											var ctx = $("#chart-line");
+											var myLineChart = new Chart(ctx, {
+												type: 'pie',
+												data: {
+													labels: ["Gold na 10 Lat", "Silver 5 Lat", "Platinium na 20 Lat"],
+													datasets: [{
+														data: [1200, 1700, 800],
+														backgroundColor: ["rgba(255, 0, 0, 0.5)", "rgba(100, 255, 0, 0.5)", "rgba(200, 50, 255, 0.5)"]
+													}]
+												},
+												options: {
+													title: {
+														display: true,
+														text: ''
+													}
+												}
+											});
+										});
+									</script>
+									<p><br/><br/></p>
+									<p><b><i class="fa fa-fw fa-percent"></i>&nbsp; {{ 'Najczęściej sprzedawane produkty'|trans }}:</b></p>
+									<div class="card">
+										
+										<div class="card-body">
+											<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+												<div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+													<div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+												</div>
+												<div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+													<div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+												</div>
+											</div> <canvas id="chart-line" width="299" height="200" class="chartjs-render-monitor" style="display: block; width: 299px; height: 200px;"></canvas>
+										</div>
+									</div>				
+
+                </div>	
+
+
+			{% endif %}	
+			</div>
+		</div>
+	
+
+
+    </div> 
+
+
+
+    <div class="content">
+        <div class="options">
+            <a class="button small" href="{{ path('profile_edit')}}"><i class="fa fa-gear"></i> {{ 'Ustawienia'|trans }}</a> 
+            <a class="button small" href="{{ path('profile_address')}}"><i class="fa fa-truck"></i> {{ 'Edytuj dane adresowe'|trans }}</a> 
+            <a href="{{ path('page_form') }}" class="button small"><i class="fa fa-plus"></i> {{ 'Dodaj stronę'|trans }}</a>
+        </div>
+    </div>
+       
+        
+        
+        
+{% endblock %}

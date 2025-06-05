@@ -1,0 +1,11 @@
+{% extends "default.html.twig" %}
+{% block content %}
+
+    <h1>Błąd</h1>
+
+    <div class="content">
+        <p>Wystąpił nieoczekiwany błąd. Wróć do strony głównej.</p>
+        {#{{ exception.message|nl2br|format_file_from_text }}<br>
+        <strong>{{ status_code }}</strong> {{ status_text }} - {{ exception.class|abbr_class }}#}
+    </div>
+{% endblock content %}

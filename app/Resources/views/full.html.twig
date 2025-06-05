@@ -1,0 +1,20 @@
+{% extends 'wrapper.html.twig' %}
+{% block body %}
+<div class="admin">
+    
+    <div class="size first-content">
+        {{ block('header') }}
+        
+        <div class="notifications">
+            {% for flashMessage in app.session.flashbag.get('notice') %}<div class="notification notice">{{ flashMessage|raw }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('warning') %}<div class="notification warning">{{ flashMessage|raw }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('success') %}<div class="notification success">{{ flashMessage|raw }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('error') %}<div class="notification error">{{ flashMessage|raw }}</div>{% endfor %}
+        </div>
+        
+        <div class="full">
+        {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>     
+{% endblock %}

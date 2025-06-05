@@ -1,0 +1,55 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-cube"></i>{{ 'Produkty'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    
+    
+    
+    <div class="content">
+        {{ filters(filters,filters_params)|raw }}    
+    </div>
+
+    <div class="content">
+        <div class="options">
+        <a href="{{ path('product_form') }}" class="button">{{ 'Dodaj produkt'|trans }}</a>
+        {% if(app.user.type in ['admin','trader'] ) %}
+            <a href="{{ path('product_type_list') }}" class="button">{{ 'Typy produktów'|trans }}</a>
+            <a href="{{ path('product_category_list') }}" class="button">{{ 'Kategorie produktów'|trans }}</a>
+        {% endif %}
+        </div>
+    </div>
+    
+    <div class="content">
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Zdjęcie'|trans }}</th>
+                        <th>{{ 'Nazwa'|trans }}</th>
+                        <th>{{ 'Kategoria'|trans }}</th>
+                        <th>{{ 'Typ'|trans }}</th>
+                        <th>{{ 'Cena'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr class="{% if( not object.enabled ) %}disabled{% endif %}">
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td>
+                        <td><div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': object.avatar })|production }}');"></div></td> 
+                        <td><a href="{{ path('product_form', {'id': object.id, 'order_id': order_id }) }}" class="longtext tip" title="{{object.name}}">{{object.name}}</a></td>
+                        <td>{{object.category.name|trans}}</td>
+                        <td>{{object.pagetype.name|trans}}</td> 
+                        <td>{{object.price(app.session.get('currency'))|price}} </td>
+
+                    </tr>
+                {% endfor %}
+            </table></div>
+            
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie ma produktów.'|trans }}</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}

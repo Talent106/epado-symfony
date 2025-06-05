@@ -1,0 +1,11 @@
+    {% if p %}
+        <div class="element">
+            {% if(p.product.avatar) %}
+            <div class="avatar" style=" background-image:url('/{{ p.product.avatar }}');"></div>
+            {% endif %}
+            <div class="data">{{ p.product.name }}</div>
+            <div class="data">{{ p.product.price(app.session.get('currency'))|price }}</div>
+            <a href="{{ path('product_form',{'id':p.product.id}) }}" class="button tip" title="{{ 'Edytuj produkt'|trans }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            <a href="?product_delete_id={{ p.id }}" class="button delete tip" title="{{ 'Usuń produkt'|trans }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        </div>
+    {% endif %}

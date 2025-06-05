@@ -1,0 +1,17 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-shopping-cart"></i>{{ 'Sklep dla partnerów'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+    
+    {% if products %}
+        {% include 'AppBundle:Product:products.html.twig' with {'products': products } only %}
+    {% else %}
+        <div class="content">
+        <p>{{ 'Nie ma dodanych produktów dla partnerów.'|trans }}</p>
+        </div>
+    {% endif %}
+    
+    
+{% endblock %}

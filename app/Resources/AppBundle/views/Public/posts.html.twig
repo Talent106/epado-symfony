@@ -1,0 +1,21 @@
+                {% if posts is iterable %}
+                    {% set last_post_id=null %}
+                    {% for post in posts %}
+                        {% if(loop.last and loop.index==10) %}
+                        <div class="post">    
+                            <a href="{{ extend({'last_post_id':post.id}) }}" class="button small refresh"><i class="fa fa-refresh"></i>{{ 'Zobacz kolejne'|trans }}</a>
+                        </div>    
+                        {% else %}    
+                        <div class="post">
+                            {% if app.user %}
+                               {% if app.user and app.user.havepagepermission(page,'page_posts_delete') %} 
+                                   <a href="?post_delete_id={{post.id}}" class="icon delete"><i class="fa fa-times"></i></a>
+                               {% endif %}     
+                            {% endif %} 
+                            {{ tabUser(post.creator|raw)|raw }}
+                            <p class="name">{{ post.creator.fullname }}<span>{{ post.created|mydatetime() }}</span></p>
+                            <p class="message">{{post.message}}</p>
+                        </div>  
+                        {% endif %} 
+                    {% endfor %}    
+                {% endif %} 

@@ -1,0 +1,360 @@
+{% extends "home.html.twig" %}
+{% block meta %}
+<meta property="og:url"                content="{{ app.request.getSchemeAndHttpHost()~extend()|production }}" >
+<meta property="og:type"               content="article" >
+<meta property="og:title"              content="{{ page.translate(page.locale).name }}" >
+<meta property="og:description"        content="{{ page.translate(page.locale).description }}" >
+<meta property="og:image"              content="{{ app.request.getSchemeAndHttpHost()~path('thumbnail', {'resolution': '1200x630', 'file': page.avatar })|production }}" >
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@epado">
+<meta name="twitter:creator" content="@epado">
+<meta name="twitter:title" content="{{ page.translate(page.locale).name }}">
+<meta name="twitter:description" content="{{ page.translate(page.locale).description }}">
+<meta name="twitter:image" content="{{ app.request.getSchemeAndHttpHost()~path('thumbnail', {'resolution': '700x500', 'file': page.avatar })|production }}">
+{% endblock %}
+
+{% block title %}{{ page.translate(page.locale).name }}{% endblock %}
+{% block description %}{{ page.translate(page.locale).description }}{% endblock %}
+
+{% block after_body %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/{{ default_codes[app.request.locale] }}/sdk.js#xfbml=1&version=v2.5&appId=1857414584485351";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));</script>     
+{% endblock %}
+
+{% block content %}
+<div class="admin page person">
+    
+    <div class="first-content person-info" > 
+        <div class="background{% if page.background is defined and page.path in page.background%} custom" style="background-image:url('{{ path('thumbnail', {'resolution': '1800', 'file': page.background })|production }}');"{% else %}"{% endif %}></div>
+        <div class="size">
+            
+                               
+            {% if app.user and app.user.havepagepermission(page,'page_background') %}                                   
+            <a href="{{ path('page_form',{'id':page.id}) }}#background" class="edit-image triggerAnimation fadeInLeft"><i class="fa fa-camera" aria-hidden="true"></i> {{ 'Zmień zdjęcie w tle'|trans }}</a>
+            {% endif %}
+            <div class="description">
+                
+                <div {#href="#photos"#} class="avatar delay2 triggerAnimation" data-animate="fadeInLeft" style="background-image:url('{{ path('thumbnail', {'resolution': '165x165', 'file': page.avatar })|production }}');">
+                
+                {% if app.user and app.user.havepagepermission(page,'page_image') and app.user.havepagepermission(page,'page_images') %}                                 
+                <a href="{{ path('page_form',{'id':page.id}) }}#image" class="edit-image triggerAnimation fadeInDown"><i class="fa fa-camera" aria-hidden="true"></i> {{ 'Zmień zdjęcie'|trans }}</a>
+                {% else %}  
+                <a href="#photos" style="width:100%;height:100%; display:block; position:absolute;"></a>   
+                {% endif %}  
+                
+                </div>
+                
+                <h1 class="delay2 triggerAnimation" data-animate="fadeInRight">{{ page.translate(page.locale).firstname }} {{ page.translate(page.locale).lastname }}&nbsp;&nbsp;<i class="badge">{{ lived(page.begin,page.end) }}{{ 'l.'|trans }}</i></h1>
+                <p class="time delay2 triggerAnimation" data-animate="fadeInRight">{{ page.begin|mydate() }} - {{ page.end|mydate() }}</p>
+                <p class="desc delay2 triggerAnimation" data-animate="fadeInRight">{{ page.translate(page.locale).description|nl2br }}</p>
+                
+            </div>
+
+        </div>
+    </div> 
+                
+    
+    <div class="size">    
+        
+        <div class="notifications">
+            {% for flashMessage in app.session.flashbag.get('notice') %}<div class="notification notice">{{ flashMessage|raw }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('warning') %}<div class="notification warning">{{ flashMessage|raw }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('success') %}<div class="notification success">{{ flashMessage|raw }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('error') %}<div class="notification error">{{ flashMessage|raw }}</div>{% endfor %}
+        </div>
+        
+        
+        <div class="left-half">
+        
+            <h1>{{ 'Informacje'|trans }}</h1>
+
+            <div class="content">
+                <p>
+                <b>{{ 'Osoba'|trans }}:</b> {{ page.translate(page.locale).firstname }} {{ page.translate(page.locale).lastname }}<br>
+                <b>{{ 'Data urodzenia'|trans }}:</b> {{ page.begin|mydate }}<br>
+                <b>{{ 'Data śmierci'|trans }}:</b> {{ page.end|mydate }}<br>
+                <b>{{ 'Żył lat'|trans }}:</b> {{ lived(page.begin,page.end) }}<br>
+                
+{% if page.cemetery.checked is null %}
+    {% if app.user and app.user==page.buyer %}
+    <b>{{ 'Cmentarz'|trans }}:</b> <span style="color:red;" class="tip" title="{{ 'Możesz dodać nowy cmentarz dla tej strony lub wybrać cmentarz już istniejący'|trans }}"> {{ 'wprowadzony błędnie lub zduplikowany'|trans }}</span><br>
+    {% endif %}
+
+{% elseif page.cemetery.checked==false %} 
+    {% if app.user and app.user==page.buyer %}
+    <b>{{ 'Cmentarz'|trans }}:</b> <span style="color:#dac572;" class="tip" title="{{ 'Nasi pracownicy sprawdzą czy cmentarz został dodany prawidłowo i czy nie ma już takiego cmentarza w naszej bazie'|trans }}">{{ 'oczekuje na weryfikację'|trans }}</span><br>
+    {% endif %}
+{% else %}
+    <b>{{ 'Cmentarz'|trans }}:</b> {{ page.cemetery.name }}<br>
+    <b>{{ 'Miasto'|trans }}:</b> {{ page.cemetery.address.city }}<br>       
+{% endif %}
+                {% if page.alley %}<b>{{ 'Aleja'|trans }}:</b> {{ page.alley }}<br>{% endif %}
+                {% if page.number %}<b>{{ 'Nr kwatery'|trans }}:</b> {{ page.number }}<br>{% endif %}
+                
+                {% if page.familyname %}<b>{{ 'Nazwisko rodowe'|trans }}:</b> {{ page.familyname }}<br>{% endif %}
+                {% if page.father %}<b>{{ 'Imię ojca'|trans }}:</b> {{ page.father }}<br>{% endif %}
+                {% if page.mother %}<b>{{ 'Imię matki'|trans }}:</b> {{ page.mother }}<br>{% endif %}
+                {% if page.birthcity %}<b>{{ 'Miejsce urodzenia'|trans }}:</b> {{ page.birthcity }}<br>{% endif %}
+				{% if page.facebook %}<b>{{ 'Profil na Facebooku'|trans }}:</b> <a class="button small" style="padding: 4px;height: 13px;line-height: 13px;" target="_blank" href="{{ page.facebook }}"><i class="fa fa-facebook"></i> Przejdź</a><br>{% endif %}
+                </p>
+                
+                {% if app.user %}
+
+                {% else %} 
+                    {% if not page.special %}
+                    <p>{{ 'Aby skontaktować się z rodziną musisz się zalogować.'|trans }}</p>
+                    {% endif %} 
+                {% endif %} 
+
+                
+                <div class="options">
+                    
+                    
+{% if page.cemetery.checked is null %}
+{% elseif page.cemetery.checked==false %}   
+{% else %}
+   <a href="{{ path('cemetery',{'id':page.cemetery.id}) }}" class="button small"><i class="fa fa-university"></i>{{ 'Znajdź cmentarz'|trans }}</a>            
+{% endif %}
+                    {% if app.user and not page.special %}
+                      <a href="{{ path('message_form',{'recipient_id':page.creator.id}) }}" class="button small"><i class="fa fa-envelope"></i>{{ 'Wiadomość do rodziny'|trans }}</a>  
+                    {% else %} 
+                        
+                
+                    {% endif %} 
+{% if app.user and app.user.havepagepermission(page,'page_edit') %}                                 
+<a href="{{ path('page_form',{'id':page.id}) }}" class="button small"><i class="fa fa-pencil" aria-hidden="true"></i> {{ 'Edytuj'|trans }}</a>
+{% endif %}  
+                    
+                </div>
+                
+                
+                
+            </div>
+        
+            <h1>{{ 'Kondolencje'|trans }}{% if posts_count > 0 %}<i class="badge">{{ posts_count }}</i>{% endif %} </h1>
+
+
+            <div class="content">
+                {% if not page.block %}
+                    {% if app.user %}
+                    <form method="post" class="new-post">
+                         {{ tabUser(app.user)|raw }}
+                         <div class="widget">
+                         <textarea name="message" required="required" placeholder="{{ 'Wpiusz tutaj treść kondolencji'|trans }}"></textarea> 
+                         </div>
+
+                         <button type="submit" class="small"><i class="fa fa-heart"></i> {{ 'Wyślij kondolencje'|trans }}</button>
+                    </form>
+                    {% else %} 
+                        <p>{{ 'Aby złożyć kondolencje należy się zalogować lub użyć konta facebook.'|trans }}</p>
+                        <div class="options">
+                           <a href="{{ path('register') }}" class="button small"><i class="fa fa-user-plus"></i>{{ 'Rejestracja'|trans }}</a>
+                           <a href="{{ path('login') }}" class="button small"><i class="fa fa-user"></i>{{ 'Logowanie'|trans }}</a>
+                           <a href="{{ facebook_url }}" class="button facebook small"><i class="fa fa-facebook"></i>{{ 'Konto facebook'|trans }}</a>
+                        </div>
+                        <p>{{ 'Rejestrując się w Epado za pośrednictwem Facebooka, akceptujesz nasz regulamin:'|trans }} <a href="{{ path('rules') }}">{{ 'Regulamin'|trans }}</a>.</p> 
+                    {% endif %}  
+                {% else %} 
+                    <p>{{ 'Dodawanie nowych kondolencji zostało zablokowane.'|trans }}</p>
+                {% endif %} 
+                
+                {{ include ('AppBundle:Public:posts.html.twig', {'posts':posts}) }}
+                {#{% if posts is iterable %}
+                    {% for post in posts %}
+                        <div class="post">
+                            {% if app.user %}
+                               {% if(app.user.type in ['admin','worker'] or app.user==post.creator or app.user==page.buyer ) %} 
+                                   <a href="?post_delete_id={{post.id}}" class="icon delete"><i class="fa fa-times"></i></a>
+                               {% endif %}     
+                            {% endif %} 
+                            {{ tabUser(post.creator|raw)|raw }}
+                            <p class="name">{{ post.creator.fullname }}<span>{{ post.created|mydatetime() }}</span></p>
+                            <p class="message">{{post.message}}</p>
+                        </div>    
+                    {% endfor %}   
+                {% endif %}#}   
+            </div>
+                
+        </div>
+        
+        <div class="right-half">  
+    
+            <h1>{{ 'Miejsce spoczynku'|trans }}</h1>
+
+
+            <div class="content">   
+                <div class="options">
+                    <a href="/" class="button small showmap"><i class="fa fa-map-marker{#map#}"></i>{{ 'Zobacz mapę'|trans }}</a> 
+                    <a href="https://maps.apple.com/?q={{ page.localisation.latitude }},{{ page.localisation.longitude }}" target="_blank" class="button small"><i class="fa fa-location-arrow"></i>{{ 'Prowadź do miejsca'|trans }}</a>
+                </div>
+                <div id="map" class="map" style="height: 340px;"></div>
+                
+                <script>
+                  $(function() {
+
+
+                    var latLng = {lat: {{ page.localisation.latitude }}, lng: {{ page.localisation.longitude }}};
+                    
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                      center: latLng,
+                      zoom: 15
+                    });
+                    var marker = new google.maps.Marker({
+                      position: latLng,
+                      map: map,
+                      title: '{{ page.firstname }} {{ page.lastname }}, {{ 'Miejsce spoczynku'|trans }}'
+                    });
+                    
+                    $('#map').toggle();
+                    
+                    $('.showmap').click(function(event){
+                       $('#map').toggle(); 
+                       
+                       var center = map.getCenter(); google.maps.event.trigger(map, 'resize'); map.setCenter(center);
+                       
+                       event.preventDefault();
+                       
+                    });
+                    
+                    if($( window ).width()>800){
+                        $('.showmap').click();
+                        $('.showmap').remove();
+                    }    
+                  });
+                </script>
+            </div>
+                    
+            <h1>{{ 'Udostępnij'|trans }}</h1>
+            
+            <div class="content">
+  
+    
+{% if app.user %}
+<p>{{ 'Poprawny format nr telefonu to +00.00000000'|trans }}</p> 
+<form method="post" class="share-form">
+    <input type="text" name="phone" class="sh phone" placeholder="{{ 'Nr telefonu'|trans }}">
+    <button type="submit" class="small sh">{{ 'Wyślij na telefon'|trans }}</button>
+</form>
+<form method="post" class="share-form">  
+    <input type="text" name="email" class="sh" placeholder="{{ 'Email'|trans }}">
+    <button type="submit" class="small sh">{{ 'Wyślij na maila'|trans }}</button>
+</form>
+{% else %} 
+    <p>{{ 'Po zalogowaniu będziesz mógł wysłać link do strony poprzez email lub SMS.'|trans }}</p>
+{% endif %} 
+</div>
+<div class="content">
+<div class="options">     
+<a class="share twitter-share-button" href="https://twitter.com/intent/tweet"></a>
+<div class="share fb-send" data-href="{{ app.request.getSchemeAndHttpHost()~extend()|production }}"></div>
+<div class="share fb-share-button" data-href="{{ app.request.getSchemeAndHttpHost()~extend()|production }}" data-layout="button"></div>
+</div>
+
+
+            </div>
+                    
+                    
+                    
+            {% if page.getImagesSort() %}
+            <h1 id="photos"><span class="pho">{{ 'Zdjęcia'|trans }}</span> {{ 'i'|trans }} <span class="vid">{{ 'Filmy'|trans }}</span></h1>    
+            <div class="content">
+                <div class="gallery">
+                        {% for image in page.getImagesSort() %}
+                            {% if image.video %}
+                            <a href="{{image.video}}" class="element video" 
+                               data-sub-html="{% if image.name %}<h4>{{image.name}}</h4>{% endif %}{% if image.description %}<p>{{image.description}}</p>{% endif %}"
+                               >
+                                <img src="{{ path('thumbnail', {'resolution': '160x120', 'file': image.webPath    })|production }}">
+                            </a>    
+                            {% else %}    
+                            <a href="/{{image.webPath|production}}"  
+                               data-responsive="{{ path('thumbnail', {'resolution': '700', 'file': image.webPath    })|production }} 700
+                               , {{ path('thumbnail', {'resolution': '1000', 'file': image.webPath    })|production }} 1000
+                               , {{ path('thumbnail', {'resolution': '1300', 'file': image.webPath    })|production }} 1300" 
+                               class="element photo" 
+                               data-sub-html="{% if image.name %}<h4>{{image.name}}</h4>{% endif %}{% if image.description %}<p>{{image.description}}</p>{% endif %}">
+                                <img src="{{ path('thumbnail', {'resolution': '160x120', 'file': image.webPath    })|production }}">
+                            </a>
+
+                            {% endif %}
+                        {% endfor %}
+                </div>        
+            </div>  
+            {% endif %} 
+
+            {% if family|length>1 %}
+            <h1>{{ 'Inni członkowie rodziny'|trans }}</h1>
+
+            <div class="content pages">
+                {% for fa in family %}{% if fa!=page %}
+                <div class="element">  
+                    <a href="{{path_page(fa.code)}}">
+                    <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '60x60', 'file': fa.avatar })|production }}');"></div>    
+                    
+                    <p class="name">
+                        <i class="fa fa-eye"></i>
+                        {{ fa.translate(fa.locale).name }}
+                        <span>{{ fa.begin|mydate }} - {{ fa.end|mydate }}</span>
+                    </p>
+                    </a>
+                </div>
+                {% endif %}{% endfor %}
+            </div>
+            {% endif %} 
+            
+            
+            {% if products %}
+                <h1>{{ 'Produkty i usługi'|trans }}</h1>
+                {% include 'AppBundle:Product:products.html.twig' with {'products': products, 'page': page } only %}
+            {% endif %}
+            
+            
+        </div>
+
+
+            
+        {% if partner %}   
+            <div class="ad">
+                
+            {% if partner.addesktop %}
+              {% if partner.adlink %}<a href="{{partner.adlink}}">{% endif %}
+                  <img class="addesktop" src="/uploads/ads/{{partner.addesktop}}" style="max-width:100%;">
+              {% if partner.adlink %}</a>{% endif %} 
+            {% endif %}
+           
+            {% if partner.admobile %}
+              {% if partner.adlink %}<a href="{{partner.adlink}}">{% endif %}
+                  <img class="admobile" src="/uploads/ads/{{partner.admobile}}" style="max-width:100%;">
+              {% if partner.adlink %}</a>{% endif %}  
+            {% endif %}
+       
+            </div>    
+        {% endif %}
+
+    </div>
+    
+</div>    
+{% endblock %}

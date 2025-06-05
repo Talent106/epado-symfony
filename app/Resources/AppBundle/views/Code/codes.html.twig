@@ -1,0 +1,75 @@
+{% extends "empty.html.twig" %}
+
+{% block content %}
+        <style> 
+            @page qr { sheet-size: 55mm 75mm; margin:5mm 5mm 5mm 5mm; } 
+            div.qr { page-break-before: right; page: qr; position:relative; }  
+
+            @page wrapper { sheet-size: 300mm 600mm; margin:5mm 5mm 5mm 5mm; } 
+            div.wrapper { page-break-before:right; page:wrapper; position:relative; }  
+
+            .id { 
+                 font-family:arial; 
+                 font-size:10px; 
+                 letter-spacing:1.21mm; 
+                 padding-left:1.78mm;  
+                 solid: #FF0000; 
+                 text-align:left; 
+                 margin-top:1mm;
+            }
+
+            .barcode{ 
+                 margin-top:3px;
+                padding-left:0mm; 
+                padding-right:0mm;
+            }
+
+            .logo {
+                font-family:courier;
+                font-size:50.4px;
+                padding-left:1.2mm;
+            }
+
+            .id{ margin-top:4mm; }
+            .id,.logo,.barcode{ margin-left:3.9mm; }
+            .id,.logo{ margin-left:5.9mm; }
+
+
+            .idimg{ 
+                 font-family:arial; 
+                 font-size:10px; 
+                 letter-spacing:0.68mm; 
+                 padding-left:1.78mm;  
+                 /*solid #FF0000;*/ 
+                 text-align:left; 
+                 margin-top:1mm;
+            }
+
+            .barcodeimg{ 
+                margin-top:3px;
+                padding-left:0mm; 
+                padding-right:0mm;
+            }
+
+            .logoimg {
+                font-family:courier;
+                font-size:50.4px;
+                padding-left:1.2mm;
+                margin-top:1mm;
+            }
+
+            .idimg{ margin-top:4mm; }
+            .idimg,.logoimg,.barcodeimg{ margin-left:2.6mm; }
+            .idimg,.logoimg{ margin-left:4.6mm; }
+            .logoimg{ margin-left:5.29mm; }
+
+            .kod{
+                 width:44.998mm;
+                 height:54.998mm;
+                 border:0.001mm solid #FF0000;
+                 display:inline;
+                 position:absolute; 
+            }
+        </style>
+
+{% endblock %}

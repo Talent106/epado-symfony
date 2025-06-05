@@ -1,0 +1,543 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
+/**
+ * Company
+ *
+ * @ORM\Table(name="company")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\CompanyRepository")
+ */
+class Company
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Contract", mappedBy="company")
+     */
+    protected $contracts;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="company")
+     */
+    protected $users;
+
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice", mappedBy="buyer")
+     */
+    protected $invoices_get;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice", mappedBy="seller")
+     */
+    protected $invoices_created;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="created", cascade={"persist"})
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", nullable=true)
+     */
+    protected $creator;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="managed", cascade={"persist"})
+     * @ORM\JoinColumn(name="manager_id", referencedColumnName="id", nullable=true)
+     */
+    protected $manager;
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=false, options={"default": 0})
+     */
+    protected $discount=0;
+    
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(min=3, groups={"registration"})
+     */
+    private $name;
+    
+    /**
+     * @ORM\Column(name="full_name", type="string", length=255)
+     */
+    protected $full_name;
+    
+    /**
+     * @ORM\Column(name="tax_id", type="string", length=255)
+     */
+    protected $tax_id;
+    
+    /**
+     * @ORM\Column(name="address", type="string", length=255)
+     */
+    protected $address;
+    
+    /**
+     * @ORM\Column(name="city", type="string", length=255)
+     */
+    protected $city;
+    
+    /**
+     * @ORM\Column(name="postal_code", type="string", length=255)
+     */
+    protected $postal_code;
+    
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Company
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set full_name
+     *
+     * @param string $fullName
+     * @return Company
+     */
+    public function setFullName($fullName)
+    {
+        $this->full_name = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get full_name
+     *
+     * @return string 
+     */
+    public function getFullName()
+    {
+        return $this->full_name;
+    }
+
+    /**
+     * Set tax_id
+     *
+     * @param string $taxId
+     * @return Company
+     */
+    public function setTaxId($taxId)
+    {
+        $this->tax_id = $taxId;
+
+        return $this;
+    }
+
+    /**
+     * Get tax_id
+     *
+     * @return string 
+     */
+    public function getTaxId()
+    {
+        return $this->tax_id;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Company
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return Company
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set postal_code
+     *
+     * @param string $postalCode
+     * @return Company
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postal_code = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postal_code
+     *
+     * @return string 
+     */
+    public function getPostalCode()
+    {
+        return $this->postal_code;
+    }
+
+    /**
+     * Add company
+     *
+     * @param \AppBundle\Entity\Company $company
+     * @return Company
+     */
+    public function addCompany(\AppBundle\Entity\Company $company)
+    {
+        $this->company[] = $company;
+
+        return $this;
+    }
+
+    /**
+     * Remove company
+     *
+     * @param \AppBundle\Entity\Company $company
+     */
+    public function removeCompany(\AppBundle\Entity\Company $company)
+    {
+        $this->company->removeElement($company);
+    }
+
+    /**
+     * Get company
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\User $creator
+     * @return Company
+     */
+    public function setCreator(\AppBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \AppBundle\Entity\User $users
+     * @return Company
+     */
+    public function addUser(\AppBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \AppBundle\Entity\User $users
+     */
+    public function removeUser(\AppBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Add contracts
+     *
+     * @param \AppBundle\Entity\Contract $contracts
+     * @return Company
+     */
+    public function addContract(\AppBundle\Entity\Contract $contracts)
+    {
+        $this->contracts[] = $contracts;
+
+        return $this;
+    }
+
+    /**
+     * Remove contracts
+     *
+     * @param \AppBundle\Entity\Contract $contracts
+     */
+    public function removeContract(\AppBundle\Entity\Contract $contracts)
+    {
+        $this->contracts->removeElement($contracts);
+    }
+
+    /**
+     * Get contracts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContracts()
+    {
+        return $this->contracts;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Company
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Company
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set discount
+     *
+     * @param string $discount
+     * @return Company
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Get discount
+     *
+     * @return string 
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * Set manager
+     *
+     * @param \AppBundle\Entity\User $manager
+     * @return Company
+     */
+    public function setManager(\AppBundle\Entity\User $manager = null)
+    {
+        $this->manager = $manager;
+
+        return $this;
+    }
+
+    /**
+     * Get manager
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * Add invoicesGet
+     *
+     * @param \AppBundle\Entity\Invoice $invoicesGet
+     * @return Company
+     */
+    public function addInvoicesGet(\AppBundle\Entity\Invoice $invoicesGet)
+    {
+        $this->invoicesGet[] = $invoicesGet;
+    
+        return $this;
+    }
+
+    /**
+     * Remove invoicesGet
+     *
+     * @param \AppBundle\Entity\Invoice $invoicesGet
+     */
+    public function removeInvoicesGet(\AppBundle\Entity\Invoice $invoicesGet)
+    {
+        $this->invoicesGet->removeElement($invoicesGet);
+    }
+
+    /**
+     * Get invoicesGet
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInvoicesGet()
+    {
+        return $this->invoicesGet;
+    }
+
+    /**
+     * Add invoicesCreated
+     *
+     * @param \AppBundle\Entity\Invoice $invoicesCreated
+     * @return Company
+     */
+    public function addInvoicesCreated(\AppBundle\Entity\Invoice $invoicesCreated)
+    {
+        $this->invoicesCreated[] = $invoicesCreated;
+    
+        return $this;
+    }
+
+    /**
+     * Remove invoicesCreated
+     *
+     * @param \AppBundle\Entity\Invoice $invoicesCreated
+     */
+    public function removeInvoicesCreated(\AppBundle\Entity\Invoice $invoicesCreated)
+    {
+        $this->invoicesCreated->removeElement($invoicesCreated);
+    }
+
+    /**
+     * Get invoicesCreated
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInvoicesCreated()
+    {
+        return $this->invoicesCreated;
+    }
+}

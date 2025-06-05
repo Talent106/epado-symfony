@@ -1,0 +1,77 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-users"></i>{{ 'Użytkownicy'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    
+    <div class="content">
+        {{ filters(filters,filters_params)|raw }}    
+    </div>
+    
+    <div class="content">
+        {#
+        <div class="options">
+            <a href="{{ path('user_form') }}" class="button">Dodaj użytkownika</a>
+        </div>
+        #}
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Zdjęcie'|trans }}</th>
+                        <th>{{ 'Imię'|trans }}</th>
+                        <th>{{ 'Nazwisko'|trans }}</th>
+                        <th>{{ 'Email'|trans }}</th>
+                        <th><a href="{% if filters_params.sort['u.rating'] is defined and filters_params.sort['u.rating']==1 %}{{extend({'sort':{'u.rating':'0'}})}}{%else%}{{extend({'sort':{'u.rating':'1'}})}}{%endif%}">{{ 'Ocena'|trans }} {% if filters_params.sort['u.rating'] is defined %}{% if filters_params.sort['u.rating']==1 %}<i class="fa fa-sort-amount-desc"></i>{%else%}<i class="fa fa-sort-amount-asc" ></i>{%endif%}{%else%}<i class="fa fa-sort" ></i>{%endif%}</a></th>
+                        
+                        <th>{{ 'Utworzono'|trans }}</th>
+						<th>{{ 'Aktywność'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr>
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td>
+						
+{% set difference = date('now'|date('d-m-Y H:i:d')).diff(date(object.updated|date('d-m-Y H:i:s'))) %}
+{% set leftDays = difference.days %}						
+						
+						
+						
+                        <td>
+							{{ tabUser(object)|raw }}
+							
+							{% if date(object.updated) > date('-15minutes') %}
+								<div style="width:8px;height:8px;background:green;border-radius:10px;z-index:99999999"></div>
+							{% endif %}							
+						
+						</td>
+                        <td><a href="{{ path('user_form', {'id': object.id})}}">{{object.firstname}}</a></td>
+                        <td><a href="{{ path('user_form', {'id': object.id})}}">{{object.lastname}}</a></td>
+                        <td>{{object.email}}<br>{{object.type}}</td>
+                        <td>
+                            {% if( object.rating) %}    
+                                <span class="tip" title="{{ 'Średnia ocena wykonawcy:'|trans }} {{object.rating}}">
+                                    <a href="{{ path('contract_list', {'contractor_id': object.id, 'ad':1,'op_state':-1})}}">{{ object.rating|stars|raw }}</a>
+                                </span> 
+                            {% else %} 
+                                -
+                            {% endif %}      
+                        </td>
+                        <td>{{object.created|mydate}}</td> 
+						<td>  
+						
+					
+						
+						{{object.updated|date('d-m-Y H:i:s')}}
+						
+						</td> 
+                    </tr>
+                {% endfor %}
+            </table></div>
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie ma użytkowników.'|trans }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

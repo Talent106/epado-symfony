@@ -1,0 +1,7 @@
+            {% for p in result %}
+                <div class="element" data-id="{{p.id}}" data-name="{{p.name}}" data-avatar="{{ path('thumbnail', {'resolution': '42x42', 'file': p.avatar })|production }}">
+                    <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': p.avatar })|production }}');"></div>
+                    {{ p.name }}
+                    <a href="?connected_product_id={{p.id}}" class="btn-def tip" title="{{ 'Dodaj produkt jako powiązany'|trans }}"></a>
+                </div>
+            {% endfor %}

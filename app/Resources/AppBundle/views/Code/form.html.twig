@@ -1,0 +1,38 @@
+{% extends "admin.html.twig" %}
+
+
+{% block header %}<h1><i class="fa fa-qrcode"></i>{{ 'Grupa kodów'|trans }}</h1>{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="content">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% if object.id %}
+    
+    <div class="content">
+        <p>
+        {{ 'Ilość kodów'|trans }}: {{ object.amount }}<br>
+        {{ 'Wykorzystane'|trans }}: {{ object.used }}<br>
+        {{ 'Dodane do zamówień'|trans }}: {{ object.ordered }}<br>
+        {{ 'Nazwa pakietu'|trans }}: {% if object.product %} {{ object.product.name }} {% else %} {{ 'Kody uniwersalne, pasują do wszystkich produktów'|trans }}{% endif %}
+        </p>
+        
+        <div class="options">
+            <a class="button" target="_blank" href="{{ path('welcome_print', {'group_id': object.id, '_locale': object.locale })}}">{{ 'Wydrukuj powitania'|trans }}</a>
+            <a class="button" target="_blank" href="{{ path('code_print', {'group_id': object.id})}}">{{ 'Wydrukuj kody'|trans }}</a>
+            <a class="button" href="{{ path('page_list', {'code_group_id': object.id, 'ad':1})}}">{{ 'Zobacz strony z tymi kodami'|trans }}</a>
+        </div>
+        
+    </div>
+    
+{% endif %}
+
+
+{% endblock %}

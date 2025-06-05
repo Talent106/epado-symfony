@@ -1,0 +1,35 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-cube"></i>{{ 'Kategorie stron upamiętniających miejsce'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    
+    <div class="content">
+        <div class="options">
+        <a href="{{ path('page_category_form') }}" class="button">{{ 'Dodaj kategorie'|trans }}</a>
+        </div>
+    </div>
+    
+    <div class="content">
+        
+
+        
+        {% if objects %}
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Nazwa'|trans }}</th>
+                    </tr>
+                {% for object in objects %}
+                    <tr>
+                        <td>{{object.id}}</td>
+                        <td><a href="{{ path('page_category_form', {'id': object.id})}}">{{object.name}}</a></td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+        {% else %}
+            <p>{{ 'Nie ma kategorii miejsc upamiętnianych.'|trans }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

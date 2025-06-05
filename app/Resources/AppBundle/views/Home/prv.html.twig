@@ -1,0 +1,13 @@
+{% extends "full.html.twig" %}
+
+{% block title %}{{ 'Polityka prywatności'|trans }}{% endblock %}
+
+{% block content %}
+    <h1>{% if text %} {{text.title}} {% endif %}</h1>
+    
+    
+    <div class="content rules">
+        {% if text %} {{text.content|raw}} {% endif %}
+    </div>
+
+{% endblock content %}

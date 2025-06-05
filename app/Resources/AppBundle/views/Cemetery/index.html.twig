@@ -1,0 +1,61 @@
+{% extends "admin.html.twig" %}
+
+
+{% block header %}<h1><i class="fa fa-bank"></i>{% if ad==1 %}{{ 'Wszystkie cmentarze'|trans }}{% else %}{{ 'Cmentarze'|trans }}{% endif %}</h1>{% endblock %}
+
+
+{% block content %}
+
+    {% if(app.user is not null and app.user.type in ['admin','worker','trader'] and ad==1 ) %}
+    <div class="content">
+        {{ filters(filters,filters_params)|raw }}    
+    </div>
+    {% endif %}
+    
+    <div class="content">
+        <div class="options">
+        <a href="{{ path('cemetery_form') }}" class="button">{{ 'Dodaj cmentarz'|trans }}</a>
+        </div>
+    </div>
+    
+    <div class="content">
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Dodający'|trans }}</th>
+                        <th>{{ 'Nazwa'|trans }}</th>
+                        <th>{{ 'Miasto'|trans }}</th>
+                        <th>{{ 'Adres'|trans }}</th>
+                        {% if(app.user is not null and app.user.type in ['admin','worker','trader'] and ad==1 ) %}<th>{{ 'Sprawdzony'|trans }}&nbsp;&nbsp;</th>{% endif %}
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr class="">
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td> 
+                        <td>{{ tabUser(object.creator)|raw }}</td>
+                        <td><a href="{{ path('cemetery_form', {'id': object.id}) }}" class="longtext tip" title="{{object.name}}">{{object.name}}</a></td>
+                        <td>{{ object.address.city }}</td>
+                        <td>{{ object.address.address }}</td>
+                        {% if(app.user is not null and app.user.type in ['admin','worker','trader'] and ad==1 ) %}<td>
+                                {% if object.checked is null %}
+                                    <a href="{{ extend({checked:1,checked_id:object.id}) }}" class="button tiny tip" title="{{ 'Oznaczony jako błędny. Kliknij aby oznaczyć jako zweryfikowany'|trans }}" style="background-color:#ddd;">{{ 'Zły'|trans }}</a>
+                                {% elseif object.checked==false %}   
+                                    <a href="{{ extend({checked:1,checked_id:object.id}) }}" class="button tiny tip" title="{{ 'Niezweryfikowany. Kliknij aby oznaczyć jako zweryfikowany'|trans }}" style="background-color:red; float:left;">{{ 'Nie'|trans }}</a>
+                                    <a href="{{ extend({checked:'null',checked_id:object.id}) }}" class="button tiny tip" title="{{ 'Niezweryfikowany. Kliknij aby oznaczyć jako błędny'|trans }}" style="background-color:red;">X</a>
+                                {% else %}
+                                    <a href="{{ extend({checked:0,checked_id:object.id}) }}" class="button tiny tip" title="{{ 'Kliknij aby odwołać weryfikacje'|trans }}" style=" float:left;">{{ 'Tak'|trans }}</a>
+                                    <a href="{{ extend({checked:'null',checked_id:object.id}) }}" class="button tiny tip" title="{{ 'Zweryfikowany. Kliknij aby oznaczyć jako błędny'|trans }}">X</a>
+                                {% endif %}</td>{% endif %}
+                    </tr>
+                {% endfor %}
+            </table></div>
+            
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie dodałeś żadnych cmentarzy lub wybrałeś filtr który nie zwrócił żadnych wyników. Możesz to zrobić podczas dodawania nowej strony dla osoby upamiętniającej'|trans }} <a href="{{ path('page_form') }}">{{ 'tutaj'|trans }}</a>. {{ 'Możesz też dodać cmentarz przed dodaniem strony'|trans }} <a href="{{ path('cemetery_form') }}">{{ 'tutaj'|trans }}</a>.</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}

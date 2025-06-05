@@ -1,0 +1,456 @@
+{% extends "admin.html.twig" %}
+
+
+{% block header %}<h1><i class="fa fa-shopping-cart"></i>{% if object.confirmed  %}{% if(object.canceled)  %} {{ 'Zamówienie anulowane'|trans }}{% else %}{{ 'Zamówienie'|trans }}{% endif %} {{ 'nr'|trans }} {{ object.id }}{% else  %}{% if(object.canceled)  %} {{ 'Koszyk anulowany'|trans }}{% else %}{{ 'Koszyk'|trans }}{% endif %}{% endif  %}</h1>{% endblock %}
+
+{% block content %}
+    
+    
+
+
+
+    {% if object.id  %}
+        
+        
+        
+
+        {#<h1><i class="fa fa-cube"></i>{% if object.confirmed  %}{{ 'Produkty i usługi'|trans }}{% else  %}{{ 'Zawartość koszyka'|trans }}{% endif  %}</h1>#}
+
+        <div class="content order">
+            {% if object.orderproducts.first() %}
+
+                <div class="table-wrapper"><table>
+                        <tr>
+                            <th class="notmobile">{{ 'Zdjęcie'|trans }}</th>
+                            <th>{{ 'Nazwa'|trans }}</th>
+                            {% if not object.confirmed  %}
+                                <th>{{ 'Zmiany'|trans }}</th>    
+                            {% else %}  
+                                {#{% if(app.user.type in ['admin'] ) %}   
+                                <th>{{ 'Zmień cenę'|trans }}</th>    
+                                {% endif %}#}
+                            {% endif %}
+                            <th class="notmobile">{{ 'Cena'|trans }}</th>
+                            <th class="notmobile">{{ 'Suma'|trans }}</th>
+
+                        </tr>
+                    {% set i=0 %}    
+                    {% for object_product in object.orderproducts %}{% set i=i+1 %}
+                        <tr>
+                            <td class="image notmobile"><div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': object_product.product.avatar })|production }}');"></div></td> 
+                            <td>
+                                {% if(app.user.type in ['admin','trader','worker'])  %}
+                                <a href="{{ path('product_form', {'id': object_product.product.id, 'order_id': object.id})}}">{{object_product.name}}</a>
+                                {% else %}
+                                    {{object_product.name}}
+                                {% endif %}
+                                
+                                {% if  object_product.page  %}
+                                <br>
+                                {% if(object_product.page.code is not null) %}
+                                    <a href="{{ path_page(object_product.page.code) }}">{{ 'Strona'|trans }}: {{ object_product.page.translate(object_product.page.locale).name }}</a>
+                                {% else %}
+                                    <a href="{{ path('page_form', {'id': object_product.page.id, 'order_id': object.id})}}">{{ 'Strona'|trans }}: {{object_product.page.translate(object_product.page.locale).name}}</a>   
+                                {% endif %}    
+                                
+                                {% endif %} 
+                                <div class="mobile">
+                                    {{object_product.price|price(object.currency)}} (x{{ object_product.amount }})
+                                </div>
+                            </td>
+                            
+                            {% if not object.confirmed  %}
+                                <td>    
+                                <form action="" method="post">
+                                    
+                                    <input type="text" class="amount" name="new_amount" {% if object_product.product.single  %}disabled="disabled"{% endif %} value="{{object_product.amount}}" />
+                                    {% if not object_product.product.single  %}
+                                    <input type="hidden" name="order_product_id" value="{{object_product.id}}" />   
+                                    <button type="submit" class="small icon"><i class="fa fa-pencil"></i></button>
+                                    {% endif %}
+                                    <a href="{{ extend({'order_product_id':object_product.id,'new_amount':0}) }}" class="button small icon"><i class="fa fa-close"></i></a>    
+                                
+                                </form>
+                                </td>    
+                            {% else %}  
+                                {#{% if(app.user.type in ['admin'] ) %} 
+                                <td>      
+                                <form action="" method="post">
+                                    <input type="hidden" name="order_product_id" value="{{object_product.id}}" />
+                                    <input type="text" class="price" name="new_price" value="{{object_product.price}}" />
+                                    <input type="submit" value="Zmień">
+                                </{#form> 
+                                </td> 
+                                {% endif %}#}
+                            {% endif %}
+                            
+                            <td class="notmobile">{{object_product.price|price(object.currency)}} (x{{ object_product.amount }})</td>
+                            <td class="notmobile">{{(object_product.price*object_product.amount)|price(object.currency)}}</td>
+
+                        </tr>
+                       
+                    {% endfor %}
+                        <tr>
+                            <td class="notmobile"></td>
+                            <td><div class="mobile">{{ 'Suma'|trans }}: {{ object.price|price(object.currency) }}</div></td>
+                            {% if not object.confirmed  %}
+                            <td></td>    
+                            {% else %}  
+                                {#{% if(app.user.type in ['admin','trader'] ) %}   
+                                <td></td>   
+                                {% endif %}#}
+                            {% endif %}
+                            <td class="notmobile">{{ 'Suma'|trans }}</td>
+                            <td class="notmobile">{{ object.price|price(object.currency) }}</td>
+
+                        </tr>
+                </table></div>
+                {% if(object.orderproducts.first().product.category is defined ) %}          
+                {% if(object.orderproducts.first().product.category.id==2 and app.user is not null and app.user.type in ['admin','worker','trader','partner'] ) %}
+                    <div class="options">
+                        <a class="button" href="{{ path('shop') }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Wróć do zakupów'|trans }}</a>  
+                    </div>
+                {% endif %}         
+                {% endif %}  
+                
+                {% set contract=0 %}
+                {% set send=1 %}
+                {% if object.confirmed and object.paid %}   
+                {% for object_product in object.orderproducts %} 
+                    {% if object_product.product.type.id=='3' %}
+                        {% set contract=1 %}
+                    {% endif %}
+                    {% if object_product.product.type.id=='2' %}
+                        {% set send=1 %}
+                    {% endif %}
+                {% endfor %}
+                {% if contract==1 %}
+                <p>{{ 'W zamówieniu znajdują się usługi które można przeglądać w zakładce z usługami. Znajdzie się tam informacja o ich przebiegu.'|trans }}</p>
+                <div class="options"><a href="{{ path('contract_list',{'o_id':object.id,'op_state':-1}) }}" class="button">{{ 'Przejdź do listy usług'|trans }}</a></div>
+                {% endif %}
+                {% endif  %} 
+                
+                
+            {% else %}
+                <p>{{ 'Obecnie Twój koszyk jest pusty. Możesz dodać do niego produkty na jednej ze swoich stron Epado. Jeżeli nie masz dodanej strony możesz ją dodać, wystarczy wypełnić prosty formularz ze wszystkimi danymi dotyczącymi upamiętnianej osoby lub miejsca.'|trans }}</p>
+            {% endif %}
+
+            
+            
+
+        </div>
+            
+        {% if object.payments.first() %}
+        <div class="content">
+                <div class="table-wrapper"><table>
+                        <tr>
+                            <th>{{ 'Nr płatności'|trans }}</th>
+                            <th>{{ 'Status'|trans }}</th>
+                            <th>{{ 'Utworzono'|trans }}</th>
+                            <th class="notmobile">{{ 'Ostatnia zmiana'|trans }}</th>
+                        </tr>    
+                    {% for payment in object.payments %}
+                        <tr>
+                            <td>{{ payment.id }}</td> 
+                            <td>{{ payment.status|payment }}</td>
+                            <td>{{ payment.created|mydatetime }}</td>
+                            <td class="notmobile">{{ payment.updated|mydatetime }}</td>
+                        </tr>
+                        
+                    {% endfor %}
+                </table></div>
+        </div>                    
+        {% endif %}
+        
+        
+        {% if(not object.canceled)  %}
+        
+        <h1><i class="fa fa-gears"></i>{{ 'Opcje'|trans }}</h1> 
+        
+        <div class="content" style="overflow:visible;">
+            <div style="float:right; margin-left:20px;">
+                {{ tabUser(object.buyer)|raw }}
+            </div>
+            
+            {% if(not object.confirmed)  %}<p>{{ 'Przed zatwierdzeniem zamówienia upewnij się że Poniższe dane są prawidłowe.'|trans }}</p>{% endif  %}
+            
+            
+            <div class="order_billing onleft" style="margin-bottom:0;">
+            <p><b><i class="fa fa-fw fa-credit-card-alt"></i>&nbsp; {{ 'Dane rozliczeniowe'|trans }}:</b></p>
+            <p>{% if object.billingaddress  %}{{ object.billingaddress.tostring|nl2br }}{% else  %}{{ 'Brak'|trans }}{% endif  %}</p>
+            </div>
+            
+            <div class="order_delivery ">
+            <p><b><i class="fa fa-fw fa-truck"></i>&nbsp; {{ 'Adres dostawy'|trans }}:</b></p>
+            <p>{% if object.deliveryaddress  %}{{ object.deliveryaddress.tostring|nl2br }}{% else  %}{{ 'Brak'|trans }}{% endif  %}</p>
+            </div>
+
+            <div style="clear:left;"></div>
+ 
+            
+            
+                <div class="options"> 
+                    {% if not object.confirmed and (object.buyer == app.user or app.user.type in ['admin','trader','worker'] )  %} 
+                        <a class="button" href="{{ path('profile_address',{'id':object.buyer.id})}}"><i class="fa fa-fw fa-gear"></i> {{ 'Edytuj'|trans }}</a>   
+                    {% endif  %} 
+                    {% if object.confirmed and app.user.type in ['admin','trader','worker']  %} 
+                        <a class="button" href="{{ path('order_address_form',{'id':object.id})}}"><i class="fa fa-fw fa-gear"></i> {{ 'Edytuj'|trans }}</a>
+                    {% endif  %}     
+                    {% if object.invoiceid and object.invoicenumber  %} 
+                        <a class="button" href="{{ path('order_invoice_download',{'id':object.id})}}"><i class="fa fa-fw fa-file-text"></i> {{ 'Pobierz dokument'|trans }}: {{ object.invoicenumber }}</a>
+                    {% endif  %} 
+                    {% if not object.invoiceid and not object.invoicenumber and object.paid  and app.user.type in ['admin','trader','worker'] and object.invoice %} 
+                        <a class="button" href="{{ path('order_invoice_add',{'id':object.id})}}"><i class="fa fa-fw fa-file-text"></i> {{ 'Wystaw fakturę'|trans }}</a>
+                    {% endif  %} 
+                </div>     
+             
+        </div>
+        {% else  %}  
+        <div class="content"><p>{{ 'Zamówienie zostało anulowane dnia:'|trans }} {{ object.canceled|mydate }}</p></div>    
+        {% endif  %}  
+        
+        
+
+        
+        
+        
+
+        {#<h1><i class="fa fa-gears"></i>Opcje</h1>#}
+        
+        {% if(app.user.type in ['admin','trader','worker'] or not object.confirmed ) %}  
+        <div class="content">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+        {% endif  %}
+             
+        {% if object.confirmed  %}     
+        {#<h1><i class="fa fa-gears"></i>{{ 'Informacje'|trans }}</h1>#}   
+        
+        <div class="content">
+                
+                 
+                      {% if(app.user.type in ['admin','trader','worker'] ) %}   
+                               
+                                <form action="" method="post">
+                                    <div class="widget">
+                                    <label>{{ 'Status zamówienia'|trans }}</label>
+                                    <select name="status_id">
+                                        <option>{{ 'Brak'|trans }}</option>
+                                        {% for status in statuses %}
+                                        <option {% if status==object.status %}selected="seleceted"{% endif  %}  value="{{status.id}}">{{status.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+                                    
+                                    <div class="widget">
+                                    <label>{{ 'Zamówienie opłacone'|trans }}</label>
+                                    <select name="paid">
+                                        <option {% if object.paid is not null %}selected="seleceted"{% endif  %}  value="1">{{ 'Opłacone'|trans }}</option>
+                                        <option {% if object.paid is null %}selected="seleceted"{% endif  %}  value="0">{{ 'Nieopłacone'|trans }}</option>
+                                    </select>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div>
+                                    <button type="submit">{{ 'Zapisz'|trans }}</button>    
+                                    </div>           
+                                </form> 
+                                    
+                      {% else  %}  
+                            <p>{{ 'Status zamówienia'|trans }}: {{ object.currentstatus }}</p> 
+                            {% if(object.note) %}<p>{{ 'Twoje uwagi'|trans }}: {{ object.note }}</p> {% endif  %}
+
+                            {% set contract=0 %}
+                            {% set send=1 %}
+                            {% if object.orderproducts.first() and object.paid %}
+                                {% for object_product in object.orderproducts %} 
+                                    {% if object_product.product.type.id=='3' %}
+                                        {% set contract=1 %}
+                                    {% endif %}
+                                    {% if object_product.product.type.id=='2' %}
+                                        {% set send=1 %}
+                                    {% endif %}
+                                {% endfor %}
+
+                                <p>{{ 'Twoje zamówienie jest opłacone.'|trans }}
+                                {% if contract==1 %}
+                                  {{ 'Znajdują się w nim usługi które wykona dla Ciebie odpowiednio dobrana przez nas firma. Przebieg ich realizacji możesz obserwować klikając w link poniżej. Zostaniesz poproszony mailem o akceptacje każdej wykonanej usługi na podstawie przesłanych przez wykonawce zdjęć.'|trans }}
+                                {% endif %} 
+                                {% if send==1 %}
+                                  {#{{ 'W zamówieniu znajdują się kody dla stron Epado. Zostaną one wysłane do Ciebie pocztą.'|trans }}#}
+                                {% endif %} 
+                                </p>
+                                {% if contract==1 %}
+                                <div class="options">
+                                <a class="button" href="{{ path('contract_list',{'o_id':object.id,'op_state':-1}) }}">{{ 'Usługi'|trans }}</a>
+                                </div>
+                                {% endif %} 
+                                
+                            {% endif %} 
+                      {% endif  %}     
+
+        </div>
+        {% endif  %}
+        
+        
+        
+        
+        
+
+        
+        {% if(app.user.type in ['admin','trader','worker'] and object.confirmed)  %}
+            {% if object.orderproducts.first() and object.paid %}
+                {% for object_product in object.orderproducts %} 
+                    
+                    {% if object_product.product.months is not null and object_product.product.type.id=='2' and object_product.product.category.id=='1' %}
+                        <div class="content">
+                            <h3><i class="fa fa-fw fa-qrcode"></i> {{ 'Zamówienie kodu dla strony'|trans }}</h3>
+                            <p>
+                            <b>{{ 'Produkt'|trans }}:</b> <a href="{{ path('product_form',{'id':object_product.product.id}) }}">{{ object_product.product.name }}</a><br>
+                            <b>{{ 'Strona'|trans }}:</b> <a href="{{ path('page_form',{'id':object_product.page.id}) }}">{{ object_product.page.translate(object_product.page.locale).name }}</a>
+                            </p>
+                            
+                            {% if object_product.page.code is not null %}
+                                <p>{{ 'Następujący kod został aktywowany przez użytkownika'|trans }}: <b>{{object_product.page.code}}</b></p>
+                            {% endif %}
+                            
+                            {% if object_product.code is not null %}
+                                <p>{{ 'Przypisany kod to'|trans }}: <b>{{object_product.code.code }}</b></p>
+                            {% else %}
+                                <div class="orderform">
+                                    <p>{{ 'Zeskanuj kod wysyłanego produktu aby powiązać go z zamówieniem'|trans }}: </p>
+                                    <input type="text" name="code" data-product="{{object_product.id}}" autocomplete="off" />
+                                    <div class="result"></div>
+                                </div>
+                            {% endif %}    
+                        </div>
+                    {% endif %}  
+                    
+                    {% if object_product.product.type.id=='3' and object_product.product.category.id=='1' %}
+                        <div class="content">
+                            <h3><i class="fa fa-fw fa-fire"></i> {{ 'Zamówienie usługi dla strony'|trans }}</h3>
+                            <p>
+                            <b>{{ 'Usługa'|trans }}:</b> <a href="{{ path('product_form',{'id':object_product.product.id}) }}">{{ object_product.product.name }}</a><br>
+                            <b>{{ 'Strona'|trans }}:</b> <a href="{{ path('page_form',{'id':object_product.page.id}) }}">{{ object_product.page.translate(object_product.page.locale).name }}</a><br>   
+                            <a href="{{ path('contract_form', {'id': object_product.id})}}" class="">{{ 'Przejdź do strony usługi'|trans }}</a>
+                            </p>
+                            
+                            {% if object_product.contractor is not null %}
+                                {{ tabUser(object_product.contractor)|raw }}<br>
+                                <p>
+                                <b>{{ 'Wykonawca'|trans }}:</b> {{ object_product.contractor.fullname }}<br>
+                                <b>{{ 'Opis'|trans }}:</b> {{ object_product.contractor.description }}<br>
+                                <b>{{ 'Firma'|trans }}:</b> {{ address(object_product.contractor.billingaddress)|raw }}<br><br> 
+                                <b>{{ 'Potwierdzenie wykonania usługi przez firmę'|trans }}:</b> {{ object_product.contractorconfirmed|dateornot|raw }}<br> 
+                                <b>{{ 'Potwierdzenie odebrania usługi przez klienta'|trans }}:</b> {{ object_product.customerconfirmed|dateornot|raw }}
+                                </p>
+                            {% endif %}
+                            
+                            
+                            {% if object_product.page is defined %}
+                            <div class="orderform">
+                                <p>{{ 'Przypisz podwykonawce'|trans }}: </p>
+                                <input type="text" name="contractor" placeholder="{{ 'Miasto lub nazwa wykonawcy'|trans }}" value="{% if object_product.contractor is null %}{{ object_product.page.address.city }}{% endif %}" data-product="{{object_product.id}}"  autocomplete="off" />
+                                <div class="result"></div>
+                            </div>
+                            {% endif %}    
+                        </div>
+                    {% endif %}  
+                    
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+        
+        {% if object.orderproducts.first() and not object.canceled and (app.user.type in ['admin','trader','worker'] or not object.confirmed or not object.paid )  %} 
+
+        <div class="content">
+        {% if not object.confirmed and (not object.invoice or object.invoice)  %}
+            
+            <script>
+            $( document ).ready(function() { 
+                function bindInvoice(){
+                    $('#order_invoice_option').bind('change',function(){ 
+                        var val=0;
+
+                        var element=$(this).parents('.content').first();
+                        element.find('a').hide();
+                        
+                        if($(this).is(':checked')) val=1;    
+                        else val=0;
+
+                        $.ajax({
+                            type        : 'GET',
+                            url         : '?invoice='+val, 
+                        })
+                        .done(function(data) {
+                            $('#invoice-result').html(data);
+                            bindInvoice();
+                           
+                            element.find('a').show();
+                        });
+
+                    });
+                }
+                bindInvoice();
+            });
+            </script>  
+            <div id="invoice-result">
+            {{ include ('AppBundle:Order:formInvoice.html.twig', {'object':object, 'error':null}) }}
+            </div>
+        {% endif %}    
+            
+            
+            <div class="options"> 
+
+            
+            {% set pay=1 %}
+            {% if object.paid %} {% set pay=0 %} {% endif %}  
+            {% if payu_switch[object.currency] is not defined %} {% set pay=0 %} {% endif %} 
+            {% if object.price<=0 %} {% set pay=0 %} {% endif %} 
+            
+            {% if not object.paid %}   
+            {% for payment in object.payments %} 
+                {% if payment.finished is null and payment.started is not null %}
+                    {% set pay=0 %}
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            {% if not object.confirmed and pay==0  %} 
+                <a class="button" href="{{ path('order_form', {'id': object.id,'confirm': 1})}}">{{ 'Zatwierdź zamówienie'|trans }}</a>
+            {% endif  %}    
+            {% if not object.confirmed and pay==1  %}   
+                <a class="button" href="{{ path('order_form', {'id': object.id,'confirm': 1, 'payu':1})}}">{{ 'Zatwierdź zamówienie i opłać online'|trans }}</a>
+            {% endif  %}
+            {% if object.confirmed and pay==1    %}   
+                <a class="button" href="{{ path('order_form', {'id': object.id,'payu':1})}}">{{ 'Opłać zamówienie online'|trans }}</a>
+            {% endif  %}
+            
+            
+            
+            
+            {% if(app.user.type in ['admin','trader','worker'] and object.confirmed)  %} 
+                <a class="button" href="{{ path('order_form', {'id': object.id,'print': 1})}}">{{ 'Drukuj zamówienie'|trans }}</a> 
+            {% endif  %}   
+            
+            {% if(app.user.type in ['admin','trader','worker'] and object.confirmed and not object.canceled and not object.done ) %}          
+                <a class="button" href="{{ path('order_form', {'id': object.id,'done': 1})}}">{{ 'Zakończ zamówienie'|trans }}</a>      
+            {% endif  %}   
+
+            {% if(app.user.type in ['admin','trader','worker'] and  not object.paid and  not object.confirmed  and  not object.canceled) %}          
+                <a class="button" href="{{ path('order_form', {'id': object.id,'cancel': 1})}}">{{ 'Anuluj zamówienie'|trans }}</a>      
+            {% endif  %}   
+
+            
+            </div>
+        </div>     
+        {% endif  %}    
+            
+    {% endif %}
+  
+    
+{% endblock %}

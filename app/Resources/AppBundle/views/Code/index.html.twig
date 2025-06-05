@@ -1,0 +1,118 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-qrcode"></i>{{ 'Grupy kodów'|trans }}</h1>{% endblock %}
+
+
+{% block content %}
+    
+	
+	<div class="row">
+		<div class="col-md-6 col-sm-12">
+		
+			<div class="content">
+				<form action="" method="get" class="filters">
+					<div class="field"><label for="code">Szukaj pojedynczego kodu</label><div class="text"><input type="text" value="{% if object is not null %}{{object.code}}{% endif %}" name="code"></div></div>
+					<div class="buttons"><input type="submit" value="{{ 'Szukaj'|trans }}"></div>
+				</form>
+				{% if object is not null %}
+					<p>
+					Znaleziono kod: {{object.code}}<br>
+					Grupa do której należy: <a href="{{ path('code_form', {'id': object.group.id})}}">{{object.group.name}}</a><br>
+					{{ 'Okres'|trans }}: {% if object.group.product %}{{ (object.group.product.months/12~' lat')|trans }}{% else %}{% if object.group.months %} {{ (object.group.months/12~' lat')|trans }}{% else %}{{ 'Uniwersalne'|trans }}{% endif %}{% endif %}<br>
+					Wykorzystany: {% if object.page is not null %}Tak (<a href="{{ path('page_form', {'id': object.page.id})}}">{{object.page.name}}</a>){% else %}Nie{% endif %}<br>
+					Zamówienie: {% if object.orderproduct is not null %}Tak (<a href="{{ path('order_form', {'id': object.orderproduct.order.id})}}">{{object.orderproduct.order.id}}</a>){% else %}Nie{% endif %}<br>
+					W magazynie Epado: {{object.getStatus}}
+					</p>
+					
+					<div class="options">
+						<a class="button" target="_blank" href="{{ path('welcome_print', {'id': object.id })}}">{{ 'Wydrukuj powitania'|trans }}</a>
+						<a class="button" target="_blank" href="{{ path('code_print', {'id': object.id})}}">{{ 'Wydrukuj kody'|trans }}</a>
+					</div>
+				{% else %}
+					{% if(app.request.get('code')) %}
+					<p>Nie odnaleziono podanego kodu</p>
+					{% endif %} 
+				{% endif %}    
+			</div>		
+		
+		</div>
+		
+		<div class="col-md-6 col-sm-12">
+		
+			<div class="content">
+				<form action="" method="get" class="filters">
+					<div class="field"><label for="code">Ustaw status kodu</label><div class="text"><input type="text" name="setproduct" placeholder="Kod lub grupa" autofocus></div></div>
+					<div class="field"><label for="code">Status</label><div class="text">
+					<select name="status">
+						<option value="1">Nowy</option>
+						<option value="2">Wyprodukowany</option>
+						<option value="3">W magazynie</option>
+						<option value="4">Wydany z magazynu</option>
+					</select>
+					</div></div>
+					<div class="field"><label for="code">Regał</label><div class="text"><input type="text" name="rack" autofocus></div></div>
+					<div class="field"><label for="code">Półka</label><div class="text"><input type="text" name="shelf" autofocus></div></div>
+					
+					
+					<div class="buttons"><input type="submit" value="{{ 'Zapisz'|trans }}"></div>
+				</form>
+
+		   
+			</div>			
+		
+		</div>
+	</div>
+	
+
+	
+
+
+	
+    
+    <div class="content">
+	
+	
+
+	
+        
+        <div class="options"> 
+        <a href="{{ path('code_form') }}" class="button">{{ 'Dodaj grupę'|trans }}</a>
+        </div>
+
+
+
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Nazwa'|trans }}</th>
+                        <th>{{ 'Liczba kodów'|trans }}</th>
+                        <th>{{ 'Kody użyte'|trans }}</th>
+						<th>{{ 'W magazynie'|trans }}</th>
+                        <th>{{ 'Okres'|trans }}</th>
+                        <th>{{ 'Zmieniono'|trans }}</th>
+                        <th>{{ 'Utworzono'|trans }}</th>
+						<th>Akcje</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr>
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td>
+                        <td><a href="{{ path('code_form', {'id': object.id})}}">{{object.name}}</a></td>
+                        <td>{{ object.amount }}</td>
+                        <td>{{ object.used }}</td>
+						<td><a href="{{ path('store', {'group': object.id})}}">{{ object.store }}</a></td>
+                        <td>{% if object.product %}{{ (object.product.months/12~' lat')|trans }}{% else %}{% if object.months %} {{ (object.months/12~' lat')|trans }}{% else %}{{ 'Uniwersalne'|trans }}{% endif %}{% endif %}</td>
+                        <td>{{object.updated|mydate}}</td>
+                        <td>{{object.created|mydate}}</td>
+						<td><center><a target="_blank" href="{{ path('barcode', {'group_id': object.id})}}"><img src="https://iconarchive.com/download/i47276/avosoft/warm-toolbar/print.ico" style="width:18px" /></a></center></td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie ma dodanych grup kodów.'|trans }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,255 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
+/**
+ * Partner
+ *
+ * @ORM\Table(name="partner")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductRepository")
+ */
+class Partner
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Stock", mappedBy="partner")
+     */
+    protected $stocks;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\StockMovement", mappedBy="partner")
+     */
+    protected $stock_movements;
+    
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(min=2, groups={"registration"})
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=40)
+     * @Assert\Email(
+     *     message = "Email '{{ value }}' nie jest prawidłowym adresem.",
+     *     checkMX = true
+     * )
+     */
+    private $email;
+    
+    
+    
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+    
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Partner
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set stocks
+     *
+     * @param \AppBundle\Entity\Stock $stocks
+     * @return Partner
+     */
+    public function setStocks(\AppBundle\Entity\Stock $stocks = null)
+    {
+        $this->stocks = $stocks;
+
+        return $this;
+    }
+
+    /**
+     * Get stocks
+     *
+     * @return \AppBundle\Entity\Stock 
+     */
+    public function getStocks()
+    {
+        return $this->stocks;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Partner
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Partner
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->stocks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->stock_movements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add stocks
+     *
+     * @param \AppBundle\Entity\Stock $stocks
+     * @return Partner
+     */
+    public function addStock(\AppBundle\Entity\Stock $stocks)
+    {
+        $this->stocks[] = $stocks;
+
+        return $this;
+    }
+
+    /**
+     * Remove stocks
+     *
+     * @param \AppBundle\Entity\Stock $stocks
+     */
+    public function removeStock(\AppBundle\Entity\Stock $stocks)
+    {
+        $this->stocks->removeElement($stocks);
+    }
+
+    /**
+     * Add stock_movements
+     *
+     * @param \AppBundle\Entity\StockMovement $stockMovements
+     * @return Partner
+     */
+    public function addStockMovement(\AppBundle\Entity\StockMovement $stockMovements)
+    {
+        $this->stock_movements[] = $stockMovements;
+
+        return $this;
+    }
+
+    /**
+     * Remove stock_movements
+     *
+     * @param \AppBundle\Entity\StockMovement $stockMovements
+     */
+    public function removeStockMovement(\AppBundle\Entity\StockMovement $stockMovements)
+    {
+        $this->stock_movements->removeElement($stockMovements);
+    }
+
+    /**
+     * Get stock_movements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStockMovements()
+    {
+        return $this->stock_movements;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Partner
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+}

@@ -1,0 +1,309 @@
+{% extends "admin.html.twig" %}
+{#{% form_theme form 'AppBundle:Form:base.html.twig' %}#}
+
+{% form_theme form _self %}
+
+{#{% form_theme form with ['bootstrap_3_layout.html.twig', _self] %}#}
+{#{% form_theme form with ['AppBundle:Form:materialize.html.twig', _self] %}#}
+{#{% form_theme form with ['AppBundle:Form:materialize.html.twig'] %}#}
+
+
+{% block _product_prices_widget %}
+{% spaceless %}
+    {% for child in form %}
+        {{ form_widget(child) }}
+    {% endfor %}
+{% endspaceless %}
+{% endblock %}
+
+{% block _product_prices_row %}
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+{% endblock %}
+
+{% block _product_translations_row %}
+    <div class="widget">
+        {% if(form.children|length!=1) %}
+            {{ form_label(form) }}
+        {% endif %}
+        
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div> 
+{% endblock %}
+
+{% block header %}<h1><i class="fa fa-cube"></i>{{ 'Produkt'|trans }}</h1>{% endblock %}
+
+
+{% block content %}
+
+
+
+
+    {% if(app.user.type in ['admin','trader'] ) %}
+    <div class="content">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    {% endif %}
+    
+
+    {% if object.id %}
+
+        {#{% if connected or app.user.type=='admin' %}
+
+            <h1>Produkty powiązane</h1>
+            <div class="content">
+
+            {% if(app.user.type in ['admin','trader'] ) %}
+            <form>
+            <input type="text" name="connect" placeholder="Wpisz nazwę szukanego produktu">
+            </form>
+            {% endif %}
+            <div class="connect-result"></div> 
+
+                <p class="not-connected" {% if connected %} style="display:none;" {% endif %}>Nie ma dodanych produktów powiązanych.</p>
+                <div class="table-wrapper"><table class="connected" {% if not connected %} style="display:none;" {% endif %}>
+                    <tr>
+                        <th>Nr</th>
+                        <th>Zdjęcie</th>
+                        <th>Nazwa</th>
+                        <th>Cena</th>
+                        <th>Zmieniono</th>
+                        <th>Utworzono</th>
+                    </tr>
+                    {% if connected %}{% include 'AppBundle:Product:connectList.html.twig' with {"connected": connected, 'i': 1, 'order_id': order_id } only %}{% endif %}     
+                </table></div>
+
+
+            </div>
+        {% endif %}#}  
+
+
+        <h1><i class="fa fa-photo"></i>{{ 'Zdjęcia produktu'|trans }}</h1>
+        <div class="content">
+
+            <div class="drop-wrapper">
+            <form action="{{ app.request.schemeAndHttpHost~app.request.requestUri }}" data-edit="{{ path('image_form')}}" data-sort="{{ path('image_sort')}}"  method="post" class="drop" id="drop">
+                <div class="dz-message">
+                    {{ 'Upuść tutaj zdjęcia albo kliknij i wybierz je ze swojego urządzenia.'|trans }}<br>
+                </div>
+
+                {% for image in object.getImagesSort() %}
+                    <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete exists" data-id="{{ image.getId() }}">
+                        <div class="dz-image" style="background-image: url({{ path('thumbnail', {'resolution': '160x120', 'file': image.webPath    })|production }}); background-size: cover; background-repeat: no-repeat;"></div>
+                        <div class="dz-details">
+                            <span data-id="{{image.id}}" class="btn-del tip" title="{{ 'Usuń zdjęcie'|trans }}" ></span>
+                            <span data-id="{{image.id}}" class="btn-def tip" title="{{ 'Ustaw zdjęcie jako domyślne dla tego produktu'|trans }}"></span>
+                            {#<span data-id="{{image.id}}" class="btn-edit tip" title="{{ 'Edytuj zdjęcie'|trans }}"></span>#}
+                        </div>
+                        <span class="is-def tip {% if object.image and image.id==object.image.id %}show{% endif %}" title="{{ 'Zdjęcie jest domyślne dla tego produktu'|trans }}" ></span>
+                    </div>
+                {% endfor %}
+
+            </form>
+            </div>
+
+
+            <script type="text/javascript" src="/js/dropzone/dropzone.js"></script>
+            <script type="text/javascript">
+
+
+
+            $(document).ready(function() {
+
+                function buttonsBind(container){
+                    if(container.parents('form.drop.ui-sortable').length){ container.parents('form.drop.ui-sortable').find('.dz-preview,.dz-image,.dz-image img,.dz-details').css('cursor', 'move'); }
+                    
+                    container.find('form.drop').sortable({ 
+                        items: ".dz-preview",
+                        placeholder: "dz-preview placeholder",
+                        revert: true,
+                        
+                        
+                        update: function(){
+                            var sorted = $(this).sortable('toArray',{attribute:'data-id'}).toString();
+                            console.log(sorted);
+                            var url=$(this).data('sort');
+                            $.ajax({url: url+'/'+sorted});            
+                        } 
+                    }).disableSelection().find('.dz-preview,.dz-image,.dz-details').css('cursor', 'move');
+                    
+                    
+                    
+                    container.find(".dz-details span.btn-del").click(function() {
+                        var element=$(this);
+
+                        $.post(updateQueryString('order_id',null,$(this).closest('form').attr('action'))+'/image/del', {'delImgId':$(this).data('id')}, function(response) {
+                            if(response.status==true) {
+                               element.parents('.dz-preview').fadeOut(300);
+                            }
+                        });
+                    });
+
+                    container.find(".dz-details span.btn-def").click(function() {
+                        var element=$(this);
+                        $.post(updateQueryString('order_id',null,$(this).closest('form').attr('action'))+'/image/def', {'defImgId':$(this).data('id')}, function(response) {
+                            if(response.status==true) {
+                               $('.is-def').removeClass('show');
+                               $(element).parent().parent().find('.is-def').addClass('show'); 
+                               //element.parents('.dz-preview').fadeOut(300);
+                            }
+                        });
+                    });
+                    
+                    container.find(".dz-details span.btn-edit").click(function() {
+                        var element=$(this);
+                        
+                        $.ajax({
+                          url: $(this).closest('form').data('edit')+'/'+$(this).data('id'),
+                          //dataType    : 'json',
+                          beforeSend: function( xhr ) {
+                            //xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+                          }
+                        })
+                        .done(function( data ) {
+                          ajaxForm(data, { test: 1 });
+                        });
+                    });
+                    
+                }
+
+
+                buttonsBind($('body'));
+
+                var url=$('#drop').attr('action');
+
+                $('#drop').dropzone({ 
+                    url: url, 
+                    autoProcessQueue: true,
+                    autoProcessQueue: true,
+                    maxFilesize: 12,
+                    acceptedFiles: 'image/jpg,image/png,image/jpeg' ,
+                    dictInvalidFileType: '{{ 'Niewłaściwy format pliku, dozwolone pliki to jpg lub png.'|trans }}',
+                    dictFileTooBig: '{{ 'Plik jest za duży. Dozwolony rozmiar to:'|trans }} {{ '{{' }}maxFilesize{{ '}}' }} MB.',
+                    dictResponseError: '{{ 'Wystąpił błąd.'|trans }}',
+                    dictMaxFilesExceeded: '{{ 'Dodałeś zbyt dużo plików.'|trans }}',
+                    
+                    thumbnailWidth: 159,
+                    thumbnailHeight: 120,
+                    success: function(file) {
+                      obj = JSON.parse(file.xhr.response);  
+                      var def_class='';
+                      if(obj.status!='ok') {
+                        var node, _i, _len, _ref, _results;
+                        var message = obj.message // modify it to your error message
+                        file.previewElement.classList.add("dz-error");
+                        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                        _results = [];
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                          node = _ref[_i];
+                          _results.push(node.textContent = message);
+                        }
+                        return _results;
+                      }
+        
+                      if($('.dz-preview.exists').length==0) def_class='show';
+
+                      $(file.previewElement).append('<span class="is-def tip '+def_class+'" title="{{ 'Zdjęcie jest domyślne dla tego produktu'|trans }}" ></span>')
+                        .find('.dz-details').html(''+
+                        '<span data-id="'+obj.id+'" class="btn-del tip" title="{{ 'Usuń zdjęcie'|trans }}" ></span>'+
+                        '<span data-id="'+obj.id+'" class="btn-def tip" title="{{ 'Ustaw zdjęcie jako domyślne dla tego produktu'|trans }}"></span>'+
+                        '{#<span data-id="'+obj.id+'" class="btn-edit tip" title="{{ 'Edytuj zdjęcie'|trans }}"></span>#}');
+
+                      buttonsBind($(file.previewElement));
+                      preapareContent($(file.previewElement));
+
+                      if (file.previewElement) {
+                        return file.previewElement.classList.add("dz-success");
+                      }
+
+                    },
+                    fallback: function() {
+                        
+                        $('.dz-fallback').show();
+                        $('.dz-message').hide();
+                        
+                        var child, messageElement, span, _i, _len, _ref;
+                        this.element.className = "" + this.element.className + " dz-browser-not-supported";
+                        _ref = this.element.getElementsByTagName("div");
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                          child = _ref[_i];
+                          if (/(^| )dz-message($| )/.test(child.className)) {
+                            messageElement = child;
+                            child.className = "dz-message";
+                            continue;
+                          }
+                        }
+                        if (!messageElement) {
+                          messageElement = Dropzone.createElement("<div class=\"dz-message\"><span></span></div>");
+                          this.element.appendChild(messageElement);
+                        }
+                        span = messageElement.getElementsByTagName("span")[0];
+                        if (span) {
+                          span.textContent = this.options.dictFallbackMessage;
+                        }
+                        return this.element.appendChild(this.getFallbackForm());
+                    },
+                    thumbnail: function(file, dataUrl) {
+                           var thumbnailElement, _i, _len, _ref;
+                           if (file.previewElement) {
+                             file.previewElement.classList.remove("dz-file-preview");
+                             _ref = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+                             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                               thumbnailElement = _ref[_i];
+                               //thumbnailElement.alt = file.name;
+                               thumbnailElement.src = dataUrl;
+                               //$(thumbnailElement).css('background-image','url(\''+dataUrl+'\')').css('background-size','cover').css('background-repeat','no-repeat');
+                               //thumbnailElement.style = 'background-image: url('+dataUrl+')';
+                             }
+                             return setTimeout(((function(_this) {
+                               return function() {
+                                 return file.previewElement.classList.add("dz-image-preview");
+                               };
+                             })(this)), 1);
+                           }
+                         }
+                });
+
+
+            });
+
+
+
+            </script>
+
+
+            <link rel="stylesheet" href="/css/dropzone.css" />   
+
+        </div>
+
+            
+
+        <div class="dz-fallback content hidden" >
+          <p>{{ 'Twoja przeglądarka nie obsługuje dodawania wielu plików jednocześnie'|trans }}</p>  
+          <form action="{{ app.request.schemeAndHttpHost~app.request.requestUri }}" style="" enctype="multipart/form-data"  method="post">
+
+          <div class="widget">
+            <label>{{ 'Wybierz plik'|trans }}</label>
+            <div class="field">
+            <input name="file" type="file" />
+            </div>
+          </div>
+          <div>
+              <button type="submit" id="page_save" name="page[save]" >{{ 'Dodaj zdjęcie'|trans }}</button>
+          </div>
+          </form>  
+        </div>      
+            
+                        
+                        
+    {% endif %}
+
+
+
+
+
+{% endblock %}

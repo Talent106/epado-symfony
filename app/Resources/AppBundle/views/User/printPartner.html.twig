@@ -1,0 +1,88 @@
+{% extends do == 'print' 
+    ? "print.html.twig" 
+    : "empty.html.twig" %}
+
+    
+{% block header %}<h1 style="padding-top:17px;">{% if text %}{{text.title}}{% endif %}</h1>{% endblock %}
+    
+{% block content %}
+    
+{% if object.id %}
+            
+
+{% endif %} 
+    
+<style>
+ol{
+    /*list-style-position: inside;*/
+    padding:0; 
+    margin:0;
+    margin-left:18px;
+    padding-left:0;
+    padding-bottom:15px;
+{#    border:1px solid red;#}
+}
+
+ol ol{
+    padding-bottom:0px;
+}
+ol li:before { 
+    content: counter(item) ". ";
+    counter-increment: item;
+    width: 2em;
+{#    display: inline-block;#}
+}
+
+h2{
+    font-size:10px; 
+    margin:0; 
+    padding:0;
+    text-align:center;
+    margin-top:0px;
+    margin-bottom:5px;
+{#    border:1px solid red;#}
+}
+    
+p{
+  margin-top:0;   
+}
+
+</style>
+
+
+<table>
+    
+    <tr>
+        <th width="150">{{ 'Umowa zawarta dnia'|trans }}</th><td>{{date}}</td><th>w</th><td colspan="3">{{city}}</td>
+    </tr>  
+    <tr>
+        <td colspan="6">
+{{ 'Pomiędzy firmą: STONO SP. z o. o., z siedzibą przy ul. Wspólna 50A/35, 00-514 Warszawa, KRS 0000471570, REGON 146770615, NIP 7010387978, reprezentowaną przez Stanisław Ryszard Urbańczyk zwaną dalej STONO, a'|trans }} 
+        </td>
+    </tr>
+    <tr>
+        <th>{{ 'Nazwa'|trans }}</th><td colspan="5">{{object.billingaddress.company}}</td>
+    </tr>
+    <tr>
+        <th>{{ 'Adres'|trans }}</th><td colspan="5">{{object.billingaddress.postalcode}} {{object.billingaddress.city}}, {{object.billingaddress.address}}</td>
+    </tr>
+    <tr>
+        <th>{{object.billingaddress.taxidname}}</th><td>{% if object.billingaddress.taxid %}{{object.billingaddress.taxid}}{% else %}-{% endif %}</td><th>KRS</th><td>{% if object.billingaddress.krs %}{{object.billingaddress.krs}}{% else %}-{% endif %}</td><th>REGON</th><td>{% if object.billingaddress.regon %}{{object.billingaddress.regon}}{% else %}-{% endif %}</td>
+    </tr>
+    <tr>
+        <td colspan="6">{{ 'Zwaną dalej DYSTRYBUTOREM'|trans }}</td>
+    </tr>
+    
+</table>
+
+{% if text %} {{text.content|raw}} {% endif %}
+
+<table width="100%" class="hidden" style="margin-top:40px;">
+    <tr>
+        <td width="33%" style="text-align: center; border-top:1px solid #aaa;">STONO Sp. z o. o.</td>
+        <td width="33%" style="text-align: center; "></td>
+        <td width="33%" style="text-align: center; border-top:1px solid #aaa;">{{ 'DYSTRYBUTOR'|trans }}</td>
+    </tr>
+</table>
+
+{% endblock %}

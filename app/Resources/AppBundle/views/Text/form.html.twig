@@ -1,0 +1,53 @@
+{% extends "admin.html.twig" %}
+{#{% form_theme form 'AppBundle:Form:base.html.twig' %}#}
+
+
+{% form_theme form _self %}
+
+
+
+{% block _text_translations_row %}
+    <div class="widget">
+        {% if(form.children|length!=1) %}
+            {{ form_label(form) }}
+        {% endif %}
+        
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div> 
+{% endblock %}
+
+{% block header %}<h1><i class="fa fa-map"></i>{{ 'Tekst'|trans }}</h1>{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="content">
+        <style>#text{display:none;}</style>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+
+
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>tinymce.init({ 
+      selector:'.wyswig',
+      plugins: "lists,code,advlist,autoresize",
+      content_css : '/css/main.css',
+      content_style: "* {color:#666;} body{ background-color:white !important; }",
+      language: 'pl',
+      //language_url: '/js/tinymce/languages',
+      language_url: '/js/tinymce/languages/pl.js',
+      //toolbar: "code",
+      //menubar: "tools",
+      //advlist_number_styles: "lower-alpha",
+      //toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+      //toolbar: "undo redo | styleselect | bold italic bullist" 
+  });</script>
+  <style>.mce-widget button{margin:0 !important;} .widget_content .field{ padding:0;} .widget_content label{position:relative; float:none!important;}</style>
+     
+{% endblock %}

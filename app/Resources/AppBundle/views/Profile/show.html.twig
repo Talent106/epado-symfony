@@ -1,0 +1,18 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-user"></i>{{ 'Profil'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    
+    <div class="content">
+        {% if(app.user.avatar) %}
+        <div class="avatar" style="width:60px; height:60px;  background-image:url('/{{ app.user.avatar }}'); margin-bottom:20px;"></div>
+        {% endif %}
+        
+        <p>
+        {{ 'Adres email'|trans }}: {{ user.username }}<br />
+        {{ 'Imię i nazwisko'|trans }}: {{ user.firstname }} {{ user.lastname }}
+        </p>
+    </div>
+
+{% endblock %}

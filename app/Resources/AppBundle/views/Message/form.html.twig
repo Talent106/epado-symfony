@@ -1,0 +1,83 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-envelope"></i>{{ 'Wiadomość'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    
+
+    <div class="content new-message">
+       <form method="post">
+           
+            {% if object.creator is defined and object.creator is null %}
+
+            {% else %} 
+                {% if new.recipient is null %}
+                <div class="last">      
+                    <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': app.user.avatar })|production }}');"></div>
+                    <div class="info">
+                    {{ 'Wiadomość do'|trans }}:<br>Epado
+                    </div>  
+                </div>     
+                {% else %}     
+                <div class="last">  
+                    <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': new.recipient.avatar })|production }}');"></div>
+                    <div class="info">{{ 'Wiadomość do'|trans }}:<br />{{new.recipient.firstname }} {{new.recipient.lastname }}</div>
+                </div> 
+                {% endif %} 
+            {% endif %} 
+            {% if object.id is not defined %} 
+            <div class="widget last">
+                <input type="text" name="subject" required="required" placeholder="{{ 'Podaj temat'|trans }}">
+            </div>
+            {% endif %}
+            <div class="widget last">
+                <textarea name="message" required="required" placeholder="{{ 'Podaj treść wiadomości'|trans }}"></textarea> 
+            </div>
+            <input type="submit" value="{{ 'Wyślij wiadomość'|trans }}">
+       </form>
+    </div>
+
+
+{% if object.id is defined %}
+    <div class="content messages">
+
+  
+        {% for message in messages %}     
+        <div class="element {% if message.creator==app.user %}me{% endif%}">
+            <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': message.creator.avatar })|production }}');"></div>
+            <div class="info">
+            {{ message.creator.firstname }} {{ message.creator.lastname }}<br />   
+            {{ message.created|mydate('d.m.Y H:i:s') }}
+            </div>
+            <p class="message">
+            {{ message.message }}
+            </p>
+        </div>
+        {% endfor %}   
+        
+        
+        <div class="element {% if object.creator is not null and object.creator==app.user %}me{% endif%}">
+            {% if object.creator is null %}
+                <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': '/images/system.png' })|production }}');"></div>
+                <div class="info">
+                Epado<br />   
+                {{ object.created|mydate('d.m.Y H:i:s') }}
+                </div>  
+            {% else %}    
+                <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': object.creator.avatar })|production }}');"></div>
+                <div class="info">
+                {{ object.creator.firstname }} {{ object.creator.lastname }}<br />   
+                {{ object.created|mydate('d.m.Y H:i:s') }}
+                </div>
+            {% endif %}
+            <p class="message">
+            {{ 'Temat'|trans }}: {{ object.subject }}<br /><br />
+            {{ object.message }}
+            </p>
+        </div>
+    </div>
+{% endif %}
+
+
+
+{% endblock %}

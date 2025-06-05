@@ -1,0 +1,718 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
+/**
+ * StockMovement
+ *
+ * @ORM\Table(name="stock_movement")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\StockMovementRepository")
+ */
+class StockMovement
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="stock_movements", cascade={"persist"})
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
+     */
+    protected $product;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\StockMovement", inversedBy="children", cascade={"persist"})
+     * @ORM\JoinColumn(name="parent_movement_id", referencedColumnName="id", nullable=true)
+     */
+    protected $parent;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\StockMovement", mappedBy="parent")
+     */
+    protected $children;
+    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="stock_movements", cascade={"persist"})
+     * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=true)
+     */
+    protected $partner;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order", inversedBy="stock_movements", cascade={"persist"})
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id", nullable=true)
+     */
+    protected $order;
+    
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $document;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+    
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $price; 
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $price_buy;
+    
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $price_sell;
+    
+    /**
+     * @ORM\Column(name="group_id", type="bigint", nullable=false, options={"default": 0})
+     */
+    protected $group=0;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=false, options={"default": 0})
+     */
+    protected $amount=0;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=false, options={"default": 0})
+     */
+    protected $used=0;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="created", cascade={"persist"})
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", nullable=true)
+     */
+    protected $creator;
+    
+    
+    
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $confirmed;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $canceled;
+    
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     * @return Stock
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set stock
+     *
+     * @param integer $stock
+     * @return Stock
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return integer 
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * Set stock_reserved
+     *
+     * @param integer $stockReserved
+     * @return Stock
+     */
+    public function setStockReserved($stockReserved)
+    {
+        $this->stock_reserved = $stockReserved;
+
+        return $this;
+    }
+
+    /**
+     * Get stock_reserved
+     *
+     * @return integer 
+     */
+    public function getStockReserved()
+    {
+        return $this->stock_reserved;
+    }
+
+    /**
+     * Set original_currency
+     *
+     * @param string $originalCurrency
+     * @return Stock
+     */
+    public function setOriginalCurrency($originalCurrency)
+    {
+        $this->original_currency = $originalCurrency;
+
+        return $this;
+    }
+
+    /**
+     * Get original_currency
+     *
+     * @return string 
+     */
+    public function getOriginalCurrency()
+    {
+        return $this->original_currency;
+    }
+
+    /**
+     * Set exchange_rate
+     *
+     * @param string $exchangeRate
+     * @return Stock
+     */
+    public function setExchangeRate($exchangeRate)
+    {
+        $this->exchange_rate = $exchangeRate;
+
+        return $this;
+    }
+
+    /**
+     * Get exchange_rate
+     *
+     * @return string 
+     */
+    public function getExchangeRate()
+    {
+        return $this->exchange_rate;
+    }
+
+    /**
+     * Set partner
+     *
+     * @param \AppBundle\Entity\Partner $partner
+     * @return Stock
+     */
+    public function setPartner(\AppBundle\Entity\Partner $partner = null)
+    {
+        $this->partner = $partner;
+
+        return $this;
+    }
+
+    /**
+     * Get partner
+     *
+     * @return \AppBundle\Entity\Partner 
+     */
+    public function getPartner()
+    {
+        return $this->partner;
+    }
+
+    /**
+     * Set price_buy
+     *
+     * @param string $priceBuy
+     * @return StockMovement
+     */
+    public function setPriceBuy($priceBuy)
+    {
+        $this->price_buy = $priceBuy;
+
+        return $this;
+    }
+
+    /**
+     * Get price_buy
+     *
+     * @return string 
+     */
+    public function getPriceBuy()
+    {
+        return $this->price_buy;
+    }
+
+    /**
+     * Set price_sell
+     *
+     * @param string $priceSell
+     * @return StockMovement
+     */
+    public function setPriceSell($priceSell)
+    {
+        $this->price_sell = $priceSell;
+
+        return $this;
+    }
+
+    /**
+     * Get price_sell
+     *
+     * @return string 
+     */
+    public function getPriceSell()
+    {
+        return $this->price_sell;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param integer $amount
+     * @return StockMovement
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return integer 
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set confirmed
+     *
+     * @param \DateTime $confirmed
+     * @return StockMovement
+     */
+    public function setConfirmed($confirmed)
+    {
+        $this->confirmed = $confirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmed
+     *
+     * @return \DateTime 
+     */
+    public function getConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return StockMovement
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return StockMovement
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set order
+     *
+     * @param \AppBundle\Entity\Order $order
+     * @return StockMovement
+     */
+    public function setOrder(\AppBundle\Entity\Order $order = null)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return \AppBundle\Entity\Order 
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\User $creator
+     * @return StockMovement
+     */
+    public function setCreator(\AppBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->child_movements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set parent_movement
+     *
+     * @param \AppBundle\Entity\Product $parentMovement
+     * @return StockMovement
+     */
+    public function setParentMovement(\AppBundle\Entity\Product $parentMovement = null)
+    {
+        $this->parent_movement = $parentMovement;
+
+        return $this;
+    }
+
+    /**
+     * Get parent_movement
+     *
+     * @return \AppBundle\Entity\Product 
+     */
+    public function getParentMovement()
+    {
+        return $this->parent_movement;
+    }
+
+    /**
+     * Add child_movements
+     *
+     * @param \AppBundle\Entity\Stock $childMovements
+     * @return StockMovement
+     */
+    public function addChildMovement(\AppBundle\Entity\Stock $childMovements)
+    {
+        $this->child_movements[] = $childMovements;
+
+        return $this;
+    }
+
+    /**
+     * Remove child_movements
+     *
+     * @param \AppBundle\Entity\Stock $childMovements
+     */
+    public function removeChildMovement(\AppBundle\Entity\Stock $childMovements)
+    {
+        $this->child_movements->removeElement($childMovements);
+    }
+
+    /**
+     * Get child_movements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildMovements()
+    {
+        return $this->child_movements;
+    }
+
+    /**
+     * Set document
+     *
+     * @param string $document
+     * @return StockMovement
+     */
+    public function setDocument($document)
+    {
+        $this->document = $document;
+
+        return $this;
+    }
+
+    /**
+     * Get document
+     *
+     * @return string 
+     */
+    public function getDocument()
+    {
+        return $this->document;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return StockMovement
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set used
+     *
+     * @param integer $used
+     * @return StockMovement
+     */
+    public function setUsed($used)
+    {
+        $this->used = $used;
+
+        return $this;
+    }
+
+    /**
+     * Get used
+     *
+     * @return integer 
+     */
+    public function getUsed()
+    {
+        return $this->used;
+    }
+
+    /**
+     * Set canceled
+     *
+     * @param \DateTime $canceled
+     * @return StockMovement
+     */
+    public function setCanceled($canceled)
+    {
+        $this->canceled = $canceled;
+
+        return $this;
+    }
+
+    /**
+     * Get canceled
+     *
+     * @return \DateTime 
+     */
+    public function getCanceled()
+    {
+        return $this->canceled;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\StockMovement $parent
+     * @return StockMovement
+     */
+    public function setParent(\AppBundle\Entity\StockMovement $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\StockMovement 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \AppBundle\Entity\StockMovement $children
+     * @return StockMovement
+     */
+    public function addChild(\AppBundle\Entity\StockMovement $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \AppBundle\Entity\StockMovement $children
+     */
+    public function removeChild(\AppBundle\Entity\StockMovement $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set group
+     *
+     * @param integer $group
+     * @return StockMovement
+     */
+    public function setGroup($group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * Get group
+     *
+     * @return integer 
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Product $product
+     * @return StockMovement
+     */
+    public function setProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \AppBundle\Entity\Product 
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+}

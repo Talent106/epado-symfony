@@ -1,0 +1,41 @@
+{% extends "admin.html.twig" %}
+
+{% form_theme form _self %}
+
+{% block _mail_translations_row %}
+    <div class="widget">
+        {% if(form.children|length!=1) %}
+            {{ form_label(form) }}
+        {% endif %}
+        
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div> 
+{% endblock %}
+
+
+{% block header %}<h1><i class="fa fa-shopping-cart"></i>{{ 'Powiadomienie'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+
+    <div class="content">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    <div class="content">
+        <p>{{ 'W treści powiadomienia można używać zmiennych ale tylko jeżeli dane powiadomienie ma taką możliwość (przykładowo powiadomienie o rejestracji jedyne zmienne to adres email usera i jego hasło)'|trans }}:</p>
+        <p>
+            {{ '{{link}}' }} - {{ 'opcjonalny link kierujący do wspomnianego obiektu'|trans }}<br>
+            {{ '{{message}}' }} - {{ 'opcjonalna treść wiadomości'|trans }}<br>
+            {{ '{{page}}' }} - {{ 'opcjnalna nazwa strony'|trans }}<br>
+            {{ '{{sender}}' }} - {{ 'opcjonalny nadawca wiadomości np w przypadku kondolencji'|trans }}<br>
+            {{ '{{date}}' }} - {{ 'opcjonalna data śmierci upamiętnionej osoby'|trans }}<br>
+            {{ '{{service}}' }} - {{ 'opcjonalna nazwa usługi'|trans }}<br>
+            {{ '{{orderid}}' }} - {{ 'opcjonalny numer zamówienia'|trans }}
+        </p>
+    </div>
+
+{% endblock %}

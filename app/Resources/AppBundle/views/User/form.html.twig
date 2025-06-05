@@ -1,0 +1,201 @@
+{% extends "admin.html.twig" %}
+{% form_theme form _self %}
+
+
+{% block _user_ad_desktop_row %}
+{#{{ dump() }}#}
+
+        <div class="widget">
+           
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+            
+        </div>  
+        <div class="ad_desktop_wrapper" style=" float:none;"></div>
+        <div></div>
+        
+{% endblock %}
+
+{% block _user_ad_mobile_row %}
+{#{{ dump() }}#}
+        <div class="widget">
+           
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+            
+        </div> 
+        <div class="ad_mobile_wrapper" style=" float:none;"></div>
+        <div></div>
+{% endblock %}
+
+
+
+{% block header %}<h1><i class="fa fa-user"></i>{{ 'Użytkownik'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+    <div class="content">
+        {% if(object.avatar) %}
+        <div class="avatar" style="width:60px; height:60px;  background-image:url('/{{ object.avatar }}'); margin-bottom:20px;"></div>
+        {% endif %}
+        
+        {% if(object.addesktop) %}
+        <div class="ad_desktop" style="display:none;">
+        <img src="/uploads/ads/{{object.addesktop}}" style="max-width:100%; border: 1px solid #CCD; margin-bottom:20px;">
+        </div>
+        {% endif %}
+        {% if(object.admobile) %}
+        <div class="ad_mobile" style="display:none;">
+        <img src="/uploads/ads/{{object.admobile}}" style="max-width:100%; width:500px; border: 1px solid #CCD; margin-bottom:20px;">
+        </div>
+        {% endif %}
+         
+        {#{{ dump(form) }} #}
+        {{ form_start(form) }}
+		
+        {{ form_errors(form) }}
+		
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+	
+	
+        
+    <div class="content overauto">
+        
+        <div class="onright">
+            <p><b><i class="fa fa-fw fa-user"></i>&nbsp; {{ 'Dane podstawowe'|trans }}:</b></p>
+            <p>
+            {{ 'Adres email'|trans }}: {{ object.username }}<br>
+            {{ 'Imię i nazwisko'|trans }}: {{ object.firstname }} {{ object.lastname }}<br>
+            {{ 'Liczba dodanych stron'|trans }}: {{ object.pages|length }}<br>
+            {{ 'Liczba dodanych cmentarzy'|trans }}: {{ object.cemeteries|length }}<br>
+            {{ 'Liczba dodanych rodzin'|trans }}: {{ object.families|length }}<br>
+            {{ 'Liczba zamówień'|trans }}: {{ object.orders|length }}
+            </p>
+        </div>
+        
+     
+        <p><b><i class="fa fa-fw fa-truck"></i>&nbsp; {{ 'Adres dostawy'|trans }}:</b></p>
+        <p>{{ address(object.deliveryaddress)|raw }}</p>
+        <p><b><i class="fa fa-fw fa-credit-card-alt"></i>&nbsp; {{ 'Dane rozliczeniowe'|trans }}:</b></p>
+        <p>{{ address(object.billingaddress)|raw }}</p>
+    </div>
+    
+    {% if(object.type=='contractor') %}   
+        
+    <h3><i class="fa fa-fw fa-fire"></i> {{ 'Usługi oferowane przez wykonawcę'|trans }}</h3>    
+    <div class="content">
+  
+        <input type="text" name="product" value="" placeholder="{{ 'Wyszukaj produkt'|trans }}" style="margin-bottom:15px;">
+ 
+        <div class="list search-result">
+            
+        </div>
+    </div>    
+    <div class="content">
+        {% if not object.products|length %}
+            <p>{{ 'Pojawią się tu produkty powiązane'|trans }}</p>
+        {% endif %} 
+        
+        <div class="list add-result">
+        {% if object.products|length %} 
+              {% for p in object.products %}
+                {% include 'AppBundle:User:product.html.twig' with {'p': p } only %}  
+              {% endfor %}
+        {% endif %} 
+        </div>
+        
+    </div> 
+    <script>
+        
+        if($('input[name=product]').length){
+        var delay = (function(){
+          var timer = 0;
+          return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+          };
+        })();
+        
+        $('input[name=product]').keyup(function(e){
+            var search=$(this);
+            var name=$(this).attr('name');
+            var val=$(this).val();
+            
+            if(search.data('prev')!=search.val()){
+
+             delay(function(){
+                 if(search.val()!='')    
+                 {
+                     $.ajax({
+                       url: '?product='+val+'',
+                     }).done(function( data ) {
+                         
+                        search.parent().find('.search-result').html(data);
+                        search.parent().find('.search-result a').click(function(e){
+                            $(this).parent().slideUp();
+                            e.preventDefault();
+                            $.ajax({
+                              url: $(this).attr('href'),
+                            }).done(function( data ) {
+                              $('.add-result').append(data);
+                            });
+                        });
+                       
+                     });
+                 }
+                 search.data('prev',search.val());
+             }, 500 );
+
+            }
+
+        });
+        if($('input[name=product]').val()!='')
+            $('input[name=product]').keyup();
+        }
+        
+
+        $('.add-result a.delete').click(function(e){
+            $(this).parent().slideUp();
+            e.preventDefault();
+            $.ajax({
+              url: $(this).attr('href'),
+            }).done(function( data ) {
+              
+            });
+        });
+        
+    </script>
+        
+    {% endif %}
+    
+    
+    <div class="content">
+        <div class="options"> 
+            <a class="button small" href="{{ path('profile_address', {'id': object.id})}}"><i class="fa fa-truck"></i> {{ 'Edytuj dane adresowe'|trans }}</a>
+            <a class="button small" href="{{ path('page_list', {'creator_id': object.id, 'ad':1})}}"><i class="fa fa-newspaper-o"></i> {{ 'Strony tej osoby'|trans }}</a>
+            <a class="button small" href="{{ path('order_list', {'buyer_id': object.id, 'ad':1})}}"><i class="fa fa-shopping-cart"></i> {{ 'Zamówienia tej osoby'|trans }}</a>
+            <a class="button small" href="{{ path('contract_list', {'buyer_id': object.id, 'ad':1,'op_state':-1})}}"><i class="fa fa-fire"></i> {{ 'Usługi zamówione'|trans }}</a>
+            {% if(object.type=='contractor') %}
+            <a class="button small" href="{{ path('contract_list', {'contractor_id': object.id, 'ad':1,'op_state':-1})}}"><i class="fa fa-fire"></i> {{ 'Usługi wykonawcy'|trans }}</a>
+            {% endif %}
+            
+            {% if(object.billingaddress and object.type=='partner') %}
+            <div>
+                <input style="margin-right:10px; margin-bottom:10px; width:120px;" type="text" name="date" value="{{nowObject()|mydate}}" placeholder="{{ 'Data podpisania'|trans }}">
+                <input style="margin-right:10px; margin-bottom:10px; width:160px;" type="text" name="city" value="{{object.billingaddress.city}}" placeholder="{{ 'Miasto'|trans }}">
+                <a class="button small getdateandcity" href="?print=1"><i class="fa fa-paperclip"></i> {{ 'Umowa dla partnera'|trans }}</a>
+            </div>    
+            {% endif %}    
+        </div>
+    </div>
+    
+    <script>
+      $('.ad_desktop_wrapper').html($('.ad_desktop').html());
+      $('.ad_mobile_wrapper').html($('.ad_mobile').html());
+    </script>
+
+{% endblock %}

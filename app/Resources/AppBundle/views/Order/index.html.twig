@@ -1,0 +1,72 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-shopping-cart"></i>{% if ad==1 %}{{ 'Zamówienia do realizacji'|trans }}{% else %}{{ 'Zamówienia'|trans }}{% endif %}</h1>{% endblock %}
+
+{% block content %}
+    {% if(app.user.type in ['admin'] and ad==1 ) %}
+    <div class="content">
+        <div class="options">
+            {% if(app.user.type in ['admin'] ) %}
+            <a href="{{ path('order_status_list') }}" class="button">{{ 'Statusy'|trans }}</a>
+            {% endif %}
+            
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if(app.user is not null and app.user.type in ['admin','worker','trader'] and ad==1 ) %}
+    <div class="content">
+        {{ filters(filters,filters_params)|raw }}    
+    </div>
+    {% endif %}
+         
+    
+    <div class="content">  
+        
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Lp'|trans }}</th>
+                        <th>{{ 'Nazwa'|trans }}</th>
+                        <th>{{ 'Kupujący'|trans }}</th>
+                        <th>{{ 'Cena'|trans }}</th>
+                        {% if(app.user is not null and app.user.type in ['admin','worker','trader'] and ad==1 ) %}<th>{{ 'Stan'|trans }}</th>{% endif %}
+                        <th>{{ 'Status'|trans }}</th>
+                        <th>{{ 'Utworzono'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr class="{% if(object.canceled) %}canceled {% elseif(object.done) %}done {% elseif(object.confirmed) %}confirmed {% endif %}" >
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td>
+                        
+                        <td><a href="{{ path('order_form', {'id': object.id})}}">
+                                {% if(object.confirmed) %}
+                                {{ 'Zamówienie nr'|trans }} {{object.id}}
+                                {% else %}
+                                {{ 'Koszyk'|trans }}
+                                {% endif %}
+                            </a></td>
+                            
+                            
+                        <td>{{ tabUser(object.creator)|raw }}</td>
+                        <td><span class="tip" title="{% if(object.paid) %}{{ 'Opłacone'|trans }}{% else %}{{ 'Nieopłacone'|trans }}{% endif %}" style="{% if(object.paid) %}color:green;{% else %}color:red;{% endif %}">{{ object.price|price(object.currency) }}</span></td>
+                        {% if(app.user is not null and app.user.type in ['admin','worker','trader'] and ad==1 ) %}<td class="tip" title="{{ 'Data stanu'|trans }}: {% if(object.canceled) %}{{object.canceled|mydate}}{% elseif(object.done) %}{{object.done|mydate}}{% elseif(object.confirmed) %}{{object.confirmed|mydate}}{% else %}{{object.created|mydate}}{% endif %}">{% if(object.canceled) %}{{ 'Anulowane'|trans }} {% elseif(object.done) %}Zrealizowane {% elseif(object.confirmed) %}{{ 'Potwierdzone'|trans }} {% else %}{{ 'Koszyk'|trans }} {% endif %}</td>{% endif %}
+                        <td>{{object.currentstatus}}</td>
+                        <td class="tip" title="{{object.created|mydate('d.m.Y H:i:s')}}">{{object.created|mydate}}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </table></div>
+            
+            {{ pagination(pager)|raw }}
+        {% else %}
+            {% if(ad==1 ) %}
+            <p>{{ 'Nie odnaleziono żadnych zamówień'|trans }}</p>
+            {% else %}    
+            <p>{{ 'Nie posiadasz żadnych zamówień. Możesz zamówić produkty lub usługi Epado na jednej ze swoich stron lub na stronach dodanych przez inne osoby. Nową stronę możesz dodać w zakładce Moje strony.'|trans }}</p>
+            {% endif %}
+        {% endif %}    
+    </div>
+
+{% endblock %}

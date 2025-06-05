@@ -1,0 +1,65 @@
+<?php
+namespace AppBundle\Entity;
+
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * Class AstTranslation
+ *
+ * @ORM\Entity
+ */
+class AstTranslation{
+    use ORMBehaviors\Translatable\Translation;
+
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $name;
+     
+
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $description;
+     
+    
+    
+   /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param  string
+     * @return null
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+    
+    
+   /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param  string
+     * @return null
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+}

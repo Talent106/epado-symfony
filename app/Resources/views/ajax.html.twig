@@ -1,0 +1,20 @@
+{% set content = block('header') ~ block('content') %}
+{#html#}
+{% set response = block('response') %}
+{#form,redirect,close#}
+{% set url = block('url') %}
+{#url to redirect page#}
+{% set object_block = block('object') %}
+{#object with name and all data#}
+{% set element = block('element') %}
+{#small element in html#}
+{% set response = 
+{
+'content': content|raw,
+'response': response|raw,
+'url': url|raw,
+'object': object_block|raw|json_decode(),
+'element': element|raw,
+} %}
+{{ response|json_encode()|raw }}
+

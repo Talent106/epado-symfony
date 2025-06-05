@@ -1,0 +1,93 @@
+{% extends "home.html.twig" %}
+
+{% block title %}{{ cemetery.name }}{% endblock %}
+{% block description %}{{ 'Adres'|trans }}: {{ cemetery.address.city }} {{ cemetery.address.postalcode }}, {{ cemetery.address.address }}{% endblock %}
+
+{% block content %}
+<div class="admin cemetery">
+    
+    <div class="first-content cemetery-info"> 
+
+        <div class="size">
+            <div class="description">
+                <h1 class="delay2 triggerAnimation" data-animate="fadeInRight">{{ cemetery.name }}&nbsp;&nbsp;<i class="badge">{{ 'Ilość osób:'|trans }} {{ pages|length }}</i></h1>
+                <p class="time delay2 triggerAnimation" data-animate="fadeInRight">{{ cemetery.address.city }} {{ cemetery.address.postalcode }}, {{ cemetery.address.address }}</p>
+				<p>
+					<img src="/web/fire.png" title="Zapalenie zniczy" style="width:20px;opacity: 0.8;margin-right:6px;" />
+					<img src="/web/clean.png" title="Sprzątanie grobu" style="width:20px;filter: grayscale(100%);opacity: 0.8;margin-right:6px;" />
+					
+				</p>
+		   </div>
+
+        </div>
+    </div> 
+                
+    
+    <div class="size">    
+        
+        <div class="notifications">
+            {% for flashMessage in app.session.flashbag.get('notice') %}<div class="notification notice">{{ flashMessage|raw }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('warning') %}<div class="notification warning">{{ flashMessage|raw }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('success') %}<div class="notification success">{{ flashMessage|raw }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('error') %}<div class="notification error">{{ flashMessage|raw }}</div>{% endfor %}
+        </div>
+        
+        
+        <div class="full">
+        
+            <h1>{{ 'Mapa'|trans }}</h1>
+
+            <div class="content">
+                <div class="options">
+                    <a href="https://maps.apple.com/?q={{ cemetery.localisation.latitude }},{{ cemetery.localisation.longitude }}" target="_blank" class="button small"><i class="fa fa-location-arrow"></i>{{ 'Prowadź do miejsca'|trans }}</a>
+                </div>
+                
+                <div id="map" class="map"></div>
+                <script>
+                  $(function() {
+
+
+                    var latLng = {lat: {{ cemetery.localisation.latitude }}, lng: {{ cemetery.localisation.longitude }}};
+                    
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                      center: latLng,
+                      zoom: 15
+                    });
+                    var marker = new google.maps.Marker({
+                      position: latLng,
+                      map: map,
+                      title: '{{ cemetery.name }}, {{ 'Cmentarz'|trans }}'
+                    });
+                  });
+                </script>
+            </div>
+           
+		   <h1>{{ 'Usługi w tym miejscu świadczy'|trans }}</h1>
+		   <img src="https://www.wirtualnymarketing.com.pl/photos/236/968/975x650/tablica-reklamowa-folia-odblask-jastkowice.jpg" style="width:100%;" />
+			<br/>
+			<br/>
+            {% if pages|length>0 %}
+            <h1>{{ 'Osoby zmarłe'|trans }}</h1>
+            
+            <div class="content pages">
+                {% for fa in pages %}
+                <div class="element">  
+                    <a href="{{path_page(fa.code)}}">
+                    <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '60x60', 'file': fa.avatar })|production }}');"></div>    
+                    
+                    <p class="name">
+                        <i class="fa fa-eye"></i>
+                        {{ fa.translate(fa.locale).name }}
+                        <span>{{ fa.begin|mydate }} - {{ fa.end|mydate }}</span>
+                    </p>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %} 
+        </div>
+
+    </div>
+    
+</div>    
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "full.html.twig" %}
+
+{% block title %}{{ 'Logowanie'|trans }}{% endblock %}
+
+{% block content %}
+    <h1><i class="fa fa-user"></i>{{ 'Logowanie'|trans }}</h1>
+    
+    <div class="content"><div class="options">
+        <a href="{{ facebook_url }}" class="button facebook"><i class="fa fa-facebook"></i>{{ 'Zaloguj się przez Facebooka!'|trans }}</a>
+        <a class="button" href="{{ path('register') }}">{{ 'Rejestracja'|trans }}</a>
+        <a href="{{ path('reset') }}" class="button">{{ 'Nie pamiętam hasła'|trans }}</a>
+        
+    </div>
+    <p>{{ 'Logując się w Epado za pośrednictwem Facebooka, akceptujesz nasz regulamin:'|trans }} <a href="{{ path('rules') }}">{{ 'Regulamin'|trans }}</a>.</p> 
+    </div>
+    
+    <div class="content">
+        <form action="{{ path("login_check") }}" class="animated" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <div class="widget">
+                <label for="username">{{ 'Login'|trans }}</label>
+                <div class="field"><input type="text" id="username" name="_username" value="{{ last_username }}" required="required" /></div>
+            </div>
+            <div class="widget">
+                <label for="password">{{ 'Hasło'|trans }}</label>
+                <div class="field"><input type="password" id="password" name="_password" required="required" /></div>
+            </div>
+
+            
+            {% if error %}
+            <div>    
+                <ul class="errors fa-ul log">{% if error %}<li><i class="fa fa-warning fa-fw"></i>{{ error.messageKey|trans(error.messageData, 'security') }}</li>{% endif %}</ul>
+                <div style="clear:both;"></div>
+            </div>
+            {% endif %}
+            
+            <div class="widget checkbox">
+                <label for="remember_me">{{ 'Pamiętaj mnie'|trans }}</label>
+
+                <div class="field switch single">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    <label for="remember_me">{{ 'Pamiętaj mnie'|trans }}</label>
+                </div>
+            </div>
+            
+
+            
+            <div>
+                <button type="submit" id="_submit" name="_submit">{{ 'Zaloguj mnie'|trans }}</button> 
+            </div>
+            
+
+        </form>
+                
+    </div>
+
+{% endblock content %}

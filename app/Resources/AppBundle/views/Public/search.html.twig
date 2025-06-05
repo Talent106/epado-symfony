@@ -1,0 +1,99 @@
+{% extends "empty.html.twig" %}
+
+{% block content %}
+
+    {% if people>0 %}
+    <h4><i class="fa fa-fw fa-user"></i> {{ 'Osoby zmarłe'|trans }}</h4>
+
+    <div class="pages">
+        {% if pages_people|length>0 %}
+            {% for fa in pages_people %}
+            {% if fa.type.id==1 %}    
+            <div class="element">  
+                <a href="{{path_page(fa.code)}}">
+                <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '60x60', 'file': fa.avatar })|production }}');"></div>    
+
+                <p class="name">
+                    <i class="fa fa-eye"></i>
+                    {{ fa.translate(fa.locale).name }}
+                    <span>{{ fa.begin|mydate }} - {{ fa.end|mydate }}, {{ fa.address.city }}</span>
+                </p>
+                </a>
+            </div>
+            {% endif %}   
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    
+
+    {% if places>0 %}
+    <h4><i class="fa fa-fw fa-map"></i> {{ 'Miejsca'|trans }}</h4>
+
+    <div class="pages">
+        {% if pages_places|length>0 %}
+            {% for fa in pages_places %}
+            {% if fa.type.id==2 %}     
+            <div class="element">  
+                <a href="{{path_page(fa.code)}}">
+                {% if fa.image is not null %}   
+                <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '60x60', 'file': fa.avatar })|production }}');"></div>    
+                {% else %}
+                <div class="avatar" style="{#background-image:url('{{ path('thumbnail', {'resolution': '60x60', 'file': 'images/product.png' })|production }}');#}"><i class="fa fa-map-marker"></i></div>    
+                {% endif %}
+                <p class="name">
+                    <i class="fa fa-eye"></i>
+                    {{ fa.translate(fa.locale).name }}
+                    <span>{% if not fa.begin %}{{ fa.beginyear }}{% else %}{{ fa.begin|mydate() }}{% endif %}, {{ fa.address.city }}</span>
+                </p>
+                </a>
+            </div>
+            {% endif %}   
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    
+    <h4><i class="fa fa-fw fa-bank"></i> {{ 'Cmentarze'|trans }}</h4>
+
+    <div class="pages">
+        {% if cemeteries|length>0 %}
+            {% for fa in cemeteries %}
+            <div class="element">  
+                <a href="{{path('cemetery',{'id':fa.id})}}">
+                <div class="avatar" style="{#background-image:url('{{ path('thumbnail', {'resolution': '60x60', 'file': 'images/product.png' })|production }}');#}"><i class="fa fa-map-marker"></i></div>    
+
+                <p class="name">
+                    <i class="fa fa-eye"></i>
+                    {{ fa.name }}
+                    <span>{{ fa.address.city }}, {{ fa.address.address }}</span>
+                </p>
+                </a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>{{ 'Nie odnaleziono cmentarza'|trans }}</p>
+        {% endif %}
+    </div>
+     
+    
+    {% if people==0 %}
+    <h4><i class="fa fa-fw fa-user"></i> {{ 'Osoby zmarłe'|trans }}</h4>
+
+    <div class="pages">
+            <p>{{ 'Nie odnaleziono osoby'|trans }}</p>
+    </div>
+    {% endif %}
+    
+    {% if places==0 %}
+    <h4><i class="fa fa-fw fa-map-marker"></i> {{ 'Miejsca'|trans }}</h4>
+
+    <div class="pages">
+            <p>{{ 'Nie odnaleziono miejsca'|trans }}</p>
+    </div>
+    {% endif %}
+    
+ 
+{% endblock %}

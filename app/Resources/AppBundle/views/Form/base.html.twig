@@ -1,0 +1,123 @@
+
+
+        
+
+{% block form_row %}
+    <div class="{% if attr['data-hidden'] is defined %} hidden {% endif %} {% if name is defined %}widget{% endif %} {% if name is defined %}widget_{{name}}{% endif %}">
+        {{ form_label(form) }}
+        <div class="field">
+        {{ form_widget(form) }}
+        </div>
+        {{ form_errors(form) }}
+        {% if attr['data-help'] is defined %} <div class="tip help" title="{{ attr['data-help']|trans }}"><i class="fa fa-question-circle" aria-hidden="true"></i></div> {% endif %}
+        
+    </div>
+{% endblock form_row %}
+
+
+{% block integer_widget %}
+{#    <div class="integer">#}
+        {% set type = type|default('number') %}
+        {{ block('form_widget_simple') }}
+{#    </div>#}
+{% endblock %}
+
+
+{% block text_widget %}
+{#    <div class="text">#}
+        {% set type = type|default('text') %}
+        {{ block('form_widget_simple') }}
+{#    </div>#}
+{% endblock %}
+
+
+
+{% block textarea_widget %}
+{#    <div class="textarea">#}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+        <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{#    </div>#}
+{% endblock %}
+
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+        <ul class="errors fa-ul">
+            {% for error in errors %}
+                <li><i class="fa fa-warning fa-fw"></i>&nbsp; {{ error.message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+
+
+
+
+
+
+
+{% block checkbox_row %}
+    <div class="widget">
+        {{ form_label(form) }}
+        
+        <div class="field switch single">
+            {{ form_widget(form) }}
+            {{ form_label(form,null,{label_attr:{'class':''} }) }}
+        </div>
+            
+        {{ form_errors(form) }}
+        {% if attr['data-help'] is defined %}<span class="tip help" title="{{ attr['data-help']|trans }}"><i class="fa fa-question-circle" aria-hidden="true"></i></span>{% endif %}
+        
+    </div>    
+{% endblock %}
+
+{% block radio_row %}
+    <div class="widget">
+        {{ form_label(form) }}
+        
+        <div class="field radio single">
+            {{ form_widget(form) }}
+            {{ form_label(form,null,{label_attr:{'class':''} }) }}
+        </div>
+            
+        {{ form_errors(form) }}
+        {% if attr['data-help'] is defined %} <div class="tip help" title="{{ attr['data-help']|trans }}"><i class="fa fa-question-circle" aria-hidden="true"></i></div> {% endif %}
+        
+    </div>    
+{% endblock %}
+
+{%- block choice_widget_expanded -%}
+    <div class="field" {{ block('widget_container_attributes') }}>
+    {%- for child in form %}
+        
+        <div class="choice-wrapper">
+        <div class="{% if(multiple) %}check{% else %}radio{% endif %} multi">
+            {{ form_widget(child) }}
+            {{ form_label(child,null,{label_attr:{'class':''} }) }}
+        </div>
+        {{ form_label(child,null,{label_attr:{'class':'choice-radio'} }) }}
+        </div>
+        
+    {% endfor -%}
+    </div>    
+{%- endblock choice_widget_expanded -%}
+
+
+{% block address_row %}
+    
+    <div class="widget" class="address">
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div> 
+{% endblock %}
+
+
+{% block localisation_row %}
+    
+    <div class="localisation">
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div> 
+{% endblock %}

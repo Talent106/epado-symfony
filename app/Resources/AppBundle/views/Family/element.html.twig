@@ -1,0 +1,1 @@
+<li class="element" data-id="{{ object.id }}"><a class="element" href="#">{{ object.name }}<br></a>{% if app.user.havefamilypermission(object) %}<a href="{{ path('family_form',{'id':object.id}) }}" class="edit"><i class="fa fa-pencil"></i></a>{% endif %}<textarea class="hidden" class="object" >{{object.serialize|json_encode}}</textarea></li>           

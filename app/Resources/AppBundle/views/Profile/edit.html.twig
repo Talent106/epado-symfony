@@ -1,0 +1,51 @@
+{#{% trans_default_domain 'FOSUserBundle' %}#}
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-gear"></i>{{ 'Ustawienia'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    
+    <div class="content">
+        {% if(app.user.avatar) %}
+        <div class="avatar" style="width:60px; height:60px;  background-image:url('/{{ app.user.avatar }}'); margin-bottom:20px;"></div>
+        {% endif %}
+        
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    
+    <div class="content overauto">
+        
+        <div class="onright">
+            <p><b><i class="fa fa-fw fa-user"></i>&nbsp; {{ 'Dane podstawowe'|trans }}:</b></p>
+            <p>
+            {{ 'Adres email'|trans }}: {{ app.user.username }}<br>
+            {{ 'Imię i nazwisko'|trans }}: {{ app.user.firstname }} {{ app.user.lastname }}<br>
+            {{ 'Liczba dodanych stron'|trans }}: {{ app.user.pages|length }}<br>
+            {{ 'Liczba dodanych cmentarzy'|trans }}: {{ app.user.cemeteries|length }}<br>
+            {{ 'Liczba dodanych rodzin'|trans }}: {{ app.user.families|length }}<br>
+            {{ 'Liczba zamówień'|trans }}: {{ app.user.orders|length }}
+            </p>
+        </div>
+        
+
+        
+        <p><b><i class="fa fa-fw fa-truck"></i>&nbsp; {{ 'Adres dostawy'|trans }}:</b></p>
+        <p>{{ address(app.user.deliveryaddress)|raw }}</p>
+        <p><b><i class="fa fa-fw fa-credit-card-alt"></i>&nbsp; {{ 'Dane rozliczeniowe'|trans }}:</b></p>
+        <p>{{ address(app.user.billingaddress)|raw }}</p>
+        
+        
+    </div>
+        
+    <div class="content">
+        
+        <div class="options"> 
+            <a class="button small" href="{{ path('profile_address')}}"><i class="fa fa-truck"></i> {{ 'Edytuj dane adresowe'|trans }}</a>
+        </div>
+    </div>
+
+    
+{% endblock %}

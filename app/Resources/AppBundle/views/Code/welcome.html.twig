@@ -1,0 +1,182 @@
+{% extends "empty.html.twig" %}
+
+{% block content %}
+        <style> 
+            @page qrnot {
+                sheet-size:A4; margin:40mm 10mm 0mm 10mm; 
+            }
+            @page qr { 
+                sheet-size:A4; margin:40mm 10mm 0mm 10mm; 
+                odd-footer-name: qrf;
+                even-footer-name: qrf;
+            } 
+            
+            div.qr { page-break-before: right; page: qr; position:relative; margin:0 15mm; }  
+            div.qrnot { page-break-before: right; page: qrnot; position:relative; margin:0 20mm; }  
+            .barcode{ margin-top:3px;}
+            div.id-right { display:none; font-size:10px; letter-spacing:3.5px; font-family:Arial;  position:absolute; right:1mm; top:5mm; overflow: visible;  rotate: 90; }
+            div.id-top { font-size:10px; letter-spacing:3.5px; font-family:Arial;  position:absolute; left:5mm; top:1.2mm; overflow: visible;  }
+
+            p, div{
+                font-size:15px;
+                letter-spacing:0.5px;
+                font-style:normal;
+                line-height:20px;
+                color:#285cb5;
+            }
+
+            div.bigger{
+                font-size:20px;
+                line-height:20px;
+                margin-bottom:5px;
+                padding:0;
+            }   
+
+
+            .password{
+                margin: 50px 0;
+                margin-top:25px;
+            }
+
+            .person{
+                margin-top:40px;
+            }
+
+            .label, .data{
+                display:block;
+                width:160px;
+                margin:0;
+                float:left;
+                padding:2px 0px;
+                line-height:25px;
+            }
+
+            .label{
+                font-size:14px;
+                font-family:arial;
+                font-style:normal;
+                text-transform:uppercase;
+                float:left;
+                width:70px;
+                clear:both;
+                margin-top:20px;
+            }
+
+
+
+            .data{
+                border:1px solid #6fc2ed;
+                padding:2px 5px;
+                font-size:12px;
+                width:250px;
+                font-family:arial;
+                font-style:normal;
+                border-radius:8px;
+                floeat:left;
+                color:#0f2a58;
+                text-align:center;
+            }
+
+            .aktywacja .label{
+                width:160px;
+            }
+
+            .aktywacja .data{
+                width:90px;
+                font-size:14px;
+            }
+
+
+            .document{
+
+            }
+
+
+
+            .id-back{
+                font-family:arial; 
+                font-style:none; 
+                font-size: 12pt;
+                position:absolute;
+                left:15mm;
+                top:165mm;
+                rotate: 180;
+                left:143.8mm;
+                top:22.8mm;
+                
+            }
+            
+            .id{
+                font-family:arial; 
+                font-style:none; 
+                font-size: 8pt;
+                position:absolute;
+                right:26mm;
+                bottom:4mm;
+            }
+
+
+
+            .address{
+                font-family:arial; font-style:none; font-size: 14pt;
+                position:absolute;
+                left:120mm;
+                top:60mm;
+            }
+            
+            .barcodecell {
+                text-align: center;
+                vertical-align: middle;
+                border:0 solid red;
+            }
+            
+            .id-back div, .id div{
+                color:#000000;
+            }
+            
+            .document p{
+                text-align:justify;
+            }
+
+        </style>
+
+        <htmlpagefooter name="qrf" >
+            <div style="text-align: left; line-height:14px; font-family:arial; font-style:none; font-size: 8pt; display:none;">
+            Stono Sp. z o. o.<br />
+            Warszawa, Wspólna 50A/35
+            </div>
+        </htmlpagefooter>
+
+        
+        {% if codes %}
+            {% for code in codes %}
+
+                <div class="qr">
+                    <div class="document"> 
+                        <p>{{ documents[code.code] }}</p>
+                    </div>
+                    
+                </div>
+                
+                <div class="id">
+                    <div class="barcodecell" style="">
+                        <barcode code="{{ code.code }}" type="C128A" class="barcode"   height="0.9"  size="0.6" />
+                        <div style=" color:#000; letter-spacing:0.9mm; padding-left:0.6mm; font-size: 8px;">{{ code.code }}</div>
+                    </div>
+                </div>
+
+                <div class="qrnot">
+                </div>
+
+                <div class="id-back">
+                    <div class="barcodecell" style="">
+                        <barcode code="{{ code.code }}" type="C128A" class="barcode"   height="0.9"  size="0.6" />
+                        <div style="color:#000; letter-spacing:0.9mm; padding-left:0.6mm; font-size: 8px;">{{ code.code }}</div>  
+                    </div>
+                </div>   
+
+            {% endfor %}     
+        {% endif %}    
+
+
+{% endblock %}

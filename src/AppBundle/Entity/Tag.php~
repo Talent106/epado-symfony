@@ -1,0 +1,142 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Tag
+ *
+ * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\TestingRepository")
+ */
+class Tag
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+    * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Testing", mappedBy="tags", cascade={"persist"})
+    */
+    private $testings;
+    
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(min=7, groups={"registration"})
+     */
+    private $name;
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $price;
+    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Tag
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     * @return Tag
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->testings = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add testings
+     *
+     * @param \AppBundle\Entity\Testing $testings
+     * @return Tag
+     */
+    public function addTesting(\AppBundle\Entity\Testing $testings)
+    {
+        $this->testings[] = $testings;
+
+        return $this;
+    }
+
+    /**
+     * Remove testings
+     *
+     * @param \AppBundle\Entity\Testing $testings
+     */
+    public function removeTesting(\AppBundle\Entity\Testing $testings)
+    {
+        $this->testings->removeElement($testings);
+    }
+
+    /**
+     * Get testings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTestings()
+    {
+        return $this->testings;
+    }
+}

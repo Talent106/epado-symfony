@@ -1,0 +1,42 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-barcode"></i>{{ 'Kody rabatowe'|trans }}</h1>{% endblock %}
+
+
+
+{% block content %}
+    
+     <div class="content">
+
+        {% if objects %}
+          
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Kod'|trans }}</th>
+						<th>{{ 'Rabat'|trans }}</th>
+                        <th>{{ 'Wygasa'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr>
+                      
+                        <td><a href="{{ path('discounts_form', {'id': object.id})}}">{{object.code}}</a></td>
+						<td>-{{object.count}}%</td>
+                        <td>{{object.expire|date('Y-m-d')}}</td>
+
+
+                    </tr>
+                {% endfor %}
+            </table></div>
+      
+        {% else %}
+            <p>{{ 'Brak kodów zniżkowych.'|trans }}</p>
+        {% endif %}	
+	
+        
+        <div class="options"> 
+        <a href="{{ path('discounts_form') }}" class="button">{{ 'Dodaj kod'|trans }}</a>
+        </div>
+
+    </div>  
+
+{% endblock %}

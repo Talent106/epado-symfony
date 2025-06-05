@@ -1,0 +1,421 @@
+{% extends "home.html.twig" %}
+
+
+
+{% block full_title %}{{ 'Witamy w Epado'|trans }}{% endblock %}
+{% block description %}{{ 'Epado to wyjątkowe miejsce wspomnień o wspaniałych ludziach, których nie powinniśmy zapomnieć.'|trans }}{% endblock %}
+
+{% block content %}
+
+
+<style>
+		.modal {
+			padding: 12px 15px;
+			z-index: 999999 !important;
+		}
+</style>
+<div class="homepage">    
+    <div class="first-content intro"> 
+        <video poster="/images/introorg.png" style="background-image:url(/images/introorg.png); background-size:cover;" preload="none" loop src="/images/candle.mp4">
+           <source src="/images/candle.mp4" type="video/mp4"  />
+        </video>
+        {#<video poster="/images/introorg.png" style="background-image:url(/images/introorg.png);" preload="none" loop src="http://images.apple.com/media/us/music/2015/758e7234_576d_4c94_8dc0_54994631d0fb/overview/hero.mp4">
+           <source src="http://images.apple.com/media/us/music/2015/758e7234_576d_4c94_8dc0_54994631d0fb/overview/hero.mp4" type="video/mp4"  />
+        </video>#}
+           
+        
+        <div class="size">
+            <div class="description delay2 triggerAnimation" data-animate="fadeInLeft">
+                <h1>{{ 'Epado odkrywa zakodowane wspomnienia'|trans }}</h1>
+                <p>{{ 'Epado to wyjątkowe miejsce wspomnień o wspaniałych ludziach, których nie powinniśmy zapomnieć.'|trans }}</p>
+                {% if demo[app.request.locale] is defined %}
+                <a href="{{path_page( demo[app.request.locale] )}}" {#015040163920008#} class="homebutton gold">{{ 'Sprawdź'|trans }}</a>
+                {% else %}
+                <a href="{{path_page('015040163920008')}}" {#015040163920008#} class="homebutton gold">{{ 'Sprawdź'|trans }}</a> 
+                {% endif %}
+                <a href="{{path('page_form')}}" class="homebutton">{{ 'Zamów'|trans }}</a>
+
+                <div class="separator"></div><br>
+
+                {% if social['google_play'][app.request.locale] is defined %}<a href="{{ social['google_play'][app.request.locale] }}" class="shop"><img src="/images/googleplay.png"></a>{% endif %}
+                {% if social['app_store'][app.request.locale] is defined %}<a href="{{ social['app_store'][app.request.locale] }}" class="shop"><img src="/images/appstore.png"></a>{% endif %}
+               
+            </div>
+
+
+            <div class="photo delay2 triggerAnimation" data-animate="fadeInRight" style="position:relative;">   
+			
+				<div class="inside" style="background-image: url(/images/a_page.png);width: 209px;height: 369px;top: 60px;left: 102px;position: absolute;overflow: hidden;z-index: -4;">
+                  <img style="" src="/images/a_grave.jpg">
+                </div>
+
+				<div class="inside delay2 qrscan"  style="background-image: url(/images/qr_scan.png);width: 115px;height: 115px;top: 160px;left: 155px;position: absolute;overflow: hidden;z-index: -4;">
+					<!--<img style="" src="/images/qr_scan.png">-->
+                </div>
+				
+				<div class="inside delay2 qrscan2"  style="background-image: url(/images/qr_scan_2.png);width: 115px;height: 115px;top: 160px;left: 155px;position: absolute;overflow: hidden;z-index: -4;display:none">
+					<!--<img style="" src="/images/qr_scan.png">-->
+                </div>	
+
+				<div class="inside delay2 whitebg" style="background-color: #FFF;width: 209px;height: 369px;top: 60px;left: 102px;position: absolute;overflow: hidden;z-index: -4;display:none">
+        
+                </div>				
+				
+				
+                <img src="/images/iphone.png" style="width:358px;">
+            </div>
+			
+
+        </div>
+        <div class="box"></div>
+                
+                
+    </div> 
+                
+    <div class="notifications" id="notifications">
+        <div class="size">
+        {% for flashMessage in app.session.flashbag.get('notice') %}<div class="notification notice">{{ flashMessage|raw }}</div>{% endfor %}
+        {% for flashMessage in app.session.flashbag.get('warning') %}<div class="notification warning">{{ flashMessage|raw }}</div>{% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}<div class="notification success">{{ flashMessage|raw }}</div>{% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}<div class="notification error">{{ flashMessage|raw }}</div>{% endfor %}
+        </div>
+    </div>
+
+    <div class="what" id="what">    
+        <div class="size">
+
+   
+
+     
+                <h1>{{ 'Czym jest Epado'|trans }}</h1>
+                <div class="elements boxes">
+                   <div class="element delay1 triggerAnimation" data-animate="fadeInUp">
+                       <div class="inside box">
+                           <div class="image"><i class="fa fa-camera"></i></div>
+                           <h3>{{ 'Pamiątka'|trans }}</h3>
+                           <p>{{ 'Epado najlepszym pamiętnikiem, albumem wspomnień o najbliższych.'|trans }}</p>
+                       </div>
+                   </div>
+                   <div class="element delay2 triggerAnimation" data-animate="fadeInUp">
+                       <div class="inside box">
+                           <div class="image"><i class="fa fa-graduation-cap"></i></div>
+                           <h3>{{ 'Wiedza'|trans }}</h3>
+                           <p>{{ 'Epado sposobem pogłębiania wiedzy o zabytkach oraz ciekawych obiektach.'|trans }}</p>
+                       </div>
+                   </div>
+                   <div class="element delay3 triggerAnimation" data-animate="fadeInUp">
+                       <div class="inside box">
+                           <div class="image"><i class="fa fa-heart"></i></div>
+                           <h3>{{ 'Pamięć'|trans }}</h3>
+                           <p>{{ 'Epado przypomina o rocznicy wysyłając powiadomienie mailem i SMS, aby najważniejsze daty były niezapomniane.'|trans }}</p>
+                       </div>
+                   </div>
+                   <div class="element delay4 triggerAnimation" data-animate="fadeInUp">
+                       <div class="inside box">
+                           <div class="image"><i class="fa fa-group"></i></div>
+                           <h3>{{ 'Drzewo genealogiczne'|trans }}</h3>
+                           <p>{{ 'Epado umożliwi w przyszłości stworzenie drzewa genealogicznego.'|trans }}</p>
+                       </div>
+                   </div>
+                   <div class="element delay5 triggerAnimation" data-animate="fadeInUp">
+                       <div class="inside box">
+                           <div class="image"><i class="fa fa-shopping-bag"></i></div>
+                           <h3>{{ 'Usługi'|trans }}</h3>
+                           <p>{{ 'Epado umożliwia zakup realnych usług w wirtualnym świecie wspomnień.'|trans }}</p>
+                       </div>
+                   </div>
+                   <div class="element delay6 triggerAnimation" data-animate="fadeInUp">
+                       <div class="inside box">
+                           <div class="image"><i class="fa fa-binoculars"></i></div>
+                           <h3>{{ 'Wyszukiwarka'|trans }}</h3>
+                           <p>{{ 'Epado pozwoli odszukać interesujące Cię osoby, obiekty i miejsca.'|trans }}</p>
+                       </div>
+                   </div>
+                </div>
+        </div>
+    </div> 
+                
+                
+                
+    <div class="quote">    
+        <div class="size">    
+            <div class="inside">
+                <div>
+                <div class="circle delay6 triggerAnimation" data-animate="fadeInLeft">
+                <i class="fa fa-quote-right"></i>
+                </div>
+                </div>
+                <p class="text delay6 triggerAnimation" data-animate="fadeInRight">{{ 'Umarłych wieczność dotąd trwa, dokąd pamięcią się im płaci.'|trans }}</p>
+                <p class="author delay6 triggerAnimation" data-animate="fadeInLeft">~ Wisława Szymborska</p>
+                
+            </div>
+            
+        </div>
+    </div> 
+                
+                
+       
+    <div class="work" id="work">    
+        <div class="size">
+                <h1>{{ 'Jak to działa'|trans }}</h1>
+                <p class="description">{{ 'Zapoznaj się ze wszystkimi krokami które występują w procesie stworzenia własnej strony Epado.'|trans }}</p>
+                <div class="elements boxes">
+                   <div class="element delay4 triggerAnimation" data-animate="fadeInLeft">
+                       <div class="inside box">
+                           <div class="circle">1</div>
+                           <h3>{{ 'Załóż swoje konto w serwisie Epado'|trans }}</h3>
+                           <div class="separator"></div>
+                           <p>{{ 'Aby rozpocząć tworzenie swojej strony Epado musisz się zarejestrować. Możesz do tego celu wykorzystać swoje konto na facebooku lub wypełnić tradycyjny formularz rejestracyjny.'|trans }}</p>
+                       </div>
+                   </div>
+                   <div class="element delay1 triggerAnimation" data-animate="fadeInLeft">
+                       <div class="inside box">
+                           <div class="circle">2</div>
+                           <h3>{{ 'Stwórz swoją własną stronę Epado'|trans }}</h3>
+                           <div class="separator"></div>
+                           <p>{{ 'Stwórz stronę Epado upamiętniającą wybraną przez Ciebie osobę zmarłą lub miejsce. Po zapisaniu podstawowych danych będziesz mógł dodać zdjęcia i filmy oraz zamawiać pakiety.'|trans }}</p>
+                       </div>
+                   </div>
+                   <div class="element delay1 triggerAnimation" data-animate="fadeInRight">
+                       <div class="inside box">
+                           <div class="circle">3</div>
+                           <h3>{{ 'Zamów jeden z pakietów dla strony'|trans }}</h3>
+                           <div class="separator"></div>
+                           <p>{{ 'Po utworzeniu strony będziesz mógł zakupić do niej pakiet. W skład pakietu poza abonamentem dla strony na określoną ilość lat otrzymasz również fizyczny kod QR.'|trans }}</p>
+                       </div>
+                   </div>
+                   <div class="element delay4 triggerAnimation" data-animate="fadeInRight">
+                       <div class="inside box">
+                           <div class="circle">4</div>
+                           <h3>{{ 'Odbierz przesyłkę z kodem aktywacyjnym'|trans }}</h3>
+                           <div class="separator"></div>
+                           <p>{{ 'Po opłaceniu zamówienia niezwłocznie wyślemy do Ciebie przesyłkę z kodem aktywacyjnym i fizyczną płytką Epado zawierającą kod QR prowadzący do Twojej strony.'|trans }}</p>
+                       </div>
+                   </div>
+                    
+                </div>
+        </div>
+    </div> 
+                
+                
+                
+     
+       
+    <div class="price" id="price">  
+        <div class="size">
+                <h1>{{ 'Cennik'|trans }}</h1>
+                <p class="description">{{ 'Sprawdź wszystkie dostępne pakiety i wybierz okres.'|trans }}</p>
+                
+                <div class="elements">
+                   
+                   <div class="element delay1 triggerAnimation" data-animate="fadeInLeft">
+                       <div class="inside">
+                           <h3>{{ products[1].name }}</h3>
+                           <div class="amount">{{ products[1].price(currency())|price }}</div>
+                           <ul>
+                            <li>{{ 'Opisy i zdjęcia'|trans }}</li>
+                            <li>{{ 'Pojedynczy kod Epado'|trans }}</li>
+                            <li>{{ 'Dostęp do utworzonych wspomnień 365/24'|trans }}</li>
+                            <li>{{ 'Intuicyjny system zarządzania treścią'|trans }}</li>
+                            <li>{{ 'Wspomnienia w postaci strony internetowej'|trans }}</li>
+                           </ul>
+                           
+                           <a href="{{path('page_form')}}" class="homebutton gold">{{ 'Zamów'|trans }}</a>
+                           
+                       </div>
+                   </div>
+                   <div class="element gold delay4 triggerAnimation" data-animate="fadeInUp">
+                       <div class="inside">
+                           
+                           <h3>{{ products[3].name }}</h3>
+                           <div class="amount">{{ products[3].price(app.session.get('currency'))|price }}</div>
+                           <ul>
+                            <li>{{ 'Opisy i zdjęcia'|trans }}</li>
+                            <li>{{ 'Pojedynczy kod Epado'|trans }}</li>
+                            <li>{{ 'Dostęp do utworzonych wspomnień 365/24'|trans }}</li>
+                            <li>{{ 'Intuicyjny system zarządzania treścią'|trans }}</li>
+                            <li>{{ 'Wspomnienia w postaci strony internetowej'|trans }}</li>
+                            <li>{{ 'Najdłuższy dostępny okres czasu'|trans }}</li>
+                           </ul>
+                           
+                           <a href="{{path('page_form')}}" class="homebutton gold">{{ 'Zamów'|trans }}</a>
+                           
+                       </div>
+                   </div>
+                   <div class="element delay1 triggerAnimation" data-animate="fadeInRight">
+                       <div class="inside">
+                           <h3>{{ products[2].name }}</h3>
+                           <div class="amount">{{ products[2].price(currency())|price }}</div>
+                           <ul>
+                            <li>{{ 'Opisy i zdjęcia'|trans }}</li>
+                            <li>{{ 'Pojedynczy kod Epado'|trans }}</li>
+                            <li>{{ 'Dostęp do utworzonych wspomnień 365/24'|trans }}</li>
+                            <li>{{ 'Intuicyjny system zarządzania treścią'|trans }}</li>
+                            <li>{{ 'Wspomnienia w postaci strony internetowej'|trans }}</li>
+                           </ul>
+                           
+                           <a href="{{path('page_form')}}" class="homebutton gold">{{ 'Zamów'|trans }}</a>
+                           
+                       </div>
+                   </div>
+                </div>
+        </div>
+    </div>              
+    
+    {% if social['facebook_feed'][app.request.locale] is defined and 1==2 %}                       
+    <section class="content-area newsbg fb-section" id="facebook">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <ul class="inline-list align-right facebook-nav">
+                        <li>
+                            <a href="#" data-target="prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" data-target="next"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row margin-top-0">
+                        <ul class="strip-list team-members-classic">
+                            <li>
+                                <div class="social-feed-container facebook-slider"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,300italic,400italic,700,700italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/js/socialfeed/bootstrap.css">
+    <link href="/js/socialfeed/jquery.socialfeed.css" rel="stylesheet" type="text/css">
+    
+    <script src="/js/socialfeed/sudoslider.js"></script>
+    <script src="/js/socialfeed/doT.min.js"></script>
+    <script src="/js/socialfeed/moment.min.js"></script>
+    <script src="/js/socialfeed/pl.js"></script>
+    <script src="/js/socialfeed/jquery.socialfeed.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.social-feed-container').socialfeed({
+                facebook: {
+                    accounts: ['@{{ social['facebook_feed'][app.request.locale] }}'],
+                    limit: 12,
+                    access_token: '233532476998022|6227ea897cc925e3c0fac0288b3f1242'
+                },
+                template_html: '<div> <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 portfolio-item get-url"> <div class="social-feed-element {{ '{{' }}? !it.moderation_passed{{ '}}' }}hidden{{ '{{' }}?{{ '}}' }}" dt-create="{{ '{{' }}=it.dt_create{{ '}}' }}" social-feed-id = "{{ '{{' }}=it.id{{ '}}' }}"> <div id="default{{ '{{' }}=it.id{{ '}}' }}"><a href="{{ '{{' }}=it.link{{ '}}' }}" target="_blank" style="background-image: url({{ '{{' }}=it.attachment{{ '}}' }})" class="fb-bg"></a></div> <div class="content"> <div class="media-body"> <div class="text-wrapper"> <p class="social-feed-text">{{ '{{' }}=it.text{{ '}}' }} <a href="{{ '{{' }}=it.link{{ '}}' }}" target="_blank" class="read-button"> {{ 'czytaj więcej'|trans }}</a></p> </div> <br> <a class="pull-left" href="{{ '{{' }}=it.author_link{{ '}}' }}" target="_blank"> <img class="media-object" src="{{ '{{' }}=it.author_picture{{ '}}' }}"> <span class="author-title">{{ '{{' }}=it.author_name{{ '}}' }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <br> <span class="muted"> {{ '{{' }}=it.date{{ '}}' }}</span> </a> <a href="{{ '{{' }}=it.link{{ '}}' }}" target="_blank" class="pull-right"> <i class="fa fa-facebook-official"></i> </a> </div> </div> </div> </div> </div>',
+                date_format: "DD-MM-YYYY",
+                update_period: 5000000,
+                show_media: true,
+                media_min_width: 300,
+                length: 140
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(window).load(function() {
+            var finddefault = '';
+            $('.facebook-slider').find('div[id^=default]').each(function() {
+                finddefault = $(this).html();
+                if (finddefault.indexOf("scontent") >= 0) {
+                    $(this).html('<img class="attachment" src="/images/epado.png" style="display: block; width: auto; height: 180px; margin: 0 auto;">');
+                    $(this).css('background-color', '#F26F21');
+                }
+            });
+        });
+        var everythingLoaded = setInterval(function() {
+            if (/loaded|complete/.test(document.readyState)) {
+                clearInterval(everythingLoaded);
+                var textHeight = -1
+                $('.facebook-slider').find('div[class^=text-wrapper]').each(function() {
+                    textHeight = textHeight > $(this).height() ? textHeight : $(this).height();
+                });
+                $('.facebook-slider').find('div[class^=text-wrapper]').each(function() {
+                    $(this).height(textHeight);
+                });
+            }
+        }, 10);
+    </script>
+
+    <script type="text/javascript">
+        $(window).load(function() {
+            var facebookSlider = $(".facebook-slider").sudoSlider({
+                slideCount: 4,
+                moveCount: 1,
+                responsive: true,
+                auto: false,
+                pause: 2000,
+                resumePause: false,
+                continuous: true,
+                prevNext: false,
+                customLink: '.facebook-nav > li > a',
+                touch: false,
+                touchHandle: false,
+                mouseTouch: true,
+                allowScroll: true,
+                speed: 200
+            });
+
+            if ($(".facebook-slider").length) {
+                if ($(window).width() < 1199 && $(window).width() > 992) {
+                    facebookSlider.setOption('slideCount', 3);
+                } else if ($(window).width() < 992 && $(window).width() > 750) {
+                    facebookSlider.setOption('slideCount', 2);
+                } else if ($(window).width() < 750) {
+                    facebookSlider.setOption('slideCount', 1);
+                }
+
+                $(window).resize(function() {
+                    if ($(window).width() < 1199 && $(window).width() > 992) {
+                        facebookSlider.setOption('slideCount', 3);
+                    } else if ($(window).width() < 992 && $(window).width() > 750) {
+                        facebookSlider.setOption('slideCount', 2);
+                    } else if ($(window).width() < 750) {
+                        facebookSlider.setOption('slideCount', 1);
+                    } else {
+                        facebookSlider.setOption('slideCount', 4);
+                    }
+                });
+            }
+        });
+    </script>                     
+    {% endif %}           
+
+	<script>
+		$( document ).ready(function() {
+			setTimeout(function(){
+				$( ".qrscan" ).fadeOut( "slow" );
+			},8000)
+		}); 
+		
+		$( document ).ready(function() {
+			setTimeout(function(){
+				$( ".qrscan2" ).fadeIn( "slow" );
+			},7900)
+		}); 
+
+		$( document ).ready(function() {
+			setTimeout(function(){
+				$( ".qrscan2" ).fadeOut( "slow" );
+			},8100)
+		}); 	
+
+		$( document ).ready(function() {
+			setTimeout(function(){
+				$( ".whitebg" ).fadeIn( "fast" );
+			},8100)
+		}); 
+		
+		$( document ).ready(function() {
+			setTimeout(function(){
+				$( ".whitebg" ).fadeOut( "fast" );
+			},8150)
+		}); 		
+	</script>
+                           
+</div>   
+{% endblock content %} 

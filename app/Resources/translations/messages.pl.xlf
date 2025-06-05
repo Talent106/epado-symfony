@@ -1,0 +1,2767 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="pl" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="0">
+                <source>Cmentarz</source>
+                <target>Cmentarz</target>
+            </trans-unit>
+            <trans-unit id="1">
+                <source>Wszystkie cmentarze</source>
+                <target>Wszystkie cmentarze</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Cmentarze</source>
+                <target>Cmentarze</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Dodaj cmentarz</source>
+                <target>Dodaj cmentarz</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Nr</source>
+                <target>Nr</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Dodający</source>
+                <target>Dodający</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Nazwa</source>
+                <target>Nazwa</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Adres</source>
+                <target>Adres</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Sprawdzony</source>
+                <target>Sprawdzony</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Oznaczony jako błędny. Kliknij aby oznaczyć jako zweryfikowany</source>
+                <target>Oznaczony jako błędny. Kliknij aby oznaczyć jako zweryfikowany</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Niezweryfikowany. Kliknij aby oznaczyć jako zweryfikowany</source>
+                <target>Niezweryfikowany. Kliknij aby oznaczyć jako zweryfikowany</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Niezweryfikowany. Kliknij aby oznaczyć jako błędny</source>
+                <target>Niezweryfikowany. Kliknij aby oznaczyć jako błędny</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Kliknij aby odwołać weryfikacje</source>
+                <target>Kliknij aby odwołać weryfikacje</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Zweryfikowany. Kliknij aby oznaczyć jako błędny</source>
+                <target>Zweryfikowany. Kliknij aby oznaczyć jako błędny</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Zły</source>
+                <target>Zły</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Nie</source>
+                <target>Nie</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Tak</source>
+                <target>Tak</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>tutaj</source>
+                <target>tutaj</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Nie dodałeś żadnych cmentarzy lub wybrałeś filtr który nie zwrócił żadnych wyników. Możesz to zrobić podczas dodawania nowej strony dla osoby upamiętniającej</source>
+                <target>Nie dodałeś żadnych cmentarzy lub wybrałeś filtr który nie zwrócił żadnych wyników. Możesz to zrobić podczas dodawania nowej strony dla osoby upamiętniającej</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Możesz też dodać cmentarz przed dodaniem strony</source>
+                <target>Możesz też dodać cmentarz przed dodaniem strony</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Wyszukaj</source>
+                <target>Wyszukaj</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Szukaj</source>
+                <target>Szukaj</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Resetuj</source>
+                <target>Resetuj</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Stan</source>
+                <target>Stan</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Błędne</source>
+                <target>Błędne</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>Niezweryfikowane</source>
+                <target>Niezweryfikowane</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>Wszystkie</source>
+                <target>Wszystkie</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>Zweryfikowane</source>
+                <target>Zweryfikowane</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>Kod aktywacyjny</source>
+                <target>Kod aktywacyjny</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>Grupa kodów</source>
+                <target>Grupa kodów</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>Wykorzystane</source>
+                <target>Wykorzystane</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>Dodane do zamówień</source>
+                <target>Dodane do zamówień</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>Nazwa pakietu</source>
+                <target>Nazwa pakietu</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>Kody uniwersalne, pasują do wszystkich produktów</source>
+                <target>Kody uniwersalne, pasują do wszystkich produktów</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>Wydrukuj powitania</source>
+                <target>Wydrukuj powitania</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>Wydrukuj kody</source>
+                <target>Wydrukuj kody</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>Zobacz strony z tymi kodami</source>
+                <target>Zobacz strony z tymi kodami</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>Grupy kodów</source>
+                <target>Grupy kodów</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>Dodaj grupę</source>
+                <target>Dodaj grupę</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>Liczba kodów</source>
+                <target>Liczba kodów</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>Kody użyte</source>
+                <target>Kody użyte</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>Okres</source>
+                <target>Okres</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>Zmieniono</source>
+                <target>Zmieniono</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>Utworzono</source>
+                <target>Utworzono</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>Uniwersalne</source>
+                <target>Uniwersalne</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>lat</source>
+                <target>lat</target>
+            </trans-unit>
+            <trans-unit id="46">
+                <source>Nie ma dodanych grup kodów.</source>
+                <target>Nie ma dodanych grup kodów.</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>Kraj</source>
+                <target>Kraj</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Dodaj kraj</source>
+                <target>Dodaj kraj</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>Kraje</source>
+                <target>Kraje</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>Biling</source>
+                <target>Biling</target>
+            </trans-unit>
+            <trans-unit id="51">
+                <source>Dostawa</source>
+                <target>Dostawa</target>
+            </trans-unit>
+            <trans-unit id="52">
+                <source>Strona</source>
+                <target>Strona</target>
+            </trans-unit>
+            <trans-unit id="53">
+                <source>Nazwa kraju</source>
+                <target>Nazwa kraju</target>
+            </trans-unit>
+            <trans-unit id="54">
+                <source>Nie ma dodanego kraju.</source>
+                <target>Nie ma dodanego kraju.</target>
+            </trans-unit>
+            <trans-unit id="55">
+                <source>Rodzina</source>
+                <target>Rodzina</target>
+            </trans-unit>
+            <trans-unit id="56">
+                <source>Nie masz uprawnień do edycji tej rodziny. Możesz tylko dodawać ją jako rodzina upamiętnionej osoby.</source>
+                <target>Nie masz uprawnień do edycji tej rodziny. Możesz tylko dodawać ją jako rodzina upamiętnionej osoby.</target>
+            </trans-unit>
+            <trans-unit id="57">
+                <source>Uprawnienia</source>
+                <target>Uprawnienia</target>
+            </trans-unit>
+            <trans-unit id="58">
+                <source>Edytuj uprawnienia</source>
+                <target>Edytuj uprawnienia</target>
+            </trans-unit>
+            <trans-unit id="59">
+                <source>Usuń uprawnieania</source>
+                <target>Usuń uprawnieania</target>
+            </trans-unit>
+            <trans-unit id="60">
+                <source>Możesz nadać uprawnienia wybranym osobom. Administratorzy mogą nadawać nowe uprawnienia a redaktorzy mogą mieć dostęp tylko do zmiany wybranych danych. Podaj adres email osoby której chcesz nadać uprawnienia. Osoba ta musi posiadać konto w Epado.</source>
+                <target>Możesz nadać uprawnienia wybranym osobom. Administratorzy mogą nadawać nowe uprawnienia a redaktorzy mogą mieć dostęp tylko do zmiany wybranych danych. Podaj adres email osoby której chcesz nadać uprawnienia. Osoba ta musi posiadać konto w Epado.</target>
+            </trans-unit>
+            <trans-unit id="61">
+                <source>Dodaj uprawnienia</source>
+                <target>Dodaj uprawnienia</target>
+            </trans-unit>
+            <trans-unit id="62">
+                <source>Adres email osoby</source>
+                <target>Adres email osoby</target>
+            </trans-unit>
+            <trans-unit id="63">
+                <source>Wszystkie rodziny</source>
+                <target>Wszystkie rodziny</target>
+            </trans-unit>
+            <trans-unit id="64">
+                <source>Rodziny</source>
+                <target>Rodziny</target>
+            </trans-unit>
+            <trans-unit id="65">
+                <source>Dodaj rodzinę</source>
+                <target>Dodaj rodzinę</target>
+            </trans-unit>
+            <trans-unit id="66">
+                <source>Imię</source>
+                <target>Imię</target>
+            </trans-unit>
+            <trans-unit id="67">
+                <source>Nazwisko</source>
+                <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="68">
+                <source>Data dodania</source>
+                <target>Data dodania</target>
+            </trans-unit>
+            <trans-unit id="69">
+                <source>Nie dodałeś rodziny. Możesz to zrobić podczas dodawania nowej strony dla osoby upamiętniającej lub dodać rodzinę przed dodaniem strony. Osoby upamiętniane połączone rodziną będą powiązane dzięki czemu na stronie osobby pojawią się inni członkowie jej rodziny.</source>
+                <target>Nie dodałeś rodziny. Możesz to zrobić podczas dodawania nowej strony dla osoby upamiętniającej lub dodać rodzinę przed dodaniem strony. Osoby upamiętniane połączone rodziną będą powiązane dzięki czemu na stronie osobby pojawią się inni członkowie jej rodziny.</target>
+            </trans-unit>
+            <trans-unit id="70">
+                <source>Witamy w Epado</source>
+                <target>Witamy w Epado</target>
+            </trans-unit>
+            <trans-unit id="71">
+                <source>Epado to wyjątkowe miejsce wspomnień o wspaniałych ludziach, których nie powinniśmy zapomnieć.</source>
+                <target>Epado to wyjątkowe miejsce wspomnień o wspaniałych ludziach, których nie powinniśmy zapomnieć.</target>
+            </trans-unit>
+            <trans-unit id="72">
+                <source>Regulamin serwisu</source>
+                <target>Regulamin serwisu</target>
+            </trans-unit>
+            <trans-unit id="73">
+                <source>Polityka prywatności</source>
+                <target>Polityka prywatności</target>
+            </trans-unit>
+            <trans-unit id="74">
+                <source>Osoba lub miejsce...</source>
+                <target>Osoba lub miejsce...</target>
+            </trans-unit>
+            <trans-unit id="75">
+                <source>Epado odkrywa zakodowane wspomnienia</source>
+                <target>Epado odkrywa zakodowane wspomnienia</target>
+            </trans-unit>
+            <trans-unit id="76">
+                <source>Sprawdź</source>
+                <target>Sprawdź</target>
+            </trans-unit>
+            <trans-unit id="77">
+                <source>Zamów</source>
+                <target>Zamów</target>
+            </trans-unit>
+            <trans-unit id="78">
+                <source>Czym jest Epado</source>
+                <target>Czym jest Epado</target>
+            </trans-unit>
+            <trans-unit id="79">
+                <source>Pamiątka</source>
+                <target>Pamiątka</target>
+            </trans-unit>
+            <trans-unit id="80">
+                <source>Epado najlepszym pamiętnikiem, albumem wspomnień o najbliższych.</source>
+                <target>Epado najlepszym pamiętnikiem, albumem wspomnień o najbliższych.</target>
+            </trans-unit>
+            <trans-unit id="81">
+                <source>Wiedza</source>
+                <target>Wiedza</target>
+            </trans-unit>
+            <trans-unit id="82">
+                <source>Epado sposobem pogłębiania wiedzy o zabytkach oraz ciekawych obiektach.</source>
+                <target>Epado sposobem pogłębiania wiedzy o zabytkach oraz ciekawych obiektach.</target>
+            </trans-unit>
+            <trans-unit id="83">
+                <source>Pamięć</source>
+                <target>Pamięć</target>
+            </trans-unit>
+            <trans-unit id="84">
+                <source>Epado przypomina o rocznicy wysyłając powiadomienie mailem i SMS, aby najważniejsze daty były niezapomniane.</source>
+                <target>Epado przypomina o rocznicy wysyłając powiadomienie mailem i SMS, aby najważniejsze daty były niezapomniane.</target>
+            </trans-unit>
+            <trans-unit id="85">
+                <source>Drzewo genealogiczne</source>
+                <target>Drzewo genealogiczne</target>
+            </trans-unit>
+            <trans-unit id="86">
+                <source>Epado umożliwi w przyszłości stworzenie drzewa genealogicznego.</source>
+                <target>Epado umożliwi w przyszłości stworzenie drzewa genealogicznego.</target>
+            </trans-unit>
+            <trans-unit id="87">
+                <source>Usługi</source>
+                <target>Usługi</target>
+            </trans-unit>
+            <trans-unit id="88">
+                <source>Epado umożliwia zakup realnych usług w wirtualnym świecie wspomnień.</source>
+                <target>Epado umożliwia zakup realnych usług w wirtualnym świecie wspomnień.</target>
+            </trans-unit>
+            <trans-unit id="89">
+                <source>Wyszukiwarka</source>
+                <target>Wyszukiwarka</target>
+            </trans-unit>
+            <trans-unit id="90">
+                <source>Epado pozwoli odszukać interesujące Cię osoby, obiekty i miejsca.</source>
+                <target>Epado pozwoli odszukać interesujące Cię osoby, obiekty i miejsca.</target>
+            </trans-unit>
+            <trans-unit id="91">
+                <source>Umarłych wieczność dotąd trwa, dokąd pamięcią się im płaci.</source>
+                <target>Umarłych wieczność dotąd trwa, dokąd pamięcią się im płaci.</target>
+            </trans-unit>
+            <trans-unit id="92">
+                <source>Jak to działa</source>
+                <target>Jak to działa</target>
+            </trans-unit>
+            <trans-unit id="93">
+                <source>Zapoznaj się ze wszystkimi krokami które występują w procesie stworzenia własnej strony Epado.</source>
+                <target>Zapoznaj się ze wszystkimi krokami które występują w procesie stworzenia własnej strony Epado.</target>
+            </trans-unit>
+            <trans-unit id="94">
+                <source>Załóż swoje konto w serwisie Epado</source>
+                <target>Załóż swoje konto w serwisie Epado</target>
+            </trans-unit>
+            <trans-unit id="95">
+                <source>Aby rozpocząć tworzenie swojej strony Epado musisz się zarejestrować. Możesz do tego celu wykorzystać swoje konto na facebooku lub wypełnić tradycyjny formularz rejestracyjny.</source>
+                <target>Aby rozpocząć tworzenie swojej strony Epado musisz się zarejestrować. Możesz do tego celu wykorzystać swoje konto na facebooku lub wypełnić tradycyjny formularz rejestracyjny.</target>
+            </trans-unit>
+            <trans-unit id="96">
+                <source>Stwórz swoją własną stronę Epado</source>
+                <target>Stwórz swoją własną stronę Epado</target>
+            </trans-unit>
+            <trans-unit id="97">
+                <source>Stwórz stronę Epado upamiętniającą wybraną przez Ciebie osobę zmarłą lub miejsce. Po zapisaniu podstawowych danych będziesz mógł dodać zdjęcia i filmy oraz zamawiać pakiety.</source>
+                <target>Stwórz stronę Epado upamiętniającą wybraną przez Ciebie osobę zmarłą lub miejsce. Po zapisaniu podstawowych danych będziesz mógł dodać zdjęcia i filmy oraz zamawiać pakiety.</target>
+            </trans-unit>
+            <trans-unit id="98">
+                <source>Zamów jeden z pakietów dla strony</source>
+                <target>Zamów jeden z pakietów dla strony</target>
+            </trans-unit>
+            <trans-unit id="99">
+                <source>Po utworzeniu strony będziesz mógł zakupić do niej pakiet. W skład pakietu poza abonamentem dla strony na określoną ilość lat otrzymasz również fizyczny kod QR.</source>
+                <target>Po utworzeniu strony będziesz mógł zakupić do niej pakiet. W skład pakietu poza abonamentem dla strony na określoną ilość lat otrzymasz również fizyczny kod QR.</target>
+            </trans-unit>
+            <trans-unit id="100">
+                <source>Odbierz przesyłkę z kodem aktywacyjnym</source>
+                <target>Odbierz przesyłkę z kodem aktywacyjnym</target>
+            </trans-unit>
+            <trans-unit id="101">
+                <source>Po opłaceniu zamówienia niezwłocznie wyślemy do Ciebie przesyłkę z kodem aktywacyjnym i fizyczną płytką Epado zawierającą kod QR prowadzący do Twojej strony.</source>
+                <target>Po opłaceniu zamówienia niezwłocznie wyślemy do Ciebie przesyłkę z kodem aktywacyjnym i fizyczną płytką Epado zawierającą kod QR prowadzący do Twojej strony.</target>
+            </trans-unit>
+            <trans-unit id="102">
+                <source>Cennik</source>
+                <target>Cennik</target>
+            </trans-unit>
+            <trans-unit id="103">
+                <source>Sprawdź wszystkie dostępne pakiety i wybierz okres.</source>
+                <target>Sprawdź wszystkie dostępne pakiety i wybierz okres.</target>
+            </trans-unit>
+            <trans-unit id="104">
+                <source>Opisy i zdjęcia</source>
+                <target>Opisy i zdjęcia</target>
+            </trans-unit>
+            <trans-unit id="105">
+                <source>Pojedynczy kod Epado</source>
+                <target>Pojedynczy kod Epado</target>
+            </trans-unit>
+            <trans-unit id="106">
+                <source>Dostęp do utworzonych wspomnień 365/24</source>
+                <target>Dostęp do utworzonych wspomnień 365/24</target>
+            </trans-unit>
+            <trans-unit id="107">
+                <source>Intuicyjny system zarządzania treścią</source>
+                <target>Intuicyjny system zarządzania treścią</target>
+            </trans-unit>
+            <trans-unit id="108">
+                <source>Wspomnienia w postaci strony internetowej</source>
+                <target>Wspomnienia w postaci strony internetowej</target>
+            </trans-unit>
+            <trans-unit id="109">
+                <source>Najdłuższy dostępny okres czasu</source>
+                <target>Najdłuższy dostępny okres czasu</target>
+            </trans-unit>
+            <trans-unit id="110">
+                <source>czytaj więcej</source>
+                <target>czytaj więcej</target>
+            </trans-unit>
+            <trans-unit id="111">
+                <source>Epado to największy w Polsce serwis upamiętniający osoby zmarłe</source>
+                <target>Epado to największy w Polsce serwis upamiętniający osoby zmarłe</target>
+            </trans-unit>
+            <trans-unit id="112">
+                <source>epado, osoby zmarłe, cmentarze, baza cmentarzy</source>
+                <target>epado, osoby zmarłe, cmentarze, baza cmentarzy</target>
+            </trans-unit>
+            <trans-unit id="113">
+                <source>Wpisz imię i nazwisko osoby zmarłej, nazwę upamiętnianego miejsca, miasto lub nazwę cmentarza</source>
+                <target>Wpisz imię i nazwisko osoby zmarłej, nazwę upamiętnianego miejsca, miasto lub nazwę cmentarza</target>
+            </trans-unit>
+            <trans-unit id="114">
+                <source>Wyloguj</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            <trans-unit id="115">
+                <source>Strona główna</source>
+                <target>Strona główna</target>
+            </trans-unit>
+            <trans-unit id="116">
+                <source>Koszyk</source>
+                <target>Koszyk</target>
+            </trans-unit>
+            <trans-unit id="117">
+                <source>Panel</source>
+                <target>Panel</target>
+            </trans-unit>
+            <trans-unit id="118">
+                <source>Panel administracyjny</source>
+                <target>Panel administracyjny</target>
+            </trans-unit>
+            <trans-unit id="119">
+                <source>Panel pracownika</source>
+                <target>Panel pracownika</target>
+            </trans-unit>
+            <trans-unit id="120">
+                <source>Panel handlowca</source>
+                <target>Panel handlowca</target>
+            </trans-unit>
+            <trans-unit id="121">
+                <source>Panel wykonawcy</source>
+                <target>Panel wykonawcy</target>
+            </trans-unit>
+            <trans-unit id="122">
+                <source>Panel partnera</source>
+                <target>Panel partnera</target>
+            </trans-unit>
+            <trans-unit id="123">
+                <source>Sklep dla partnerów</source>
+                <target>Sklep dla partnerów</target>
+            </trans-unit>
+            <trans-unit id="124">
+                <source>Zapytania i opinie</source>
+                <target>Zapytania i opinie</target>
+            </trans-unit>
+            <trans-unit id="125">
+                <source>Użytkownicy</source>
+                <target>Użytkownicy</target>
+            </trans-unit>
+            <trans-unit id="126">
+                <source>Produkty</source>
+                <target>Produkty</target>
+            </trans-unit>
+            <trans-unit id="127">
+                <source>Kody</source>
+                <target>Kody</target>
+            </trans-unit>
+            <trans-unit id="128">
+                <source>Powiadomienia</source>
+                <target>Powiadomienia</target>
+            </trans-unit>
+            <trans-unit id="129">
+                <source>Zamówienia do realizacji</source>
+                <target>Zamówienia do realizacji</target>
+            </trans-unit>
+            <trans-unit id="130">
+                <source>Usługi do wykonania</source>
+                <target>Usługi do wykonania</target>
+            </trans-unit>
+            <trans-unit id="131">
+                <source>Dane adresowe</source>
+                <target>Dane adresowe</target>
+            </trans-unit>
+            <trans-unit id="132">
+                <source>Konto Epado</source>
+                <target>Konto Epado</target>
+            </trans-unit>
+            <trans-unit id="133">
+                <source>Moje konto</source>
+                <target>Moje konto</target>
+            </trans-unit>
+            <trans-unit id="134">
+                <source>Moje strony</source>
+                <target>Moje strony</target>
+            </trans-unit>
+            <trans-unit id="135">
+                <source>Zamówienia</source>
+                <target>Zamówienia</target>
+            </trans-unit>
+            <trans-unit id="136">
+                <source>Zamówione usługi</source>
+                <target>Zamówione usługi</target>
+            </trans-unit>
+            <trans-unit id="137">
+                <source>Rejestracja</source>
+                <target>Rejestracja</target>
+            </trans-unit>
+            <trans-unit id="138">
+                <source>Logowanie</source>
+                <target>Logowanie</target>
+            </trans-unit>
+            <trans-unit id="139">
+                <source>Czym jestem</source>
+                <target>Czym jestem</target>
+            </trans-unit>
+            <trans-unit id="140">
+                <source>Jak działam</source>
+                <target>Jak działam</target>
+            </trans-unit>
+            <trans-unit id="141">
+                <source>Kontakt</source>
+                <target>Kontakt</target>
+            </trans-unit>
+            <trans-unit id="142">
+                <source>tel.</source>
+                <target>tel.</target>
+            </trans-unit>
+            <trans-unit id="143">
+                <source>Znajdź nas</source>
+                <target>Znajdź nas</target>
+            </trans-unit>
+            <trans-unit id="144">
+                <source>Płatności obsługuje</source>
+                <target>Płatności obsługuje</target>
+            </trans-unit>
+            <trans-unit id="145">
+                <source>Menu</source>
+                <target>Menu</target>
+            </trans-unit>
+            <trans-unit id="146">
+                <source>Zapomniałem hasła</source>
+                <target>Zapomniałem hasła</target>
+            </trans-unit>
+            <trans-unit id="147">
+                <source>Dodaj stronę</source>
+                <target>Dodaj stronę</target>
+            </trans-unit>
+            <trans-unit id="148">
+                <source>Wyślij do nas sugestie</source>
+                <target>Wyślij do nas sugestie</target>
+            </trans-unit>
+            <trans-unit id="149">
+                <source>Twoja sugestia</source>
+                <target>Twoja sugestia</target>
+            </trans-unit>
+            <trans-unit id="150">
+                <source>To pole jest wymagane</source>
+                <target>To pole jest wymagane</target>
+            </trans-unit>
+            <trans-unit id="151">
+                <source>Formularz reklamacyjny</source>
+                <target>Formularz reklamacyjny</target>
+            </trans-unit>
+            <trans-unit id="152">
+                <source>Zostań partnerem</source>
+                <target>Zostań partnerem</target>
+            </trans-unit>
+            <trans-unit id="153">
+                <source>Informacje</source>
+                <target>Informacje</target>
+            </trans-unit>
+            <trans-unit id="154">
+                <source>Strona Epado używa ciasteczka w celu usprawnienia działania strony i użycia niektórych jej funkcjonalności. Jeżeli nie zgadzasz się na używanie ciastek przez naszą stronę możesz zmienić ustawienia swojej przeglądarki lub opuścić stronę.</source>
+                <target>Strona Epado używa ciasteczka w celu usprawnienia działania strony i użycia niektórych jej funkcjonalności. Jeżeli nie zgadzasz się na używanie ciastek przez naszą stronę możesz zmienić ustawienia swojej przeglądarki lub opuścić stronę.</target>
+            </trans-unit>
+            <trans-unit id="155">
+                <source>Twój adres IP</source>
+                <target>Twój adres IP</target>
+            </trans-unit>
+            <trans-unit id="156">
+                <source>Imię i nazwisko</source>
+                <target>Imię i nazwisko</target>
+            </trans-unit>
+            <trans-unit id="157">
+                <source>Adres email</source>
+                <target>Adres email</target>
+            </trans-unit>
+            <trans-unit id="158">
+                <source>Opis reklamacji</source>
+                <target>Opis reklamacji</target>
+            </trans-unit>
+            <trans-unit id="159">
+                <source>Wyślij zgłoszenie</source>
+                <target>Wyślij zgłoszenie</target>
+            </trans-unit>
+            <trans-unit id="160">
+                <source>Pozdrawiamy,</source>
+                <target>Pozdrawiamy,</target>
+            </trans-unit>
+            <trans-unit id="161">
+                <source>Zespół Epado</source>
+                <target>Zespół Epado</target>
+            </trans-unit>
+            <trans-unit id="162">
+                <source>Każda opinia na temat Epado jest dla nas bardzo ważna dlatego dziękujemy za wiadomość.</source>
+                <target>Każda opinia na temat Epado jest dla nas bardzo ważna dlatego dziękujemy za wiadomość.</target>
+            </trans-unit>
+            <trans-unit id="163">
+                <source>Podany przez Ciebie numer telefonu jest nieprawidłowy:</source>
+                <target>Podany przez Ciebie numer telefonu jest nieprawidłowy:</target>
+            </trans-unit>
+            <trans-unit id="164">
+                <source>Wysłany został SMS z linkiem do strony na numer:</source>
+                <target>Wysłany został SMS z linkiem do strony na numer:</target>
+            </trans-unit>
+            <trans-unit id="165">
+                <source>SMS nie został wysłany, możliwe że podałeś zły nr telefonu albo numer który już nie działa:</source>
+                <target>SMS nie został wysłany, możliwe że podałeś zły nr telefonu albo numer który już nie działa:</target>
+            </trans-unit>
+            <trans-unit id="166">
+                <source>Wysłany został mail z linkiem do strony na adres:</source>
+                <target>Wysłany został mail z linkiem do strony na adres:</target>
+            </trans-unit>
+            <trans-unit id="167">
+                <source>Podany przez Ciebie mail jest nieprawidłowy:</source>
+                <target>Podany przez Ciebie mail jest nieprawidłowy:</target>
+            </trans-unit>
+            <trans-unit id="168">
+                <source>Program partnerski</source>
+                <target>Program partnerski</target>
+            </trans-unit>
+            <trans-unit id="169">
+                <source>Zdjęcie</source>
+                <target>Zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="170">
+                <source>Zdjęcia</source>
+                <target>Zdjęcia</target>
+            </trans-unit>
+            <trans-unit id="171">
+                <source>Wiadomość</source>
+                <target>Wiadomość</target>
+            </trans-unit>
+            <trans-unit id="172">
+                <source>Wiadomość do</source>
+                <target>Wiadomość do</target>
+            </trans-unit>
+            <trans-unit id="173">
+                <source>Podaj temat</source>
+                <target>Podaj temat</target>
+            </trans-unit>
+            <trans-unit id="174">
+                <source>Podaj treść wiadomości</source>
+                <target>Podaj treść wiadomości</target>
+            </trans-unit>
+            <trans-unit id="175">
+                <source>Wyślij wiadomość</source>
+                <target>Wyślij wiadomość</target>
+            </trans-unit>
+            <trans-unit id="176">
+                <source>Temat</source>
+                <target>Temat</target>
+            </trans-unit>
+            <trans-unit id="177">
+                <source>Wyślij zapytanie lub opinie do Epado</source>
+                <target>Wyślij zapytanie lub opinie do Epado</target>
+            </trans-unit>
+            <trans-unit id="178">
+                <source>Wiadomości</source>
+                <target>Wiadomości</target>
+            </trans-unit>
+            <trans-unit id="179">
+                <source>Osoba</source>
+                <target>Osoba</target>
+            </trans-unit>
+            <trans-unit id="180">
+                <source>Nie masz wiadomości.</source>
+                <target>Nie masz wiadomości.</target>
+            </trans-unit>
+            <trans-unit id="181">
+                <source>Pojawiają się tu zapytania od klientów, w przypadku odpowiedzi na jedno z zapytań zostanie ono przeniesione do Twojego folderu z wiadomościami gdzie będzie można kontynuować korespondencję z klientem.</source>
+                <target>Pojawiają się tu zapytania od klientów, w przypadku odpowiedzi na jedno z zapytań zostanie ono przeniesione do Twojego folderu z wiadomościami gdzie będzie można kontynuować korespondencję z klientem.</target>
+            </trans-unit>
+            <trans-unit id="182">
+                <source>Nie odnaleziono osoby.</source>
+                <target>Nie odnaleziono osoby.</target>
+            </trans-unit>
+            <trans-unit id="183">
+                <source>Wysyłkowe dane adresowe</source>
+                <target>Wysyłkowe dane adresowe</target>
+            </trans-unit>
+            <trans-unit id="184">
+                <source>Dane rozliczeniowe</source>
+                <target>Dane rozliczeniowe</target>
+            </trans-unit>
+            <trans-unit id="185">
+                <source>Dane adresowe w zamówieniu</source>
+                <target>Dane adresowe w zamówieniu</target>
+            </trans-unit>
+            <trans-unit id="186">
+                <source>Takie jak wysyłkowe</source>
+                <target>Takie jak wysyłkowe</target>
+            </trans-unit>
+            <trans-unit id="187">
+                <source>Zamówienie</source>
+                <target>Zamówienie</target>
+            </trans-unit>
+            <trans-unit id="188">
+                <source>Zamówienie anulowane</source>
+                <target>Zamówienie anulowane</target>
+            </trans-unit>
+            <trans-unit id="189">
+                <source>nr</source>
+                <target>nr</target>
+            </trans-unit>
+            <trans-unit id="190">
+                <source>Usługa</source>
+                <target>Usługa</target>
+            </trans-unit>
+            <trans-unit id="191">
+                <source>Koszyk anulowany</source>
+                <target>Koszyk anulowany</target>
+            </trans-unit>
+            <trans-unit id="192">
+                <source>Zawartość koszyka</source>
+                <target>Zawartość koszyka</target>
+            </trans-unit>
+            <trans-unit id="193">
+                <source>Zmiany</source>
+                <target>Zmiany</target>
+            </trans-unit>
+            <trans-unit id="194">
+                <source>Cena</source>
+                <target>Cena</target>
+            </trans-unit>
+            <trans-unit id="195">
+                <source>Suma</source>
+                <target>Suma</target>
+            </trans-unit>
+            <trans-unit id="196">
+                <source>Zmień cenę</source>
+                <target>Zmień cenę</target>
+            </trans-unit>
+            <trans-unit id="197">
+                <source>Wróć do zakupów</source>
+                <target>Wróć do zakupów</target>
+            </trans-unit>
+            <trans-unit id="198">
+                <source>W zamówieniu znajdują się usługi które można przeglądać w zakładce z usługami. Znajdzie się tam informacja o ich przebiegu.</source>
+                <target>W zamówieniu znajdują się usługi które można przeglądać w zakładce z usługami. Znajdzie się tam informacja o ich przebiegu.</target>
+            </trans-unit>
+            <trans-unit id="199">
+                <source>Przejdź do listy usług</source>
+                <target>Przejdź do listy usług</target>
+            </trans-unit>
+            <trans-unit id="200">
+                <source>Obecnie Twój koszyk jest pusty. Możesz dodać do niego produkty na jednej ze swoich stron Epado. Jeżeli nie masz dodanej strony możesz ją dodać, wystarczy wypełnić prosty formularz ze wszystkimi danymi dotyczącymi upamiętnianej osoby lub miejsca.</source>
+                <target>Obecnie Twój koszyk jest pusty. Możesz dodać do niego produkty na jednej ze swoich stron Epado. Jeżeli nie masz dodanej strony możesz ją dodać, wystarczy wypełnić prosty formularz ze wszystkimi danymi dotyczącymi upamiętnianej osoby lub miejsca.</target>
+            </trans-unit>
+            <trans-unit id="201">
+                <source>Nr płatności</source>
+                <target>Nr płatności</target>
+            </trans-unit>
+            <trans-unit id="202">
+                <source>Status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="203">
+                <source>Ostatnia zmiana</source>
+                <target>Ostatnia zmiana</target>
+            </trans-unit>
+            <trans-unit id="204">
+                <source>Opcje</source>
+                <target>Opcje</target>
+            </trans-unit>
+            <trans-unit id="205">
+                <source>Przed zatwierdzeniem zamówienia upewnij się że Poniższe dane są prawidłowe.</source>
+                <target>Przed zatwierdzeniem zamówienia upewnij się że Poniższe dane są prawidłowe.</target>
+            </trans-unit>
+            <trans-unit id="206">
+                <source>Adres dostawy</source>
+                <target>Adres dostawy</target>
+            </trans-unit>
+            <trans-unit id="207">
+                <source>Brak</source>
+                <target>Brak</target>
+            </trans-unit>
+            <trans-unit id="208">
+                <source>Edytuj</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="209">
+                <source>Pobierz dokument</source>
+                <target>Pobierz dokument</target>
+            </trans-unit>
+            <trans-unit id="210">
+                <source>Wystaw fakturę</source>
+                <target>Wystaw fakturę</target>
+            </trans-unit>
+            <trans-unit id="211">
+                <source>Zamówienie zostało anulowane dnia:</source>
+                <target>Zamówienie zostało anulowane dnia:</target>
+            </trans-unit>
+            <trans-unit id="212">
+                <source>Status zamówienia</source>
+                <target>Status zamówienia</target>
+            </trans-unit>
+            <trans-unit id="213">
+                <source>Zamówienie opłacone</source>
+                <target>Zamówienie opłacone</target>
+            </trans-unit>
+            <trans-unit id="214">
+                <source>Opłacone</source>
+                <target>Opłacone</target>
+            </trans-unit>
+            <trans-unit id="215">
+                <source>Nieopłacone</source>
+                <target>Nieopłacone</target>
+            </trans-unit>
+            <trans-unit id="216">
+                <source>Zapisz</source>
+                <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="217">
+                <source>Twoje uwagi</source>
+                <target>Twoje uwagi</target>
+            </trans-unit>
+            <trans-unit id="218">
+                <source>Twoje zamówienie jest opłacone.</source>
+                <target>Twoje zamówienie jest opłacone.</target>
+            </trans-unit>
+            <trans-unit id="219">
+                <source>W zamówieniu znajdują się kody dla stron Epado. Zostaną one wysłane do Ciebie pocztą.</source>
+                <target>W zamówieniu znajdują się kody dla stron Epado. Zostaną one wysłane do Ciebie pocztą.</target>
+            </trans-unit>
+            <trans-unit id="220">
+                <source>Produkt</source>
+                <target>Produkt</target>
+            </trans-unit>
+            <trans-unit id="221">
+                <source>Zamówienie kodu dla strony</source>
+                <target>Zamówienie kodu dla strony</target>
+            </trans-unit>
+            <trans-unit id="222">
+                <source>Zamówienie usługi dla strony</source>
+                <target>Zamówienie usługi dla strony</target>
+            </trans-unit>
+            <trans-unit id="223">
+                <source>Następujący kod został aktywowany przez użytkownika</source>
+                <target>Następujący kod został aktywowany przez użytkownika</target>
+            </trans-unit>
+            <trans-unit id="224">
+                <source>Przypisany kod to</source>
+                <target>Przypisany kod to</target>
+            </trans-unit>
+            <trans-unit id="225">
+                <source>Zeskanuj kod wysyłanego produktu aby powiązać go z zamówieniem</source>
+                <target>Zeskanuj kod wysyłanego produktu aby powiązać go z zamówieniem</target>
+            </trans-unit>
+            <trans-unit id="226">
+                <source>Zamawiający</source>
+                <target>Zamawiający</target>
+            </trans-unit>
+            <trans-unit id="227">
+                <source>Opis</source>
+                <target>Opis</target>
+            </trans-unit>
+            <trans-unit id="228">
+                <source>Firma</source>
+                <target>Firma</target>
+            </trans-unit>
+            <trans-unit id="229">
+                <source>Potwierdzenie wykonania usługi przez firmę</source>
+                <target>Potwierdzenie wykonania usługi przez firmę</target>
+            </trans-unit>
+            <trans-unit id="230">
+                <source>Potwierdzenie odebrania usługi przez klienta</source>
+                <target>Potwierdzenie odebrania usługi przez klienta</target>
+            </trans-unit>
+            <trans-unit id="231">
+                <source>Przypisz podwykonawce</source>
+                <target>Przypisz podwykonawce</target>
+            </trans-unit>
+            <trans-unit id="232">
+                <source>Miasto lub nazwa wykonawcy</source>
+                <target>Miasto lub nazwa wykonawcy</target>
+            </trans-unit>
+            <trans-unit id="233">
+                <source>Zatwierdź zamówienie</source>
+                <target>Zatwierdź zamówienie</target>
+            </trans-unit>
+            <trans-unit id="234">
+                <source>Zatwierdź zamówienie i opłać online</source>
+                <target>Zatwierdź zamówienie i opłać online</target>
+            </trans-unit>
+            <trans-unit id="235">
+                <source>Opłać zamówienie online</source>
+                <target>Opłać zamówienie online</target>
+            </trans-unit>
+            <trans-unit id="236">
+                <source>Drukuj zamówienie</source>
+                <target>Drukuj zamówienie</target>
+            </trans-unit>
+            <trans-unit id="237">
+                <source>Zakończ zamówienie</source>
+                <target>Zakończ zamówienie</target>
+            </trans-unit>
+            <trans-unit id="238">
+                <source>Anuluj zamówienie</source>
+                <target>Anuluj zamówienie</target>
+            </trans-unit>
+            <trans-unit id="239">
+                <source>Oznacz usługę jako wykonana</source>
+                <target>Oznacz usługę jako wykonana</target>
+            </trans-unit>
+            <trans-unit id="240">
+                <source>Po wykonaniu usługi proszę dodać zdjęcia prezentujące jej efekt i oznaczyć usługę jako wykonaną.</source>
+                <target>Po wykonaniu usługi proszę dodać zdjęcia prezentujące jej efekt i oznaczyć usługę jako wykonaną.</target>
+            </trans-unit>
+            <trans-unit id="241">
+                <source>Proszę potwierdzić wykonanie usługi przez firmę na podstawie załączonych poniżej zdjęć.</source>
+                <target>Proszę potwierdzić wykonanie usługi przez firmę na podstawie załączonych poniżej zdjęć.</target>
+            </trans-unit>
+            <trans-unit id="242">
+                <source>Po wykonaniu usługi pojawią się tutaj zdjęcia to potwierdzające.</source>
+                <target>Po wykonaniu usługi pojawią się tutaj zdjęcia to potwierdzające.</target>
+            </trans-unit>
+            <trans-unit id="243">
+                <source>Upuść tutaj zdjęcia albo kliknij i wybierz je ze swojego urządzenia.</source>
+                <target>Upuść tutaj zdjęcia albo kliknij i wybierz je ze swojego urządzenia.</target>
+            </trans-unit>
+            <trans-unit id="244">
+                <source>Usuń zdjęcie</source>
+                <target>Usuń zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="245">
+                <source>Niewłaściwy format pliku, dozwolone pliki to jpg lub png.</source>
+                <target>Niewłaściwy format pliku, dozwolone pliki to jpg lub png.</target>
+            </trans-unit>
+            <trans-unit id="246">
+                <source>Wystąpił błąd.</source>
+                <target>Wystąpił błąd.</target>
+            </trans-unit>
+            <trans-unit id="247">
+                <source>Dodałeś zbyt dużo plików.</source>
+                <target>Dodałeś zbyt dużo plików.</target>
+            </trans-unit>
+            <trans-unit id="248">
+                <source>Plik jest za duży. Dozwolony rozmiar to:</source>
+                <target>Plik jest za duży. Dozwolony rozmiar to:</target>
+            </trans-unit>
+            <trans-unit id="249">
+                <source>Oceń wykonawcę</source>
+                <target>Oceń wykonawcę</target>
+            </trans-unit>
+            <trans-unit id="250">
+                <source>Twoja przeglądarka nie obsługuje dodawania wielu plików jednocześnie</source>
+                <target>Twoja przeglądarka nie obsługuje dodawania wielu plików jednocześnie</target>
+            </trans-unit>
+            <trans-unit id="251">
+                <source>Wybierz plik</source>
+                <target>Wybierz plik</target>
+            </trans-unit>
+            <trans-unit id="252">
+                <source>Dodaj zdjęcie</source>
+                <target>Dodaj zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="253">
+                <source>Miejsce</source>
+                <target>Miejsce</target>
+            </trans-unit>
+            <trans-unit id="254">
+                <source>Chcę otrzymać fakturę</source>
+                <target>Chcę otrzymać fakturę</target>
+            </trans-unit>
+            <trans-unit id="255">
+                <source>Jeżeli chcesz otrzymać fakturę po zatwierdzeniu i opłąceniu zamówienia zaznacz powyższe pole "Chcę otrzymać fakturę". Jeżeli nie zaznaczych powyższego pola nie zostanie wystawiona dla Ciebie faktura. Po zatwierdzeniu zamówienia nie będzie można zmienić danych rozliczeniowych w zamówieniu bez kontaktu z działem obsługi klienta.</source>
+                <target>Jeżeli chcesz otrzymać fakturę po zatwierdzeniu i opłąceniu zamówienia zaznacz powyższe pole "Chcę otrzymać fakturę". Jeżeli nie zaznaczych powyższego pola nie zostanie wystawiona dla Ciebie faktura. Po zatwierdzeniu zamówienia nie będzie można zmienić danych rozliczeniowych w zamówieniu bez kontaktu z działem obsługi klienta.</target>
+            </trans-unit>
+            <trans-unit id="256">
+                <source>Po opłaceniu zamówienia zostanie wystawiona dla Ciebie faktura. Zostanie ona wysłana na maila oraz będzie dostępna do pobrania na karcie zamówienia.</source>
+                <target>Po opłaceniu zamówienia zostanie wystawiona dla Ciebie faktura. Zostanie ona wysłana na maila oraz będzie dostępna do pobrania na karcie zamówienia.</target>
+            </trans-unit>
+            <trans-unit id="257">
+                <source>Powiadomienie</source>
+                <target>Powiadomienie</target>
+            </trans-unit>
+            <trans-unit id="258">
+                <source>W treści powiadomienia można używać zmiennych ale tylko jeżeli dane powiadomienie ma taką możliwość (przykładowo powiadomienie o rejestracji jedyne zmienne to adres email usera i jego hasło)</source>
+                <target>W treści powiadomienia można używać zmiennych ale tylko jeżeli dane powiadomienie ma taką możliwość (przykładowo powiadomienie o rejestracji jedyne zmienne to adres email usera i jego hasło)</target>
+            </trans-unit>
+            <trans-unit id="259">
+                <source>opcjonalny link kierujący do wspomnianego obiektu</source>
+                <target>opcjonalny link kierujący do wspomnianego obiektu</target>
+            </trans-unit>
+            <trans-unit id="260">
+                <source>opcjonalna treść wiadomości</source>
+                <target>opcjonalna treść wiadomości</target>
+            </trans-unit>
+            <trans-unit id="261">
+                <source>opcjnalna nazwa strony</source>
+                <target>opcjnalna nazwa strony</target>
+            </trans-unit>
+            <trans-unit id="262">
+                <source>opcjonalny nadawca wiadomości np w przypadku kondolencji</source>
+                <target>opcjonalny nadawca wiadomości np w przypadku kondolencji</target>
+            </trans-unit>
+            <trans-unit id="263">
+                <source>opcjonalna data śmierci upamiętnionej osoby</source>
+                <target>opcjonalna data śmierci upamiętnionej osoby</target>
+            </trans-unit>
+            <trans-unit id="264">
+                <source>opcjonalna nazwa usługi</source>
+                <target>opcjonalna nazwa usługi</target>
+            </trans-unit>
+            <trans-unit id="265">
+                <source>opcjonalny numer zamówienia</source>
+                <target>opcjonalny numer zamówienia</target>
+            </trans-unit>
+            <trans-unit id="266">
+                <source>link do zamówienia</source>
+                <target>link do zamówienia</target>
+            </trans-unit>
+            <trans-unit id="267">
+                <source>nr zamówienia</source>
+                <target>nr zamówienia</target>
+            </trans-unit>
+            <trans-unit id="268">
+                <source>adres do wysyłki</source>
+                <target>adres do wysyłki</target>
+            </trans-unit>
+            <trans-unit id="269">
+                <source>dane rozliczeniowe</source>
+                <target>dane rozliczeniowe</target>
+            </trans-unit>
+            <trans-unit id="270">
+                <source>cena zamówienia</source>
+                <target>cena zamówienia</target>
+            </trans-unit>
+            <trans-unit id="271">
+                <source>tabelka z produktami oraz ich cenami w zamówieniu</source>
+                <target>tabelka z produktami oraz ich cenami w zamówieniu</target>
+            </trans-unit>
+            <trans-unit id="272">
+                <source>Statusy</source>
+                <target>Statusy</target>
+            </trans-unit>
+            <trans-unit id="273">
+                <source>Lp</source>
+                <target>Lp</target>
+            </trans-unit>
+            <trans-unit id="274">
+                <source>Kupujący</source>
+                <target>Kupujący</target>
+            </trans-unit>
+            <trans-unit id="275">
+                <source>Zamówienie nr</source>
+                <target>Zamówienie nr</target>
+            </trans-unit>
+            <trans-unit id="276">
+                <source>Data stanu</source>
+                <target>Data stanu</target>
+            </trans-unit>
+            <trans-unit id="277">
+                <source>Anulowane</source>
+                <target>Anulowane</target>
+            </trans-unit>
+            <trans-unit id="278">
+                <source>Potwierdzone</source>
+                <target>Potwierdzone</target>
+            </trans-unit>
+            <trans-unit id="279">
+                <source>Nie odnaleziono żadnych zamówień</source>
+                <target>Nie odnaleziono żadnych zamówień</target>
+            </trans-unit>
+            <trans-unit id="280">
+                <source>Nie posiadasz żadnych zamówień. Możesz zamówić produkty lub usługi Epado na jednej ze swoich stron lub na stronach dodanych przez inne osoby. Nową stronę możesz dodać w zakładce Moje strony.</source>
+                <target>Nie posiadasz żadnych zamówień. Możesz zamówić produkty lub usługi Epado na jednej ze swoich stron lub na stronach dodanych przez inne osoby. Nową stronę możesz dodać w zakładce Moje strony.</target>
+            </trans-unit>
+            <trans-unit id="281">
+                <source>Kupujący i wykonawca</source>
+                <target>Kupujący i wykonawca</target>
+            </trans-unit>
+            <trans-unit id="282">
+                <source>Data wykonania</source>
+                <target>Data wykonania</target>
+            </trans-unit>
+            <trans-unit id="283">
+                <source>Ocena</source>
+                <target>Ocena</target>
+            </trans-unit>
+            <trans-unit id="284">
+                <source>Brak komentarza</source>
+                <target>Brak komentarza</target>
+            </trans-unit>
+            <trans-unit id="285">
+                <source>Nie odnaleziono żadnych zamówień. Zmień ustawienia filtra.</source>
+                <target>Nie odnaleziono żadnych zamówień. Zmień ustawienia filtra.</target>
+            </trans-unit>
+            <trans-unit id="286">
+                <source>Nie posiadasz żadnych usług które wymagają realizacji.</source>
+                <target>Nie posiadasz żadnych usług które wymagają realizacji.</target>
+            </trans-unit>
+            <trans-unit id="287">
+                <source>Mail</source>
+                <target>Mail</target>
+            </trans-unit>
+            <trans-unit id="288">
+                <source>Nie ma powiadomień.</source>
+                <target>Nie ma powiadomień.</target>
+            </trans-unit>
+            <trans-unit id="289">
+                <source>Statusy zamówień</source>
+                <target>Statusy zamówień</target>
+            </trans-unit>
+            <trans-unit id="290">
+                <source>Dodaj status</source>
+                <target>Dodaj status</target>
+            </trans-unit>
+            <trans-unit id="291">
+                <source>Nie ma statusów.</source>
+                <target>Nie ma statusów.</target>
+            </trans-unit>
+            <trans-unit id="292">
+                <source>Nr zamówienia</source>
+                <target>Nr zamówienia</target>
+            </trans-unit>
+            <trans-unit id="293">
+                <source>Zakończone</source>
+                <target>Zakończone</target>
+            </trans-unit>
+            <trans-unit id="294">
+                <source>Miesiąc</source>
+                <target>Miesiąc</target>
+            </trans-unit>
+            <trans-unit id="295">
+                <source>Przeszukujesz zamówienia użytkownika:</source>
+                <target>Przeszukujesz zamówienia użytkownika:</target>
+            </trans-unit>
+            <trans-unit id="296">
+                <source>Oznaczono usługę jako wykonana.</source>
+                <target>Oznaczono usługę jako wykonana.</target>
+            </trans-unit>
+            <trans-unit id="297">
+                <source>Status nie został zmieniony. Musisz dodać co najmniej 4 zdjęcia.</source>
+                <target>Status nie został zmieniony. Musisz dodać co najmniej 4 zdjęcia.</target>
+            </trans-unit>
+            <trans-unit id="298">
+                <source>Usługa została oceniona.</source>
+                <target>Usługa została oceniona.</target>
+            </trans-unit>
+            <trans-unit id="299">
+                <source>Nr usługi</source>
+                <target>Nr usługi</target>
+            </trans-unit>
+            <trans-unit id="300">
+                <source>Stan usługi</source>
+                <target>Stan usługi</target>
+            </trans-unit>
+            <trans-unit id="301">
+                <source>W trakcie realizacji</source>
+                <target>W trakcie realizacji</target>
+            </trans-unit>
+            <trans-unit id="302">
+                <source>Przeszukujesz usługi wykonawcy:</source>
+                <target>Przeszukujesz usługi wykonawcy:</target>
+            </trans-unit>
+            <trans-unit id="303">
+                <source>Przeszukujesz usługi zlecone przez użytkownika</source>
+                <target>Przeszukujesz usługi zlecone przez użytkownika</target>
+            </trans-unit>
+            <trans-unit id="304">
+                <source>Twój koszyk jest aktualnie pusty. Aby z niego skorzystać musisz podać swoje dane adresowe.</source>
+                <target>Twój koszyk jest aktualnie pusty. Aby z niego skorzystać musisz podać swoje dane adresowe.</target>
+            </trans-unit>
+            <trans-unit id="305">
+                <source>Wykonawca został przypisany.</source>
+                <target>Wykonawca został przypisany.</target>
+            </trans-unit>
+            <trans-unit id="306">
+                <source>Wykonawca nie został przypisany.</source>
+                <target>Wykonawca nie został przypisany.</target>
+            </trans-unit>
+            <trans-unit id="307">
+                <source>Kod został przypisany do zamówienia.</source>
+                <target>Kod został przypisany do zamówienia.</target>
+            </trans-unit>
+            <trans-unit id="308">
+                <source>Kod nie został przypisany do zamówienia.</source>
+                <target>Kod nie został przypisany do zamówienia.</target>
+            </trans-unit>
+            <trans-unit id="309">
+                <source>Miasta</source>
+                <target>Miasta</target>
+            </trans-unit>
+            <trans-unit id="310">
+                <source>Przejdź do strony usługi</source>
+                <target>Przejdź do strony usługi</target>
+            </trans-unit>
+            <trans-unit id="311">
+                <source>Przypisz</source>
+                <target>Przypisz</target>
+            </trans-unit>
+            <trans-unit id="312">
+                <source>Nie odnaleziono wykonawcy.</source>
+                <target>Nie odnaleziono wykonawcy.</target>
+            </trans-unit>
+            <trans-unit id="313">
+                <source>Upewnij się czy miasto cmentarza strony upamiętnianej zostało dodane do jednego z wykonawców. Można też wpisywać inne hasła które zostaną wyszukane w polu opis wykonawcy lub też w danych firmowych wykonawcy.</source>
+                <target>Upewnij się czy miasto cmentarza strony upamiętnianej zostało dodane do jednego z wykonawców. Można też wpisywać inne hasła które zostaną wyszukane w polu opis wykonawcy lub też w danych firmowych wykonawcy.</target>
+            </trans-unit>
+            <trans-unit id="314">
+                <source>Nie odnaleziono takiego kodu</source>
+                <target>Nie odnaleziono takiego kodu</target>
+            </trans-unit>
+            <trans-unit id="315">
+                <source>Znaleziony kod nie należy do zamówionej grupy produktów</source>
+                <target>Znaleziony kod nie należy do zamówionej grupy produktów</target>
+            </trans-unit>
+            <trans-unit id="316">
+                <source>Znaleziony kod jest już przypisany do strony:</source>
+                <target>Znaleziony kod jest już przypisany do strony:</target>
+            </trans-unit>
+            <trans-unit id="317">
+                <source>Znaleziony kod jest już przypisany do zamówienia nr:</source>
+                <target>Znaleziony kod jest już przypisany do zamówienia nr:</target>
+            </trans-unit>
+            <trans-unit id="318">
+                <source>Przypisz ten kod do zamówienia</source>
+                <target>Przypisz ten kod do zamówienia</target>
+            </trans-unit>
+            <trans-unit id="319">
+                <source>Nie podałeś pełnych danych do faktury, uzupełnij dane jeżeli chcesz otrzymać fakturę</source>
+                <target>Nie podałeś pełnych danych do faktury, uzupełnij dane jeżeli chcesz otrzymać fakturę</target>
+            </trans-unit>
+            <trans-unit id="320">
+                <source>Nie udało się wystawić automatycznej faktury prosimy o kontakt z działem obsługi klienta.</source>
+                <target>Nie udało się wystawić automatycznej faktury prosimy o kontakt z działem obsługi klienta.</target>
+            </trans-unit>
+            <trans-unit id="321">
+                <source>Faktura została automatycznie wystawiona. Możesz ją pobrać w panelu jej numer to:</source>
+                <target>Faktura została automatycznie wystawiona. Możesz ją pobrać w panelu jej numer to:</target>
+            </trans-unit>
+            <trans-unit id="322">
+                <source>Nie zgadza się nr płatności</source>
+                <target>Nie zgadza się nr płatności</target>
+            </trans-unit>
+            <trans-unit id="323">
+                <source>Jeżeli podałeś nazwę firmy to te pole jest wymagane</source>
+                <target>Jeżeli podałeś nazwę firmy to te pole jest wymagane</target>
+            </trans-unit>
+            <trans-unit id="324">
+                <source>Jeżeli podałeś numer identyfikacj podatkowej to te pole jest wymagane</source>
+                <target>Jeżeli podałeś numer identyfikacj podatkowej to te pole jest wymagane</target>
+            </trans-unit>
+            <trans-unit id="325">
+                <source>Zmiany zostały zapisane.</source>
+                <target>Zmiany zostały zapisane.</target>
+            </trans-unit>
+            <trans-unit id="326">
+                <source>W formularzu wystąpiły błędy.</source>
+                <target>W formularzu wystąpiły błędy.</target>
+            </trans-unit>
+            <trans-unit id="327">
+                <source>Klient chce otrzymać fakturę</source>
+                <target>Klient chce otrzymać fakturę</target>
+            </trans-unit>
+            <trans-unit id="328">
+                <source>Uwagi dla Epado</source>
+                <target>Uwagi dla Epado</target>
+            </trans-unit>
+            <trans-unit id="329">
+                <source>Opcja widoczna tylko dla administracji, można z niej skorzystać już po zatwierdzeniu zamówienia jeżeli klient skontaktuje się w sprawie otrzymania faktury.</source>
+                <target>Opcja widoczna tylko dla administracji, można z niej skorzystać już po zatwierdzeniu zamówienia jeżeli klient skontaktuje się w sprawie otrzymania faktury.</target>
+            </trans-unit>
+            <trans-unit id="330">
+                <source>Ukończona</source>
+                <target>Ukończona</target>
+            </trans-unit>
+            <trans-unit id="331">
+                <source>Przetwarzana</source>
+                <target>Przetwarzana</target>
+            </trans-unit>
+            <trans-unit id="332">
+                <source>Anluowana</source>
+                <target>Anluowana</target>
+            </trans-unit>
+            <trans-unit id="333">
+                <source>Odrzucona</source>
+                <target>Odrzucona</target>
+            </trans-unit>
+            <trans-unit id="334">
+                <source>Nierozpoczęta</source>
+                <target>Nierozpoczęta</target>
+            </trans-unit>
+            <trans-unit id="335">
+                <source>Nieznany</source>
+                <target>Nieznany</target>
+            </trans-unit>
+            <trans-unit id="336">
+                <source>Powiększ zdjęcie</source>
+                <target>Powiększ zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="337">
+                <source>Twoje zdjęcie w tle</source>
+                <target>Twoje zdjęcie w tle</target>
+            </trans-unit>
+            <trans-unit id="338">
+                <source>Możesz też wybrać gotowe zdjęcie w tle</source>
+                <target>Możesz też wybrać gotowe zdjęcie w tle</target>
+            </trans-unit>
+            <trans-unit id="339">
+                <source>Twoja lokalizacja</source>
+                <target>Twoja lokalizacja</target>
+            </trans-unit>
+            <trans-unit id="340">
+                <source>Jeżeli znajdujesz się przy tym miejscu możesz zlokalizować je za pomocą Twojego urządzenia klikając w poniższy przycisk.</source>
+                <target>Jeżeli znajdujesz się przy tym miejscu możesz zlokalizować je za pomocą Twojego urządzenia klikając w poniższy przycisk.</target>
+            </trans-unit>
+            <trans-unit id="341">
+                <source>Poczekaj. Trwa lokalizowanie Twojego urządzenia.</source>
+                <target>Poczekaj. Trwa lokalizowanie Twojego urządzenia.</target>
+            </trans-unit>
+            <trans-unit id="342">
+                <source>Niestety Twoje urządzenie nie wspiera funkcji lokalizacyjnych.</source>
+                <target>Niestety Twoje urządzenie nie wspiera funkcji lokalizacyjnych.</target>
+            </trans-unit>
+            <trans-unit id="343">
+                <source>Twoje urządzenie wspiera funkcje lokalizacji ale niestety nie mogło jej znaleźć. Upewnij się że masz włączony GPS i dałeś stronie pozwolenie na korzystanie z geolokalizacji.</source>
+                <target>Twoje urządzenie wspiera funkcje lokalizacji ale niestety nie mogło jej znaleźć. Upewnij się że masz włączony GPS i dałeś stronie pozwolenie na korzystanie z geolokalizacji.</target>
+            </trans-unit>
+            <trans-unit id="344">
+                <source>Udało się zlokalizować Twoje urządzenie, sprawdź czy pozycja na mapie się zgadza. Kolorem niebieskim zaznaczony jest obszar wyznaczający dokładność pomiaru. Jeżeli urządzenie błędnie wskazało lokalizacje to spróbuj zlokalizować je ponownie lub przeciągnij i upuść marker na właściwe miejsce.</source>
+                <target>Udało się zlokalizować Twoje urządzenie, sprawdź czy pozycja na mapie się zgadza. Kolorem niebieskim zaznaczony jest obszar wyznaczający dokładność pomiaru. Jeżeli urządzenie błędnie wskazało lokalizacje to spróbuj zlokalizować je ponownie lub przeciągnij i upuść marker na właściwe miejsce.</target>
+            </trans-unit>
+            <trans-unit id="345">
+                <source>Gotowa biografia</source>
+                <target>Gotowa biografia</target>
+            </trans-unit>
+            <trans-unit id="346">
+                <source>Wybierz z listy</source>
+                <target>Wybierz z listy</target>
+            </trans-unit>
+            <trans-unit id="347">
+                <source>Tata</source>
+                <target>Tata</target>
+            </trans-unit>
+            <trans-unit id="348">
+                <source>Mama</source>
+                <target>Mama</target>
+            </trans-unit>
+            <trans-unit id="349">
+                <source>Babcia</source>
+                <target>Babcia</target>
+            </trans-unit>
+            <trans-unit id="350">
+                <source>Dziadek</source>
+                <target>Dziadek</target>
+            </trans-unit>
+            <trans-unit id="351">
+                <source>Moja mama była osobą niezwykle drogą memu sercu - kochającą, dobrą i mądrą. Z wielką pokorą znosiła wszelkie przeciwności losu, do ostatniej chwili cieszyła się życiem, zawsze na pierwszym miejscu stawiając dzieci i wnuki, którym bezgranicznie się poświęcała. To ona nauczyła mnie wrażliwości na drugiego człowieka i szacunku dla historii, to dzięki niej nasza rodzina potrafi trzymać się razem. Okazywała nam miłość i czułość, ale potrafiła być także wymagająca, wyrażając troskę o  naszą przyszłość. To dzięki niej nauczyłam się życia. Dziękuję Ci za to, kochana Mamusiu...</source>
+                <target>Moja mama była osobą niezwykle drogą memu sercu - kochającą, dobrą i mądrą. Z wielką pokorą znosiła wszelkie przeciwności losu, do ostatniej chwili cieszyła się życiem, zawsze na pierwszym miejscu stawiając dzieci i wnuki, którym bezgranicznie się poświęcała. To ona nauczyła mnie wrażliwości na drugiego człowieka i szacunku dla historii, to dzięki niej nasza rodzina potrafi trzymać się razem. Okazywała nam miłość i czułość, ale potrafiła być także wymagająca, wyrażając troskę o  naszą przyszłość. To dzięki niej nauczyłam się życia. Dziękuję Ci za to, kochana Mamusiu...</target>
+            </trans-unit>
+            <trans-unit id="352">
+                <source>Mój ojciec był wspaniałym człowiekiem, który ofiarował mi wspaniałe dzieciństwo, wykształcił i wychował mnie na człowieka, którym jestem dzisiaj. Żył pięknie i szczerze, potrafił być współczujący i wrażliwy, a równocześnie umiał także wymagać. Niósł pomoc w trudnych chwilach, wspierał całą naszą rodzinę i przyjaciół ciepłem, mądrością oraz dobrym słowem. Jego sprawiedliwość i wyrozumiałość dawała poczucie bezpieczeństwa, bo zawsze trzeźwo oceniał, ale nigdy nie był krzywdzący w swoich osądach. Zasiał ziarno kultury i dobrego wychowania, za co dozgonnie będę mu wdzięczny. Żegnaj, Tato...</source>
+                <target>Mój ojciec był wspaniałym człowiekiem, który ofiarował mi wspaniałe dzieciństwo, wykształcił i wychował mnie na człowieka, którym jestem dzisiaj. Żył pięknie i szczerze, potrafił być współczujący i wrażliwy, a równocześnie umiał także wymagać. Niósł pomoc w trudnych chwilach, wspierał całą naszą rodzinę i przyjaciół ciepłem, mądrością oraz dobrym słowem. Jego sprawiedliwość i wyrozumiałość dawała poczucie bezpieczeństwa, bo zawsze trzeźwo oceniał, ale nigdy nie był krzywdzący w swoich osądach. Zasiał ziarno kultury i dobrego wychowania, za co dozgonnie będę mu wdzięczny. Żegnaj, Tato...</target>
+            </trans-unit>
+            <trans-unit id="353">
+                <source>Moja babcia była osobą niezwykle drogą memu sercu - kochającą, dobrą i mądrą. Z wielką pokorą znosiła wszelkie przeciwności losu, do ostatniej chwili cieszyła się życiem, zawsze na pierwszym miejscu stawiając dzieci i wnuki, którym bezgranicznie się poświęcała. To ona nauczyła mnie wrażliwości na drugiego człowieka i szacunku dla historii, to dzięki niej nasza rodzina potrafi trzymać się razem. Okazywała nam miłość i czułość, ale potrafiła być także wymagająca, wyrażając troskę o naszą przyszłość. To dzięki niej nauczyłam się życia. Dziękuję Ci za to, kochana Babciu...</source>
+                <target>Moja babcia była osobą niezwykle drogą memu sercu - kochającą, dobrą i mądrą. Z wielką pokorą znosiła wszelkie przeciwności losu, do ostatniej chwili cieszyła się życiem, zawsze na pierwszym miejscu stawiając dzieci i wnuki, którym bezgranicznie się poświęcała. To ona nauczyła mnie wrażliwości na drugiego człowieka i szacunku dla historii, to dzięki niej nasza rodzina potrafi trzymać się razem. Okazywała nam miłość i czułość, ale potrafiła być także wymagająca, wyrażając troskę o naszą przyszłość. To dzięki niej nauczyłam się życia. Dziękuję Ci za to, kochana Babciu...</target>
+            </trans-unit>
+            <trans-unit id="354">
+                <source>Mój dziadek do końca pozostał szlachetnym człowiekiem, autorytetem dla mnie i całej naszej rodziny. Mimo że wiele przeżył, zawsze potrafił zachować pogodę ducha i nigdy nie szczędził dobrego słowa, dzieląc się swoim doświadczeniem i mądrością. Zapamiętam go jako szlachetnego, sprawiedliwego i życzliwego wszystkim człowieka, który przez całe życie starał się uczyć nas siły, wiary oraz pracowitości. Jako oddany patriota, ojciec i dziadek zdobył szacunek wielu i pozostawił moc wspaniałych wspomnień, które na zawsze pozostaną w naszych sercach. To dzięki niemu nauczyłam się życia. Dziękuję Ci za to, ukochany Dziadku...</source>
+                <target>Mój dziadek do końca pozostał szlachetnym człowiekiem, autorytetem dla mnie i całej naszej rodziny. Mimo że wiele przeżył, zawsze potrafił zachować pogodę ducha i nigdy nie szczędził dobrego słowa, dzieląc się swoim doświadczeniem i mądrością. Zapamiętam go jako szlachetnego, sprawiedliwego i życzliwego wszystkim człowieka, który przez całe życie starał się uczyć nas siły, wiary oraz pracowitości. Jako oddany patriota, ojciec i dziadek zdobył szacunek wielu i pozostawił moc wspaniałych wspomnień, które na zawsze pozostaną w naszych sercach. To dzięki niemu nauczyłam się życia. Dziękuję Ci za to, ukochany Dziadku...</target>
+            </trans-unit>
+            <trans-unit id="355">
+                <source>Wygeneruj kod QR</source>
+                <target>Wygeneruj kod QR</target>
+            </trans-unit>
+            <trans-unit id="356">
+                <source>Przejdź do strony</source>
+                <target>Przejdź do strony</target>
+            </trans-unit>
+            <trans-unit id="357">
+                <source>Podgląd strony</source>
+                <target>Podgląd strony</target>
+            </trans-unit>
+            <trans-unit id="358">
+                <source>Strona posiada aktywny kod Epado.</source>
+                <target>Strona posiada aktywny kod Epado.</target>
+            </trans-unit>
+            <trans-unit id="359">
+                <source>Strona wygasła dnia:</source>
+                <target>Strona wygasła dnia:</target>
+            </trans-unit>
+            <trans-unit id="360">
+                <source>Strona opłacona do dnia:</source>
+                <target>Strona opłacona do dnia:</target>
+            </trans-unit>
+            <trans-unit id="361">
+                <source>Aktywuj stronę</source>
+                <target>Aktywuj stronę</target>
+            </trans-unit>
+            <trans-unit id="362">
+                <source>Podaj kod aktywacyjny</source>
+                <target>Podaj kod aktywacyjny</target>
+            </trans-unit>
+            <trans-unit id="363">
+                <source>Podaj kod aktywacyjny, który znajduje się w liście. Jeżeli nie posiadasz kodu epado możesz zakupić jeden z pakietów online, zostanie on wysłany do Ciebie pocztą. W przesyłce będzie znajdował się kod aktywacyjny, który trzeba będzie wpisać w poniższe pole. Istnieje również możliwość zakupu kodu u jednego z naszych partnerów.</source>
+                <target>Podaj kod aktywacyjny, który znajduje się w liście. Jeżeli nie posiadasz kodu epado możesz zakupić jeden z pakietów online, zostanie on wysłany do Ciebie pocztą. W przesyłce będzie znajdował się kod aktywacyjny, który trzeba będzie wpisać w poniższe pole. Istnieje również możliwość zakupu kodu u jednego z naszych partnerów.</target>
+            </trans-unit>
+            <trans-unit id="364">
+                <source>Masz ustawione przypomnienie o rocznicy, jeżeli chcesz żeby przypomnienie było wysyłane do Ciebie jako SMS musisz podać swój nr telefonu. Możesz to zrobić tutaj:</source>
+                <target>Masz ustawione przypomnienie o rocznicy, jeżeli chcesz żeby przypomnienie było wysyłane do Ciebie jako SMS musisz podać swój nr telefonu. Możesz to zrobić tutaj:</target>
+            </trans-unit>
+            <trans-unit id="365">
+                <source>Przypomnienie będzie wysyłane również na Twój adres email.</source>
+                <target>Przypomnienie będzie wysyłane również na Twój adres email.</target>
+            </trans-unit>
+            <trans-unit id="366">
+                <source>Upamiętnienie osoby</source>
+                <target>Upamiętnienie osoby</target>
+            </trans-unit>
+            <trans-unit id="367">
+                <source>Upamiętnienie miejsca</source>
+                <target>Upamiętnienie miejsca</target>
+            </trans-unit>
+            <trans-unit id="368">
+                <source>Dodaj nowy cmentarz</source>
+                <target>Dodaj nowy cmentarz</target>
+            </trans-unit>
+            <trans-unit id="369">
+                <source>Produkty i usługi</source>
+                <target>Produkty i usługi</target>
+            </trans-unit>
+            <trans-unit id="370">
+                <source>Audiobooki</source>
+                <target>Audiobooki</target>
+            </trans-unit>
+            <trans-unit id="371">
+                <source>Zapisz zmiany</source>
+                <target>Zapisz zmiany</target>
+            </trans-unit>
+            <trans-unit id="372">
+                <source>Nr na liście</source>
+                <target>Nr na liście</target>
+            </trans-unit>
+            <trans-unit id="373">
+                <source>Audiobook (w formacie wav lub mp3)</source>
+                <target>Audiobook (w formacie wav lub mp3)</target>
+            </trans-unit>
+            <trans-unit id="374">
+                <source>Dodaj audiobook</source>
+                <target>Dodaj audiobook</target>
+            </trans-unit>
+            <trans-unit id="375">
+                <source>Zdjęcia i filmy</source>
+                <target>Zdjęcia i filmy</target>
+            </trans-unit>
+            <trans-unit id="376">
+                <source>Wybierz zdjęcie profilowe klikając w ikonę na zdjęciu:</source>
+                <target>Wybierz zdjęcie profilowe klikając w ikonę na zdjęciu:</target>
+            </trans-unit>
+            <trans-unit id="377">
+                <source>Aby dodać nowe zdjęcia upuść je tutaj albo kliknij i wybierz je ze swojego urządzenia.</source>
+                <target>Aby dodać nowe zdjęcia upuść je tutaj albo kliknij i wybierz je ze swojego urządzenia.</target>
+            </trans-unit>
+            <trans-unit id="378">
+                <source>Edytuj zdjęcie</source>
+                <target>Edytuj zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="379">
+                <source>Ustaw jako zdjęcie profilowe dla tej strony</source>
+                <target>Ustaw jako zdjęcie profilowe dla tej strony</target>
+            </trans-unit>
+            <trans-unit id="380">
+                <source>Zdjęcie profilowe dla tej strony</source>
+                <target>Zdjęcie profilowe dla tej strony</target>
+            </trans-unit>
+            <trans-unit id="381">
+                <source>Możesz dodać film wklejając do niego linka z serwisu YouTube lub Vimeo</source>
+                <target>Możesz dodać film wklejając do niego linka z serwisu YouTube lub Vimeo</target>
+            </trans-unit>
+            <trans-unit id="382">
+                <source>Link do filmu</source>
+                <target>Link do filmu</target>
+            </trans-unit>
+            <trans-unit id="383">
+                <source>Dodaj film</source>
+                <target>Dodaj film</target>
+            </trans-unit>
+            <trans-unit id="384">
+                <source>Kategoria strony upamiętniającej miejsce</source>
+                <target>Kategoria strony upamiętniającej miejsce</target>
+            </trans-unit>
+            <trans-unit id="385">
+                <source>Typ strony</source>
+                <target>Typ strony</target>
+            </trans-unit>
+            <trans-unit id="386">
+                <source>Typy stron</source>
+                <target>Typy stron</target>
+            </trans-unit>
+            <trans-unit id="387">
+                <source>Kategorie stron</source>
+                <target>Kategorie stron</target>
+            </trans-unit>
+            <trans-unit id="388">
+                <source>Wygasa</source>
+                <target>Wygasa</target>
+            </trans-unit>
+            <trans-unit id="389">
+                <source>Wszystkie strony</source>
+                <target>Wszystkie strony</target>
+            </trans-unit>
+            <trans-unit id="390">
+                <source>Nieaktywna</source>
+                <target>Nieaktywna</target>
+            </trans-unit>
+            <trans-unit id="391">
+                <source>Nie posiadasz dodanych stron. Możesz dodać stronę:</source>
+                <target>Nie posiadasz dodanych stron. Możesz dodać stronę:</target>
+            </trans-unit>
+            <trans-unit id="392">
+                <source>Kategorie stron upamiętniających miejsce</source>
+                <target>Kategorie stron upamiętniających miejsce</target>
+            </trans-unit>
+            <trans-unit id="393">
+                <source>Nie ma kategorii miejsc upamiętnianych.</source>
+                <target>Nie ma kategorii miejsc upamiętnianych.</target>
+            </trans-unit>
+            <trans-unit id="394">
+                <source>Nie ma typów stron.</source>
+                <target>Nie ma typów stron.</target>
+            </trans-unit>
+            <trans-unit id="395">
+                <source>Przeszukujesz strony użytkownika:</source>
+                <target>Przeszukujesz strony użytkownika:</target>
+            </trans-unit>
+            <trans-unit id="396">
+                <source>Przeszukujesz strony wykorzystane w grupie kodów:</source>
+                <target>Przeszukujesz strony wykorzystane w grupie kodów:</target>
+            </trans-unit>
+            <trans-unit id="397">
+                <source>Plik został usunięty</source>
+                <target>Plik został usunięty</target>
+            </trans-unit>
+            <trans-unit id="398">
+                <source>Zmiany zostały zapisane</source>
+                <target>Zmiany zostały zapisane</target>
+            </trans-unit>
+            <trans-unit id="399">
+                <source>Przesyłany plik ma niewspierany format:</source>
+                <target>Przesyłany plik ma niewspierany format:</target>
+            </trans-unit>
+            <trans-unit id="400">
+                <source>Przesyłany plik jet za duży:</source>
+                <target>Przesyłany plik jet za duży:</target>
+            </trans-unit>
+            <trans-unit id="401">
+                <source>Nie podano nazwy dla pliku:</source>
+                <target>Nie podano nazwy dla pliku:</target>
+            </trans-unit>
+            <trans-unit id="402">
+                <source>Wystąpił błąd podczas dodawania pliku:</source>
+                <target>Wystąpił błąd podczas dodawania pliku:</target>
+            </trans-unit>
+            <trans-unit id="403">
+                <source>Dodawanie przebiegło prawidłowo</source>
+                <target>Dodawanie przebiegło prawidłowo</target>
+            </trans-unit>
+            <trans-unit id="404">
+                <source>Kod został przypisany i strona została aktywowana.</source>
+                <target>Kod został przypisany i strona została aktywowana.</target>
+            </trans-unit>
+            <trans-unit id="405">
+                <source>Podany kod nie został autoryzowany.</source>
+                <target>Podany kod nie został autoryzowany.</target>
+            </trans-unit>
+            <trans-unit id="406">
+                <source>Podany kod został już użyty wcześniej.</source>
+                <target>Podany kod został już użyty wcześniej.</target>
+            </trans-unit>
+            <trans-unit id="407">
+                <source>Kod nie został znaleziony.</source>
+                <target>Kod nie został znaleziony.</target>
+            </trans-unit>
+            <trans-unit id="408">
+                <source>Nie odnaleziono</source>
+                <target>Nie odnaleziono</target>
+            </trans-unit>
+            <trans-unit id="409">
+                <source>Wystąpił błąd upewnij się że podany link jest prawidłowy.</source>
+                <target>Wystąpił błąd upewnij się że podany link jest prawidłowy.</target>
+            </trans-unit>
+            <trans-unit id="410">
+                <source>Cmentarz jest wymagany</source>
+                <target>Cmentarz jest wymagany</target>
+            </trans-unit>
+            <trans-unit id="411">
+                <source>Rodzina jest wymagany</source>
+                <target>Rodzina jest wymagany</target>
+            </trans-unit>
+            <trans-unit id="412">
+                <source>Data urodzenia nie może być wcześniejsza niż data śmierci</source>
+                <target>Data urodzenia nie może być wcześniejsza niż data śmierci</target>
+            </trans-unit>
+            <trans-unit id="413">
+                <source>Imię osoby</source>
+                <target>Imię osoby</target>
+            </trans-unit>
+            <trans-unit id="414">
+                <source>Nazwisko osoby</source>
+                <target>Nazwisko osoby</target>
+            </trans-unit>
+            <trans-unit id="415">
+                <source>Usuń ten produkt z powiazanych</source>
+                <target>Usuń ten produkt z powiazanych</target>
+            </trans-unit>
+            <trans-unit id="416">
+                <source>Dodaj produkt jako powiązany</source>
+                <target>Dodaj produkt jako powiązany</target>
+            </trans-unit>
+            <trans-unit id="417">
+                <source>Zdjęcia produktu</source>
+                <target>Zdjęcia produktu</target>
+            </trans-unit>
+            <trans-unit id="418">
+                <source>Ustaw zdjęcie jako domyślne dla tego produktu</source>
+                <target>Ustaw zdjęcie jako domyślne dla tego produktu</target>
+            </trans-unit>
+            <trans-unit id="419">
+                <source>Zdjęcie jest domyślne dla tego produktu</source>
+                <target>Zdjęcie jest domyślne dla tego produktu</target>
+            </trans-unit>
+            <trans-unit id="420">
+                <source>Kategoria produktu</source>
+                <target>Kategoria produktu</target>
+            </trans-unit>
+            <trans-unit id="421">
+                <source>Typ produktu</source>
+                <target>Typ produktu</target>
+            </trans-unit>
+            <trans-unit id="422">
+                <source>Dodaj produkt</source>
+                <target>Dodaj produkt</target>
+            </trans-unit>
+            <trans-unit id="423">
+                <source>Typy produktów</source>
+                <target>Typy produktów</target>
+            </trans-unit>
+            <trans-unit id="424">
+                <source>Kategorie produktów</source>
+                <target>Kategorie produktów</target>
+            </trans-unit>
+            <trans-unit id="425">
+                <source>Typ</source>
+                <target>Typ</target>
+            </trans-unit>
+            <trans-unit id="426">
+                <source>Nie ma produktów.</source>
+                <target>Nie ma produktów.</target>
+            </trans-unit>
+            <trans-unit id="427">
+                <source>Dodaj kategorie</source>
+                <target>Dodaj kategorie</target>
+            </trans-unit>
+            <trans-unit id="428">
+                <source>Nie ma kategorii.</source>
+                <target>Nie ma kategorii.</target>
+            </trans-unit>
+            <trans-unit id="429">
+                <source>Dodaj typ</source>
+                <target>Dodaj typ</target>
+            </trans-unit>
+            <trans-unit id="430">
+                <source>Nie ma typów produktów.</source>
+                <target>Nie ma typów produktów.</target>
+            </trans-unit>
+            <trans-unit id="431">
+                <source>Cena detaliczna</source>
+                <target>Cena detaliczna</target>
+            </trans-unit>
+            <trans-unit id="432">
+                <source>Cena dla partnera</source>
+                <target>Cena dla partnera</target>
+            </trans-unit>
+            <trans-unit id="433">
+                <source>Nie ma dodanych produktów dla partnerów.</source>
+                <target>Nie ma dodanych produktów dla partnerów.</target>
+            </trans-unit>
+            <trans-unit id="434">
+                <source>Nazwa produktu</source>
+                <target>Nazwa produktu</target>
+            </trans-unit>
+            <trans-unit id="435">
+                <source>Ustawienia</source>
+                <target>Ustawienia</target>
+            </trans-unit>
+            <trans-unit id="436">
+                <source>Liczba dodanych stron</source>
+                <target>Liczba dodanych stron</target>
+            </trans-unit>
+            <trans-unit id="437">
+                <source>Liczba dodanych cmentarzy</source>
+                <target>Liczba dodanych cmentarzy</target>
+            </trans-unit>
+            <trans-unit id="438">
+                <source>Liczba dodanych rodzin</source>
+                <target>Liczba dodanych rodzin</target>
+            </trans-unit>
+            <trans-unit id="439">
+                <source>Liczba zamówień</source>
+                <target>Liczba zamówień</target>
+            </trans-unit>
+            <trans-unit id="440">
+                <source>Edytuj dane adresowe</source>
+                <target>Edytuj dane adresowe</target>
+            </trans-unit>
+            <trans-unit id="441">
+                <source>Zaloguj się przez Facebooka!</source>
+                <target>Zaloguj się przez Facebooka!</target>
+            </trans-unit>
+            <trans-unit id="442">
+                <source>Nie pamiętam hasła</source>
+                <target>Nie pamiętam hasła</target>
+            </trans-unit>
+            <trans-unit id="443">
+                <source>Regulamin</source>
+                <target>Regulamin</target>
+            </trans-unit>
+            <trans-unit id="444">
+                <source>Logując się w Epado za pośrednictwem Facebooka, akceptujesz nasz regulamin:</source>
+                <target>Logując się w Epado za pośrednictwem Facebooka, akceptujesz nasz regulamin:</target>
+            </trans-unit>
+            <trans-unit id="445">
+                <source>Login</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="446">
+                <source>Hasło</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="447">
+                <source>Pamiętaj mnie</source>
+                <target>Pamiętaj mnie</target>
+            </trans-unit>
+            <trans-unit id="448">
+                <source>Zaloguj mnie</source>
+                <target>Zaloguj mnie</target>
+            </trans-unit>
+            <trans-unit id="449">
+                <source>Dane podstawowe</source>
+                <target>Dane podstawowe</target>
+            </trans-unit>
+            <trans-unit id="450">
+                <source>Witamy w Epado, jeśli zakupiłeś i posiadasz jedną z kopert. dodaj stronę i zapisz ją a następnie wpisz poufny kod aktywacyjny znajdujący się w kopercie. Strona zacznie być wyświetlana w wynikach wyszukiwania.</source>
+                <target>Witamy w Epado, jeśli zakupiłeś i posiadasz jedną z kopert. dodaj stronę i zapisz ją a następnie wpisz poufny kod aktywacyjny znajdujący się w kopercie. Strona zacznie być wyświetlana w wynikach wyszukiwania.</target>
+            </trans-unit>
+            <trans-unit id="451">
+                <source>Jeśli nie posiadasz koperty z kodem aktywacyjnym. Dodaj stronę, uzupełnij formularze, dodaj zdjęcia i zapisz ją. Po dokonaniu  wyboru jednego z pakietów, opłać i oczekuj na przesyłkę z fizycznym kodem Epado, który nakleisz na nagrobku.</source>
+                <target>Jeśli nie posiadasz koperty z kodem aktywacyjnym. Dodaj stronę, uzupełnij formularze, dodaj zdjęcia i zapisz ją. Po dokonaniu  wyboru jednego z pakietów, opłać i oczekuj na przesyłkę z fizycznym kodem Epado, który nakleisz na nagrobku.</target>
+            </trans-unit>
+            <trans-unit id="452">
+                <source>Nie pokazuj tej informacji ponownie</source>
+                <target>Nie pokazuj tej informacji ponownie</target>
+            </trans-unit>
+            <trans-unit id="453">
+                <source>Uprawnienia dla użytkownika</source>
+                <target>Uprawnienia dla użytkownika</target>
+            </trans-unit>
+            <trans-unit id="454">
+                <source>Rejestracja przez Facebooka</source>
+                <target>Rejestracja przez Facebooka</target>
+            </trans-unit>
+            <trans-unit id="455">
+                <source>Rejestrując się w Epado za pośrednictwem Facebooka, akceptujesz nasz regulamin:</source>
+                <target>Rejestrując się w Epado za pośrednictwem Facebooka, akceptujesz nasz regulamin:</target>
+            </trans-unit>
+            <trans-unit id="456">
+                <source>Rejestrując się w Epado, akceptujesz nasz regulamin:</source>
+                <target>Rejestrując się w Epado, akceptujesz nasz regulamin:</target>
+            </trans-unit>
+            <trans-unit id="457">
+                <source>Podaj adres email</source>
+                <target>Podaj adres email</target>
+            </trans-unit>
+            <trans-unit id="458">
+                <source>Zmień hasło</source>
+                <target>Zmień hasło</target>
+            </trans-unit>
+            <trans-unit id="459">
+                <source>Podaj nowe hasło</source>
+                <target>Podaj nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="460">
+                <source>Prośba o nowe hasło</source>
+                <target>Prośba o nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="461">
+                <source>Powtórz nowe hasło</source>
+                <target>Powtórz nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="462">
+                <source>Wystąpił błąd proszę spróbować ponownie.</source>
+                <target>Wystąpił błąd proszę spróbować ponownie.</target>
+            </trans-unit>
+            <trans-unit id="463">
+                <source>Profil</source>
+                <target>Profil</target>
+            </trans-unit>
+            <trans-unit id="464">
+                <source>Uprawnienia zostały usunięte.</source>
+                <target>Uprawnienia zostały usunięte.</target>
+            </trans-unit>
+            <trans-unit id="465">
+                <source>Użytkownik o podanym adresie email nie ma konta w Epado. Żeby dodać uprawnienia musisz podać adres osoby zarejestrowanej w Epado.</source>
+                <target>Użytkownik o podanym adresie email nie ma konta w Epado. Żeby dodać uprawnienia musisz podać adres osoby zarejestrowanej w Epado.</target>
+            </trans-unit>
+            <trans-unit id="466">
+                <source>Użytkownik o podanym adresie email ma już nadane uprawnienia, możesz je zmienić.</source>
+                <target>Użytkownik o podanym adresie email ma już nadane uprawnienia, możesz je zmienić.</target>
+            </trans-unit>
+            <trans-unit id="467">
+                <source>Uprawnienia zostały zapisane prawidłowo.</source>
+                <target>Uprawnienia zostały zapisane prawidłowo.</target>
+            </trans-unit>
+            <trans-unit id="468">
+                <source>Podany numer jest nieprawidłowy</source>
+                <target>Podany numer jest nieprawidłowy</target>
+            </trans-unit>
+            <trans-unit id="469">
+                <source>Podałeś zły nr telefonu</source>
+                <target>Podałeś zły nr telefonu</target>
+            </trans-unit>
+            <trans-unit id="470">
+                <source>Podałeś nieprawidłowe hasło.</source>
+                <target>Podałeś nieprawidłowe hasło.</target>
+            </trans-unit>
+            <trans-unit id="471">
+                <source>Hasło zostało zmienione.</source>
+                <target>Hasło zostało zmienione.</target>
+            </trans-unit>
+            <trans-unit id="472">
+                <source>Potwierdzenie nie zgadza sie z wpisanym hasłem</source>
+                <target>Potwierdzenie nie zgadza sie z wpisanym hasłem</target>
+            </trans-unit>
+            <trans-unit id="473">
+                <source>Wysłaliśmy do Ciebie maila z linkiem do zmiany hasła.</source>
+                <target>Wysłaliśmy do Ciebie maila z linkiem do zmiany hasła.</target>
+            </trans-unit>
+            <trans-unit id="474">
+                <source>Podałeś nieprawidłowy adres zmiany hasła.</source>
+                <target>Podałeś nieprawidłowy adres zmiany hasła.</target>
+            </trans-unit>
+            <trans-unit id="475">
+                <source>Wypełnij wszystkie pola.</source>
+                <target>Wypełnij wszystkie pola.</target>
+            </trans-unit>
+            <trans-unit id="476">
+                <source>Podano nieprawidłowe hasło lub błędnie je powtórzono.</source>
+                <target>Podano nieprawidłowe hasło lub błędnie je powtórzono.</target>
+            </trans-unit>
+            <trans-unit id="477">
+                <source>Hasło zostało zmienione możesz teraz zalogować się na swoje konto.</source>
+                <target>Hasło zostało zmienione możesz teraz zalogować się na swoje konto.</target>
+            </trans-unit>
+            <trans-unit id="478">
+                <source>Jeżeli nie jest to możliwe proponujemy skorzystać z tradycyjnego formularza rejestracji w Epado.</source>
+                <target>Jeżeli nie jest to możliwe proponujemy skorzystać z tradycyjnego formularza rejestracji w Epado.</target>
+            </trans-unit>
+            <trans-unit id="479">
+                <source>Podczas logowania wystąpił błąd, aplikacja nie otrzymała dostępu do niektórych informacji. Wymagany jest dostęp do maila, imienia i nazwiska osoby korzystającej z serwisu. Dane dostępne dla aplikacji Epado na facebooku można zmienić w zakładce Facebook -> Ustawienia -> Aplikacje.</source>
+                <target>Podczas logowania wystąpił błąd, aplikacja nie otrzymała dostępu do niektórych informacji. Wymagany jest dostęp do maila, imienia i nazwiska osoby korzystającej z serwisu. Dane dostępne dla aplikacji Epado na facebooku można zmienić w zakładce Facebook -> Ustawienia -> Aplikacje.</target>
+            </trans-unit>
+            <trans-unit id="480">
+                <source>Istnieje również możliwość, że konto na facebooku nie ma potwierdzonego adresu email (link aktywujący adres email został wysłany przez facebooka przy zakładaniu konta), w takiej sytuacji logowanie przez facebooka nie jest dostępne, prosimy o zweryfikowanie maila w facebooku lub dodanie tam nowego adresu email. Więcej informacji na ten temat znajdą Państwo na odpowiedniej stronie pomocy Facebooka.</source>
+                <target>Istnieje również możliwość, że konto na facebooku nie ma potwierdzonego adresu email (link aktywujący adres email został wysłany przez facebooka przy zakładaniu konta), w takiej sytuacji logowanie przez facebooka nie jest dostępne, prosimy o zweryfikowanie maila w facebooku lub dodanie tam nowego adresu email. Więcej informacji na ten temat znajdą Państwo na odpowiedniej stronie pomocy Facebooka.</target>
+            </trans-unit>
+            <trans-unit id="481">
+                <source>Konto zostało aktywowane możesz się teraz zalogować.</source>
+                <target>Konto zostało aktywowane możesz się teraz zalogować.</target>
+            </trans-unit>
+            <trans-unit id="482">
+                <source>Konto zostało dodane. Aby je aktywować kliknij w link wysłany na podanego w formularzu maila.</source>
+                <target>Konto zostało dodane. Aby je aktywować kliknij w link wysłany na podanego w formularzu maila.</target>
+            </trans-unit>
+            <trans-unit id="483">
+                <source>Tekst</source>
+                <target>Tekst</target>
+            </trans-unit>
+            <trans-unit id="484">
+                <source>Teksty</source>
+                <target>Teksty</target>
+            </trans-unit>
+            <trans-unit id="485">
+                <source>Dodaj tekst</source>
+                <target>Dodaj tekst</target>
+            </trans-unit>
+            <trans-unit id="486">
+                <source>Nie ma tekstów.</source>
+                <target>Nie ma tekstów.</target>
+            </trans-unit>
+            <trans-unit id="487">
+                <source>Czyść cache</source>
+                <target>Czyść cache</target>
+            </trans-unit>
+            <trans-unit id="488">
+                <source>Administracja</source>
+                <target>Administracja</target>
+            </trans-unit>
+            <trans-unit id="489">
+                <source>Aktywne strony</source>
+                <target>Aktywne strony</target>
+            </trans-unit>
+            <trans-unit id="490">
+                <source>Ilość</source>
+                <target>Ilość</target>
+            </trans-unit>
+            <trans-unit id="491">
+                <source>Kategoria</source>
+                <target>Kategoria</target>
+            </trans-unit>
+            <trans-unit id="492">
+                <source>Nieaktywne strony</source>
+                <target>Nieaktywne strony</target>
+            </trans-unit>
+            <trans-unit id="493">
+                <source>Wideo</source>
+                <target>Wideo</target>
+            </trans-unit>
+            <trans-unit id="494">
+                <source>Usługi oferowane przez wykonawcę</source>
+                <target>Usługi oferowane przez wykonawcę</target>
+            </trans-unit>
+            <trans-unit id="495">
+                <source>Wyszukaj produkt</source>
+                <target>Wyszukaj produkt</target>
+            </trans-unit>
+            <trans-unit id="496">
+                <source>Pojawią się tu produkty powiązane</source>
+                <target>Pojawią się tu produkty powiązane</target>
+            </trans-unit>
+            <trans-unit id="497">
+                <source>Strony tej osoby</source>
+                <target>Strony tej osoby</target>
+            </trans-unit>
+            <trans-unit id="498">
+                <source>Zamówienia tej osoby</source>
+                <target>Zamówienia tej osoby</target>
+            </trans-unit>
+            <trans-unit id="499">
+                <source>Usługi zamówione</source>
+                <target>Usługi zamówione</target>
+            </trans-unit>
+            <trans-unit id="500">
+                <source>Usługi wykonawcy</source>
+                <target>Usługi wykonawcy</target>
+            </trans-unit>
+            <trans-unit id="501">
+                <source>Data podpisania</source>
+                <target>Data podpisania</target>
+            </trans-unit>
+            <trans-unit id="502">
+                <source>Miasto</source>
+                <target>Miasto</target>
+            </trans-unit>
+            <trans-unit id="503">
+                <source>Umowa dla partnera</source>
+                <target>Umowa dla partnera</target>
+            </trans-unit>
+            <trans-unit id="504">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="505">
+                <source>Średnia ocena wykonawcy:</source>
+                <target>Średnia ocena wykonawcy:</target>
+            </trans-unit>
+            <trans-unit id="506">
+                <source>Nie ma użytkowników.</source>
+                <target>Nie ma użytkowników.</target>
+            </trans-unit>
+            <trans-unit id="507">
+                <source>Umowa zawarta dnia</source>
+                <target>Umowa zawarta dnia</target>
+            </trans-unit>
+            <trans-unit id="508">
+                <source>Pomiędzy firmą: STONO SP. z o. o., z siedzibą przy ul. Wspólna 50A/35, 00-514 Warszawa, KRS 0000471570, REGON 146770615, NIP 7010387978, reprezentowaną przez Stanisław Ryszard Urbańczyk zwaną dalej STONO, a</source>
+                <target>Pomiędzy firmą: STONO SP. z o. o., z siedzibą przy ul. Wspólna 50A/35, 00-514 Warszawa, KRS 0000471570, REGON 146770615, NIP 7010387978, reprezentowaną przez Stanisław Ryszard Urbańczyk zwaną dalej STONO, a</target>
+            </trans-unit>
+            <trans-unit id="509">
+                <source>Zwaną dalej DYSTRYBUTOREM</source>
+                <target>Zwaną dalej DYSTRYBUTOREM</target>
+            </trans-unit>
+            <trans-unit id="510">
+                <source>DYSTRYBUTOR</source>
+                <target>DYSTRYBUTOR</target>
+            </trans-unit>
+            <trans-unit id="511">
+                <source>Edytuj produkt</source>
+                <target>Edytuj produkt</target>
+            </trans-unit>
+            <trans-unit id="512">
+                <source>Usuń produkt</source>
+                <target>Usuń produkt</target>
+            </trans-unit>
+            <trans-unit id="513">
+                <source>Nie odnleziono produktów</source>
+                <target>Nie odnleziono produktów</target>
+            </trans-unit>
+            <trans-unit id="514">
+                <source>Dodaj produkt do wykonawcy</source>
+                <target>Dodaj produkt do wykonawcy</target>
+            </trans-unit>
+            <trans-unit id="515">
+                <source>Typ konta</source>
+                <target>Typ konta</target>
+            </trans-unit>
+            <trans-unit id="516">
+                <source>Produkt został usunięty z listy wykonawcy</source>
+                <target>Produkt został usunięty z listy wykonawcy</target>
+            </trans-unit>
+            <trans-unit id="517">
+                <source>Ilość osób:</source>
+                <target>Ilość osób:</target>
+            </trans-unit>
+            <trans-unit id="518">
+                <source>Prowadź do miejsca</source>
+                <target>Prowadź do miejsca</target>
+            </trans-unit>
+            <trans-unit id="519">
+                <source>Osoby zmarłe</source>
+                <target>Osoby zmarłe</target>
+            </trans-unit>
+            <trans-unit id="520">
+                <source>Mapa</source>
+                <target>Mapa</target>
+            </trans-unit>
+            <trans-unit id="521">
+                <source>Zmień zdjęcie w tle</source>
+                <target>Zmień zdjęcie w tle</target>
+            </trans-unit>
+            <trans-unit id="522">
+                <source>Zmień zdjęcie</source>
+                <target>Zmień zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="523">
+                <source>Data urodzenia</source>
+                <target>Data urodzenia</target>
+            </trans-unit>
+            <trans-unit id="524">
+                <source>Data śmierci</source>
+                <target>Data śmierci</target>
+            </trans-unit>
+            <trans-unit id="525">
+                <source>Żył lat</source>
+                <target>Żył lat</target>
+            </trans-unit>
+            <trans-unit id="526">
+                <source>l.</source>
+                <target>l.</target>
+            </trans-unit>
+            <trans-unit id="527">
+                <source>Możesz dodać nowy cmentarz dla tej strony lub wybrać cmentarz już istniejący</source>
+                <target>Możesz dodać nowy cmentarz dla tej strony lub wybrać cmentarz już istniejący</target>
+            </trans-unit>
+            <trans-unit id="528">
+                <source>wprowadzony błędnie lub zduplikowany</source>
+                <target>wprowadzony błędnie lub zduplikowany</target>
+            </trans-unit>
+            <trans-unit id="529">
+                <source>oczekuje na weryfikację</source>
+                <target>oczekuje na weryfikację</target>
+            </trans-unit>
+            <trans-unit id="530">
+                <source>Nasi pracownicy sprawdzą czy cmentarz został dodany prawidłowo i czy nie ma już takiego cmentarza w naszej bazie</source>
+                <target>Nasi pracownicy sprawdzą czy cmentarz został dodany prawidłowo i czy nie ma już takiego cmentarza w naszej bazie</target>
+            </trans-unit>
+            <trans-unit id="531">
+                <source>Aleja</source>
+                <target>Aleja</target>
+            </trans-unit>
+            <trans-unit id="532">
+                <source>Nr kwatery</source>
+                <target>Nr kwatery</target>
+            </trans-unit>
+            <trans-unit id="533">
+                <source>Nazwisko rodowe</source>
+                <target>Nazwisko rodowe</target>
+            </trans-unit>
+            <trans-unit id="534">
+                <source>Imię ojca</source>
+                <target>Imię ojca</target>
+            </trans-unit>
+            <trans-unit id="535">
+                <source>Imię matki</source>
+                <target>Imię matki</target>
+            </trans-unit>
+            <trans-unit id="536">
+                <source>Miejsce urodzenia</source>
+                <target>Miejsce urodzenia</target>
+            </trans-unit>
+            <trans-unit id="537">
+                <source>Aby skontaktować się z rodziną musisz się zalogować.</source>
+                <target>Aby skontaktować się z rodziną musisz się zalogować.</target>
+            </trans-unit>
+            <trans-unit id="538">
+                <source>Znajdź cmentarz</source>
+                <target>Znajdź cmentarz</target>
+            </trans-unit>
+            <trans-unit id="539">
+                <source>Wiadomość do rodziny</source>
+                <target>Wiadomość do rodziny</target>
+            </trans-unit>
+            <trans-unit id="540">
+                <source>Kondolencje</source>
+                <target>Kondolencje</target>
+            </trans-unit>
+            <trans-unit id="541">
+                <source>Wpiusz tutaj treść kondolencji</source>
+                <target>Wpiusz tutaj treść kondolencji</target>
+            </trans-unit>
+            <trans-unit id="542">
+                <source>Wyślij kondolencje</source>
+                <target>Wyślij kondolencje</target>
+            </trans-unit>
+            <trans-unit id="543">
+                <source>Aby złożyć kondolencje należy się zalogować lub użyć konta facebook.</source>
+                <target>Aby złożyć kondolencje należy się zalogować lub użyć konta facebook.</target>
+            </trans-unit>
+            <trans-unit id="544">
+                <source>Konto facebook</source>
+                <target>Konto facebook</target>
+            </trans-unit>
+            <trans-unit id="545">
+                <source>Dodawanie nowych kondolencji zostało zablokowane.</source>
+                <target>Dodawanie nowych kondolencji zostało zablokowane.</target>
+            </trans-unit>
+            <trans-unit id="546">
+                <source>Zobacz mapę</source>
+                <target>Zobacz mapę</target>
+            </trans-unit>
+            <trans-unit id="547">
+                <source>Miejsce spoczynku</source>
+                <target>Miejsce spoczynku</target>
+            </trans-unit>
+            <trans-unit id="548">
+                <source>Udostępnij</source>
+                <target>Udostępnij</target>
+            </trans-unit>
+            <trans-unit id="549">
+                <source>Poprawny format nr telefonu to +00.00000000</source>
+                <target>Poprawny format nr telefonu to +00.00000000</target>
+            </trans-unit>
+            <trans-unit id="550">
+                <source>Wyślij na telefon</source>
+                <target>Wyślij na telefon</target>
+            </trans-unit>
+            <trans-unit id="551">
+                <source>Wyślij na maila</source>
+                <target>Wyślij na maila</target>
+            </trans-unit>
+            <trans-unit id="552">
+                <source>Po zalogowaniu będziesz mógł wysłać link do strony poprzez email lub SMS.</source>
+                <target>Po zalogowaniu będziesz mógł wysłać link do strony poprzez email lub SMS.</target>
+            </trans-unit>
+            <trans-unit id="553">
+                <source>Filmy</source>
+                <target>Filmy</target>
+            </trans-unit>
+            <trans-unit id="554">
+                <source>i</source>
+                <target>i</target>
+            </trans-unit>
+            <trans-unit id="555">
+                <source>Inni członkowie rodziny</source>
+                <target>Inni członkowie rodziny</target>
+            </trans-unit>
+            <trans-unit id="556">
+                <source>Data powstania</source>
+                <target>Data powstania</target>
+            </trans-unit>
+            <trans-unit id="557">
+                <source>Ilość lat od powstania</source>
+                <target>Ilość lat od powstania</target>
+            </trans-unit>
+            <trans-unit id="558">
+                <source>Czytaj więcej</source>
+                <target>Czytaj więcej</target>
+            </trans-unit>
+            <trans-unit id="559">
+                <source>Zwiń</source>
+                <target>Zwiń</target>
+            </trans-unit>
+            <trans-unit id="560">
+                <source>Wymagane jest włączenie javascriptu w przeglądarce.</source>
+                <target>Wymagane jest włączenie javascriptu w przeglądarce.</target>
+            </trans-unit>
+            <trans-unit id="561">
+                <source>Zobacz kolejne</source>
+                <target>Zobacz kolejne</target>
+            </trans-unit>
+            <trans-unit id="562">
+                <source>Miejsca</source>
+                <target>Miejsca</target>
+            </trans-unit>
+            <trans-unit id="563">
+                <source>Nie odnaleziono cmentarza</source>
+                <target>Nie odnaleziono cmentarza</target>
+            </trans-unit>
+            <trans-unit id="564">
+                <source>Nie odnaleziono miejsca</source>
+                <target>Nie odnaleziono miejsca</target>
+            </trans-unit>
+            <trans-unit id="565">
+                <source>Nie odnaleziono osoby</source>
+                <target>Nie odnaleziono osoby</target>
+            </trans-unit>
+            <trans-unit id="566">
+                <source>Nr telefonu</source>
+                <target>Nr telefonu</target>
+            </trans-unit>
+            <trans-unit id="567">
+                <source>Zdjęcie profilowe</source>
+                <target>Zdjęcie profilowe</target>
+            </trans-unit>
+            <trans-unit id="568">
+                <source>Brak danych</source>
+                <target>Brak danych</target>
+            </trans-unit>
+            <trans-unit id="569">
+                <source>Administrator</source>
+                <target>Administrator</target>
+            </trans-unit>
+            <trans-unit id="570">
+                <source>Partner</source>
+                <target>Partner</target>
+            </trans-unit>
+            <trans-unit id="571">
+                <source>Użytkownik</source>
+                <target>Użytkownik</target>
+            </trans-unit>
+            <trans-unit id="572">
+                <source>Pracownik</source>
+                <target>Pracownik</target>
+            </trans-unit>
+            <trans-unit id="573">
+                <source>Wykonawca</source>
+                <target>Wykonawca</target>
+            </trans-unit>
+            <trans-unit id="574">
+                <source>Handlowiec</source>
+                <target>Handlowiec</target>
+            </trans-unit>
+            <trans-unit id="575">
+                <source>Redaktor</source>
+                <target>Redaktor</target>
+            </trans-unit>
+            <trans-unit id="576">
+                <source>Nie znaleziono strony</source>
+                <target>Nie znaleziono strony</target>
+            </trans-unit>
+            <trans-unit id="577">
+                <source>Niestety szukana przez Ciebie strona nie istnieje. Wróć do strony głównej.</source>
+                <target>Niestety szukana przez Ciebie strona nie istnieje. Wróć do strony głównej.</target>
+            </trans-unit>
+            <trans-unit id="578">
+                <source>Wystąpił nieoczekiwany błąd</source>
+                <target>Wystąpił nieoczekiwany błąd</target>
+            </trans-unit>
+            <trans-unit id="579">
+                <source>Niestety strona na której jesteś nie działa prawidłowo. Wróć do strony głównej.</source>
+                <target>Niestety strona na której jesteś nie działa prawidłowo. Wróć do strony głównej.</target>
+            </trans-unit>
+            <trans-unit id="580">
+                <source>Nowe hasło</source>
+                <target>Nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="581">
+                <source>Potwierdź nowe hasło</source>
+                <target>Potwierdź nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="582">
+                <source>Potwierdź hasło</source>
+                <target>Potwierdź hasło</target>
+            </trans-unit>
+            <trans-unit id="583">
+                <source>Stare hasło</source>
+                <target>Stare hasło</target>
+            </trans-unit>
+            <trans-unit id="584">
+                <source>Zniżka procentowa dla partnera</source>
+                <target>Zniżka procentowa dla partnera</target>
+            </trans-unit>
+            <trans-unit id="585">
+                <source>Aktywność konta</source>
+                <target>Aktywność konta</target>
+            </trans-unit>
+            <trans-unit id="586">
+                <source>Blokada konta</source>
+                <target>Blokada konta</target>
+            </trans-unit>
+            <trans-unit id="587">
+                <source>Miasta wykonawcy</source>
+                <target>Miasta wykonawcy</target>
+            </trans-unit>
+            <trans-unit id="588">
+                <source>Opis wykonawcy</source>
+                <target>Opis wykonawcy</target>
+            </trans-unit>
+            <trans-unit id="589">
+                <source>Numer telefonu (+00.00000000)</source>
+                <target>Numer telefonu (+00.00000000)</target>
+            </trans-unit>
+            <trans-unit id="590">
+                <source>Powiadomienia mailowe o nowych wiadomościach</source>
+                <target>Powiadomienia mailowe o nowych wiadomościach</target>
+            </trans-unit>
+            <trans-unit id="591">
+                <source>Powiadomienia mailowe o dodanych kondolencjach</source>
+                <target>Powiadomienia mailowe o dodanych kondolencjach</target>
+            </trans-unit>
+            <trans-unit id="592">
+                <source>Tytuł</source>
+                <target>Tytuł</target>
+            </trans-unit>
+            <trans-unit id="593">
+                <source>Treść odnośnika</source>
+                <target>Treść odnośnika</target>
+            </trans-unit>
+            <trans-unit id="594">
+                <source>Treść</source>
+                <target>Treść</target>
+            </trans-unit>
+            <trans-unit id="595">
+                <source>Nazwa wewnętrzna</source>
+                <target>Nazwa wewnętrzna</target>
+            </trans-unit>
+            <trans-unit id="596">
+                <source>Dodaj zdjęcie profilowe</source>
+                <target>Dodaj zdjęcie profilowe</target>
+            </trans-unit>
+            <trans-unit id="597">
+                <source>Szablon dokumentu powitalnego</source>
+                <target>Szablon dokumentu powitalnego</target>
+            </trans-unit>
+            <trans-unit id="598">
+                <source>Po utworzeniu grupy kodów z tym produktem ta treść zostanie skopiowana do treści dokumentu powitalnego tej grupy</source>
+                <target>Po utworzeniu grupy kodów z tym produktem ta treść zostanie skopiowana do treści dokumentu powitalnego tej grupy</target>
+            </trans-unit>
+            <trans-unit id="599">
+                <source>Przedłużany okres</source>
+                <target>Przedłużany okres</target>
+            </trans-unit>
+            <trans-unit id="600">
+                <source>Ceny</source>
+                <target>Ceny</target>
+            </trans-unit>
+            <trans-unit id="601">
+                <source>Produkt wyświetla się tylko w wybranym typie strony, upamiętniającej miejsce lub osobę</source>
+                <target>Produkt wyświetla się tylko w wybranym typie strony, upamiętniającej miejsce lub osobę</target>
+            </trans-unit>
+            <trans-unit id="602">
+                <source>Produkty dla użytkowników wyświetlają się tylko zwykłym użytkownikom na stronach upamiętnianych, produkty dla partnerów wyświetlają się tylko w sklepie dla partnerów</source>
+                <target>Produkty dla użytkowników wyświetlają się tylko zwykłym użytkownikom na stronach upamiętnianych, produkty dla partnerów wyświetlają się tylko w sklepie dla partnerów</target>
+            </trans-unit>
+            <trans-unit id="603">
+                <source>Sposób w jaki dany produkt bedzie realizowany, przykłądowo produkty które wymagają zlecenia dla podwykonawcy powinny być tak oznaczone</source>
+                <target>Sposób w jaki dany produkt bedzie realizowany, przykłądowo produkty które wymagają zlecenia dla podwykonawcy powinny być tak oznaczone</target>
+            </trans-unit>
+            <trans-unit id="604">
+                <source>Okres na jaki przedłużona zostanie strona po zakupie tego produktu</source>
+                <target>Okres na jaki przedłużona zostanie strona po zakupie tego produktu</target>
+            </trans-unit>
+            <trans-unit id="605">
+                <source>Widoczność</source>
+                <target>Widoczność</target>
+            </trans-unit>
+            <trans-unit id="606">
+                <source>Wyświetlaj na stronach specjalnych</source>
+                <target>Wyświetlaj na stronach specjalnych</target>
+            </trans-unit>
+            <trans-unit id="607">
+                <source>Rozszerzenie strony</source>
+                <target>Rozszerzenie strony</target>
+            </trans-unit>
+            <trans-unit id="608">
+                <source>Dla stron z kodem</source>
+                <target>Dla stron z kodem</target>
+            </trans-unit>
+            <trans-unit id="609">
+                <source>Dla stron bez kodu</source>
+                <target>Dla stron bez kodu</target>
+            </trans-unit>
+            <trans-unit id="610">
+                <source>Sprzedawane pojedynczo</source>
+                <target>Sprzedawane pojedynczo</target>
+            </trans-unit>
+            <trans-unit id="611">
+                <source>Czy produkt ma wyświetlać się na stronach użytkowników</source>
+                <target>Czy produkt ma wyświetlać się na stronach użytkowników</target>
+            </trans-unit>
+            <trans-unit id="612">
+                <source>Strony specjalne to strony na których wyświetlają się tylko oznaczone produkty, pracownik lub administrator może oznaczyć stronę jako specjalna</source>
+                <target>Strony specjalne to strony na których wyświetlają się tylko oznaczone produkty, pracownik lub administrator może oznaczyć stronę jako specjalna</target>
+            </trans-unit>
+            <trans-unit id="613">
+                <source>Czy produkt dotyczy rozszerzenia strony upamiętniającej</source>
+                <target>Czy produkt dotyczy rozszerzenia strony upamiętniającej</target>
+            </trans-unit>
+            <trans-unit id="614">
+                <source>Czy produkt ma wyświetlać się na stronach które mają przypisany kod Epado</source>
+                <target>Czy produkt ma wyświetlać się na stronach które mają przypisany kod Epado</target>
+            </trans-unit>
+            <trans-unit id="615">
+                <source>Czy produkt ma wyświetlać się na stronach które nie mają przypisanego kodu Epado</source>
+                <target>Czy produkt ma wyświetlać się na stronach które nie mają przypisanego kodu Epado</target>
+            </trans-unit>
+            <trans-unit id="616">
+                <source>Czy użytkownik może kupić tylko jedną sztukę tego produktu w jednym zamówieniu, jeżeli ta opcja jest wyłączona kupujący może zmienić ilość zamawianych produktów</source>
+                <target>Czy użytkownik może kupić tylko jedną sztukę tego produktu w jednym zamówieniu, jeżeli ta opcja jest wyłączona kupujący może zmienić ilość zamawianych produktów</target>
+            </trans-unit>
+            <trans-unit id="617">
+                <source>Cena w %currency%</source>
+                <target>Cena w %currency%</target>
+            </trans-unit>
+            <trans-unit id="618">
+                <source>Tłumaczenie</source>
+                <target>Tłumaczenie</target>
+            </trans-unit>
+            <trans-unit id="619">
+                <source>Dla użytkownika</source>
+                <target>Dla użytkownika</target>
+            </trans-unit>
+            <trans-unit id="620">
+                <source>Dla partnera</source>
+                <target>Dla partnera</target>
+            </trans-unit>
+            <trans-unit id="621">
+                <source>Realizowany wysyłkowo</source>
+                <target>Realizowany wysyłkowo</target>
+            </trans-unit>
+            <trans-unit id="622">
+                <source>Realizowany online</source>
+                <target>Realizowany online</target>
+            </trans-unit>
+            <trans-unit id="623">
+                <source>Podwykonawca</source>
+                <target>Podwykonawca</target>
+            </trans-unit>
+            <trans-unit id="624">
+                <source>5 lat</source>
+                <target>5 lat</target>
+            </trans-unit>
+            <trans-unit id="625">
+                <source>10 lat</source>
+                <target>10 lat</target>
+            </trans-unit>
+            <trans-unit id="626">
+                <source>20 lat</source>
+                <target>20 lat</target>
+            </trans-unit>
+            <trans-unit id="627">
+                <source>Biografia</source>
+                <target>Biografia</target>
+            </trans-unit>
+            <trans-unit id="628">
+                <source>Płeć</source>
+                <target>Płeć</target>
+            </trans-unit>
+            <trans-unit id="629">
+                <source>Mężczyzna</source>
+                <target>Mężczyzna</target>
+            </trans-unit>
+            <trans-unit id="630">
+                <source>Kobieta</source>
+                <target>Kobieta</target>
+            </trans-unit>
+            <trans-unit id="631">
+                <source>Data urodzenia (rok, miesiąc, dzień)</source>
+                <target>Data urodzenia (rok, miesiąc, dzień)</target>
+            </trans-unit>
+            <trans-unit id="632">
+                <source>Data śmierci (rok, miesiąc, dzień)</source>
+                <target>Data śmierci (rok, miesiąc, dzień)</target>
+            </trans-unit>
+            <trans-unit id="633">
+                <source>Widoczność w wyszukiwarce Epado</source>
+                <target>Widoczność w wyszukiwarce Epado</target>
+            </trans-unit>
+            <trans-unit id="634">
+                <source>Blokuj dodawanie nowych kondolencji</source>
+                <target>Blokuj dodawanie nowych kondolencji</target>
+            </trans-unit>
+            <trans-unit id="635">
+                <source>Przypomnij o rocznicy</source>
+                <target>Przypomnij o rocznicy</target>
+            </trans-unit>
+            <trans-unit id="636">
+                <source>Dłuższy opis (pierwszy akapit będzie widoczny)</source>
+                <target>Dłuższy opis (pierwszy akapit będzie widoczny)</target>
+            </trans-unit>
+            <trans-unit id="637">
+                <source>Typ miejsca</source>
+                <target>Typ miejsca</target>
+            </trans-unit>
+            <trans-unit id="638">
+                <source>Data powstania (rok, miesiąc, dzień)</source>
+                <target>Data powstania (rok, miesiąc, dzień)</target>
+            </trans-unit>
+            <trans-unit id="639">
+                <source>Dodaj własne zdjęcie w tle</source>
+                <target>Dodaj własne zdjęcie w tle</target>
+            </trans-unit>
+            <trans-unit id="640">
+                <source>Strona specjalna, wyświetlaj tylko oznaczone produkty</source>
+                <target>Strona specjalna, wyświetlaj tylko oznaczone produkty</target>
+            </trans-unit>
+            <trans-unit id="641">
+                <source>Na stronie oznaczonej jako specjalna wyświetlały się będą tylko oznaczone produkty. Opcja ta jest widoczna tylko dla administratorów i pracowników Epado.</source>
+                <target>Na stronie oznaczonej jako specjalna wyświetlały się będą tylko oznaczone produkty. Opcja ta jest widoczna tylko dla administratorów i pracowników Epado.</target>
+            </trans-unit>
+            <trans-unit id="642">
+                <source>Wyszukaj cmentarz podająć jego nazwe lub miejscowość w której się znajduje</source>
+                <target>Wyszukaj cmentarz podająć jego nazwe lub miejscowość w której się znajduje</target>
+            </trans-unit>
+            <trans-unit id="643">
+                <source>Wybierz lub dodaj nową rodzinę</source>
+                <target>Wybierz lub dodaj nową rodzinę</target>
+            </trans-unit>
+            <trans-unit id="644">
+                <source>Kod pocztowy</source>
+                <target>Kod pocztowy</target>
+            </trans-unit>
+            <trans-unit id="645">
+                <source>Nazwa cmentarza</source>
+                <target>Nazwa cmentarza</target>
+            </trans-unit>
+            <trans-unit id="646">
+                <source>Edytowanie strony</source>
+                <target>Edytowanie strony</target>
+            </trans-unit>
+            <trans-unit id="647">
+                <source>Zdjęcie główne</source>
+                <target>Zdjęcie główne</target>
+            </trans-unit>
+            <trans-unit id="648">
+                <source>Zdjęcie w tle</source>
+                <target>Zdjęcie w tle</target>
+            </trans-unit>
+            <trans-unit id="649">
+                <source>Przypomnienie o rocznicy śmierci</source>
+                <target>Przypomnienie o rocznicy śmierci</target>
+            </trans-unit>
+            <trans-unit id="650">
+                <source>Powiadomienie o kondolencjach</source>
+                <target>Powiadomienie o kondolencjach</target>
+            </trans-unit>
+            <trans-unit id="651">
+                <source>Usuwanie kondolencji</source>
+                <target>Usuwanie kondolencji</target>
+            </trans-unit>
+            <trans-unit id="652">
+                <source>Edytowanie informacji o rodzinie</source>
+                <target>Edytowanie informacji o rodzinie</target>
+            </trans-unit>
+            <trans-unit id="653">
+                <source>Temat maila</source>
+                <target>Temat maila</target>
+            </trans-unit>
+            <trans-unit id="654">
+                <source>Wiadomość email</source>
+                <target>Wiadomość email</target>
+            </trans-unit>
+            <trans-unit id="655">
+                <source>Wyślij maila gdy zostanie ustawiony ten status</source>
+                <target>Wyślij maila gdy zostanie ustawiony ten status</target>
+            </trans-unit>
+            <trans-unit id="656">
+                <source>Zamówienie potwierdzone</source>
+                <target>Zamówienie potwierdzone</target>
+            </trans-unit>
+            <trans-unit id="657">
+                <source>Zamówienie zakończone</source>
+                <target>Zamówienie zakończone</target>
+            </trans-unit>
+            <trans-unit id="658">
+                <source>Klient dodał koszyk z produktami</source>
+                <target>Klient dodał koszyk z produktami</target>
+            </trans-unit>
+            <trans-unit id="659">
+                <source>Klient potwierdził wykonanie usługi</source>
+                <target>Klient potwierdził wykonanie usługi</target>
+            </trans-unit>
+            <trans-unit id="660">
+                <source>Wykonawca potwierdził wykonanie usługi</source>
+                <target>Wykonawca potwierdził wykonanie usługi</target>
+            </trans-unit>
+            <trans-unit id="661">
+                <source>Zamówienie ustawione jako opłacone</source>
+                <target>Zamówienie ustawione jako opłacone</target>
+            </trans-unit>
+            <trans-unit id="662">
+                <source>Zamówienie opłacone online</source>
+                <target>Zamówienie opłacone online</target>
+            </trans-unit>
+            <trans-unit id="663">
+                <source>Nieudana płatność online</source>
+                <target>Nieudana płatność online</target>
+            </trans-unit>
+            <trans-unit id="664">
+                <source>Wyślij tego maila</source>
+                <target>Wyślij tego maila</target>
+            </trans-unit>
+            <trans-unit id="665">
+                <source>Nazwa rodziny</source>
+                <target>Nazwa rodziny</target>
+            </trans-unit>
+            <trans-unit id="666">
+                <source>Opis rodziny</source>
+                <target>Opis rodziny</target>
+            </trans-unit>
+            <trans-unit id="667">
+                <source>Kod kraju</source>
+                <target>Kod kraju</target>
+            </trans-unit>
+            <trans-unit id="668">
+                <source>Dostępny jako lokalizacja strony</source>
+                <target>Dostępny jako lokalizacja strony</target>
+            </trans-unit>
+            <trans-unit id="669">
+                <source>Dostępny w danych do dostawy</source>
+                <target>Dostępny w danych do dostawy</target>
+            </trans-unit>
+            <trans-unit id="670">
+                <source>Dostępny w danych bilingowych</source>
+                <target>Dostępny w danych bilingowych</target>
+            </trans-unit>
+            <trans-unit id="671">
+                <source>Treść dokumentu powitalnego</source>
+                <target>Treść dokumentu powitalnego</target>
+            </trans-unit>
+            <trans-unit id="672">
+                <source>Język</source>
+                <target>Język</target>
+            </trans-unit>
+            <trans-unit id="673">
+                <source>Ilość kodów</source>
+                <target>Ilość kodów</target>
+            </trans-unit>
+            <trans-unit id="674">
+                <source>Musisz podać ilość kodów</source>
+                <target>Musisz podać ilość kodów</target>
+            </trans-unit>
+            <trans-unit id="675">
+                <source>Za mało kodów</source>
+                <target>Za mało kodów</target>
+            </trans-unit>
+            <trans-unit id="676">
+                <source>Ilość generowanych kodów podaje się tylko podczas tworzenia grupy kodów</source>
+                <target>Ilość generowanych kodów podaje się tylko podczas tworzenia grupy kodów</target>
+            </trans-unit>
+            <trans-unit id="677">
+                <source>Kody uniwersalne</source>
+                <target>Kody uniwersalne</target>
+            </trans-unit>
+            <trans-unit id="678">
+                <source>Przedłużany okres w przypadku kodów uniwersalnych</source>
+                <target>Przedłużany okres w przypadku kodów uniwersalnych</target>
+            </trans-unit>
+            <trans-unit id="679">
+                <source>Nazwa firmy</source>
+                <target>Nazwa firmy</target>
+            </trans-unit>
+            <trans-unit id="680">
+                <source>Nazwa numeru identyfikacji podatkowej</source>
+                <target>Nazwa numeru identyfikacji podatkowej</target>
+            </trans-unit>
+            <trans-unit id="681">
+                <source>Numer identyfikacji podatkowej</source>
+                <target>Numer identyfikacji podatkowej</target>
+            </trans-unit>
+            <trans-unit id="682">
+                <source>NIP</source>
+                <target>NIP</target>
+            </trans-unit>
+            <trans-unit id="683">
+                <source>VAT EU</source>
+                <target>VAT EU</target>
+            </trans-unit>
+            <trans-unit id="684">
+                <source>Inny</source>
+                <target>Inny</target>
+            </trans-unit>
+            <trans-unit id="685">
+                <source>Typ uprawnień</source>
+                <target>Typ uprawnień</target>
+            </trans-unit>
+            <trans-unit id="686">
+                <source>Ilość zamawianych sztuk</source>
+                <target>Ilość zamawianych sztuk</target>
+            </trans-unit>
+            <trans-unit id="687">
+                <source>Cena za sztukę</source>
+                <target>Cena za sztukę</target>
+            </trans-unit>
+            <trans-unit id="688">
+                <source>Nie ma dodanych produktów.</source>
+                <target>Nie ma dodanych produktów.</target>
+            </trans-unit>
+            <trans-unit id="689">
+                <source>Dziękujemy, Twoje zgłoszenie zostało wysłane.</source>
+                <target>Dziękujemy, Twoje zgłoszenie zostało wysłane.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

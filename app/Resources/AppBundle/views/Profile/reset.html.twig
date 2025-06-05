@@ -1,0 +1,50 @@
+{% extends "full.html.twig" %}
+
+{% block title %}{{ 'Prośba o nowe hasło'|trans }}{% endblock %}
+
+{% block content %}
+
+    <h1><i class="fa fa-question-circle"></i>{{ 'Prośba o nowe hasło'|trans }}</h1>
+    
+    <div class="content">
+        {% if(error is defined) %}
+            <p>{{ error }}</p>
+        {% endif %}    
+            
+        {% if(info is defined) %}
+            <p>{{ info }}</p>
+        {% else %}
+            
+            
+            {% if(do is defined) %}
+
+                {% if(do=='username') %}    
+                    <form method="post">
+                        <div class="widget">
+                            <label for="username">{{ 'Podaj adres email'|trans }}</label>
+                            <input type="text" name="username" id="username" value="">
+                        </div>    
+                        <div><button type="submit" id="user_save" name="request">{{ 'Zmień hasło'|trans }}</button></div>   
+                    </form>
+                {% elseif(do=='password') %}
+                    <form method="post">
+                        <div class="widget">
+                            <label for="password">{{ 'Podaj nowe hasło'|trans }}</label>
+                            <input type="password" name="password" id="password" value="">
+                        </div>    
+                        <div class="widget">
+                            <label for="password_confirm">{{ 'Powtórz nowe hasło'|trans }}</label>
+                            <input type="password" name="password_confirm" id="password_confirm" value="">
+                        </div> 
+                        <div><button type="submit" id="user_save" name="request">{{ 'Zmień hasło'|trans }}</button></div>   
+                    </form>
+                {% else %} 
+                    <p>{{ 'Wystąpił błąd proszę spróbować ponownie.'|trans }}</p>
+                {% endif %}
+
+            {% endif %}
+        
+        {% endif %}
+    </div>
+
+{% endblock %}

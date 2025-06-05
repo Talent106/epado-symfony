@@ -1,0 +1,121 @@
+{% extends "admin.html.twig" %}
+
+{% form_theme form _self %}
+
+
+
+
+{% block _user_ad_desktop_row %}
+    
+    {% if(form.vars.block_prefixes.1=='hidden') %}<div style="display:none;">{%endif%} 
+    <div class="{% if attr['data-hidden'] is defined %} hidden {% endif %} {% if name is defined %}widget{% endif %} {% if name is defined %}widget_{{name}}{% endif %}">
+        {{ form_label(form) }}
+        
+        <div class="field">
+            <div style="width:100%; position:relative; height:40px;">{{ form_widget(form) }}</div>
+            {% if label_attr.image is defined and label_attr.image %}  
+                <img src="/uploads/ads/{{ label_attr.image }}" style="max-width:100%; max-height:300px;">
+            {% else %}     
+                <img src="" style="max-width:100%; max-height:300px; display:none;">
+            {% endif %} 
+        </div>
+
+        {{ form_errors(form) }}
+        
+        {% if attr['data-help'] is defined %} <div class="tip help" title="{{ attr['data-help']|trans }}"><i class="fa fa-question-circle" aria-hidden="true"></i></div> {% endif %}
+        
+    </div>
+    {% if(form.vars.block_prefixes.1=='hidden') %}</div>{%endif%}         
+{% endblock %}
+
+
+{% block _user_ad_mobile_row %}
+    {% if(form.vars.block_prefixes.1=='hidden') %}<div style="display:none;">{%endif%}
+    <div class="{% if attr['data-hidden'] is defined %} hidden {% endif %} {% if name is defined %}widget{% endif %} {% if name is defined %}widget_{{name}}{% endif %}">
+        {{ form_label(form) }}
+        
+        <div class="field">
+            <div style="width:100%; position:relative; height:40px;">{{ form_widget(form) }}</div>
+            {% if label_attr.image is defined and label_attr.image %}  
+                <img src="/uploads/ads/{{ label_attr.image }}" style="max-width:100%; max-height:300px; border:1px solid #ddd;">
+            {% else %}     
+                <img src="" style="max-width:100%; max-height:300px; border:1px solid #ddd; display:none;">
+            {% endif %} 
+        </div>
+
+        {{ form_errors(form) }}
+        
+        {% if attr['data-help'] is defined %} <div class="tip help" title="{{ attr['data-help']|trans }}"><i class="fa fa-question-circle" aria-hidden="true"></i></div> {% endif %}
+        
+    </div>
+    {% if(form.vars.block_prefixes.1=='hidden') %}</div>{%endif%}         
+{% endblock %}
+
+
+
+
+{% block header %}<h1><i class="fa fa-user"></i>{{ 'Moje reklamy'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+    
+    
+    <div class="content">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    
+    <script>
+        
+        $('#user_ad_mobile,#user_ad_desktop').change(function(){
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                var element=$(this); 
+                reader.onload = function (e) {
+                    
+                    element.parent().parent().find('img').show().attr('src', e.target.result);
+                    
+                };
+
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        
+    </script>
+    
+    
+    {% if object.ads %}   
+    <div class="content" {#style="text-align:center;"#}>  
+       {#<h3><i class="fa fa-fw fa-money"></i>&nbsp; {{ 'System reklam'|trans }}</h3>
+        <p>
+        {% if object.addesktop %}
+          Reklama na komputerach:<br><br>
+          {% if object.adlink %}<a href="{{object.adlink}}">{% endif %}
+              <img src="/uploads/ads/{{object.addesktop}}" style="max-width:100%;">
+          {% if object.adlink %}</a>{% endif %} 
+        {% else %}
+          <span style="color:red;">Nie dodano reklamy na komputery</span> 
+        {% endif %}
+        </p>
+       
+        <p>
+        {% if object.admobile %}
+          Reklama na urządzeniach mobilnych:<br><br>
+          {% if object.adlink %}<a href="{{object.adlink}}">{% endif %}
+              <img src="/uploads/ads/{{object.admobile}}" style="max-width:100%;">
+          {% if object.adlink %}</a>{% endif %}  
+        {% else %}
+          <span style="color:red;">Nie dodano reklamy na urządzenia mobilne</span> 
+        {% endif %}
+        </p>#}
+       
+        <div class="options"> 
+            <a class="button small" href="/015040163920008?partner_id={{ object.id }}"><i class="fa fa-eye"></i> {{ 'Podgląd strony z reklamami'|trans }}</a>
+        </div>   
+            
+    </div>    
+    {% endif %} 
+
+{% endblock %}

@@ -1,0 +1,18 @@
+
+            <div class="widget">
+                <label for="order_invoice">{{ 'Chcę otrzymać fakturę'|trans }}</label>
+
+                <div class="field switch single">
+                    <input type="checkbox" id="order_invoice_option" name="order_invoice_option" value="1" {% if object.invoice %}checked="checked"{% endif %}>
+                    <label class="" for="order_invoice_option">{{ 'Chcę otrzymać fakturę'|trans }}</label>
+                </div>      
+            </div>
+                    
+            {%if error%}<p style="color:red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{error}}</p>{% endif %}        
+
+            {% if not object.confirmed and not object.invoice  %}  
+                <p>{{ 'Jeżeli chcesz otrzymać fakturę po zatwierdzeniu i opłąceniu zamówienia zaznacz powyższe pole "Chcę otrzymać fakturę". Jeżeli nie zaznaczych powyższego pola nie zostanie wystawiona dla Ciebie faktura. Po zatwierdzeniu zamówienia nie będzie można zmienić danych rozliczeniowych w zamówieniu bez kontaktu z działem obsługi klienta.'|trans }}</p>   
+            {% endif %} 
+            {% if not object.confirmed and object.invoice  %}
+                <p>{{ 'Po opłaceniu zamówienia zostanie wystawiona dla Ciebie faktura. Zostanie ona wysłana na maila oraz będzie dostępna do pobrania na karcie zamówienia.'|trans }}</p>    
+            {% endif %}

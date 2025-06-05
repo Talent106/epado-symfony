@@ -1,0 +1,292 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
+/**
+ * Stock
+ *
+ * @ORM\Table(name="stock")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity()
+ */
+class Stock
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="stocks", cascade={"persist"})
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=true)
+     */
+    protected $product;
+    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="stocks", cascade={"persist"})
+     * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=true)
+     */
+    protected $partner;
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $price;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $stock;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $stock_reserved;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $original_currency;  
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $exchange_rate;  
+
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     * @return Stock
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set stock
+     *
+     * @param integer $stock
+     * @return Stock
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return integer 
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * Set stock_reserved
+     *
+     * @param integer $stockReserved
+     * @return Stock
+     */
+    public function setStockReserved($stockReserved)
+    {
+        $this->stock_reserved = $stockReserved;
+
+        return $this;
+    }
+
+    /**
+     * Get stock_reserved
+     *
+     * @return integer 
+     */
+    public function getStockReserved()
+    {
+        return $this->stock_reserved;
+    }
+
+    /**
+     * Set original_currency
+     *
+     * @param string $originalCurrency
+     * @return Stock
+     */
+    public function setOriginalCurrency($originalCurrency)
+    {
+        $this->original_currency = $originalCurrency;
+
+        return $this;
+    }
+
+    /**
+     * Get original_currency
+     *
+     * @return string 
+     */
+    public function getOriginalCurrency()
+    {
+        return $this->original_currency;
+    }
+
+    /**
+     * Set exchange_rate
+     *
+     * @param string $exchangeRate
+     * @return Stock
+     */
+    public function setExchangeRate($exchangeRate)
+    {
+        $this->exchange_rate = $exchangeRate;
+
+        return $this;
+    }
+
+    /**
+     * Get exchange_rate
+     *
+     * @return string 
+     */
+    public function getExchangeRate()
+    {
+        return $this->exchange_rate;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Product $product
+     * @return Stock
+     */
+    public function setProduct(\AppBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \AppBundle\Entity\Product 
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set partner
+     *
+     * @param \AppBundle\Entity\Partner $partner
+     * @return Stock
+     */
+    public function setPartner(\AppBundle\Entity\Partner $partner = null)
+    {
+        $this->partner = $partner;
+
+        return $this;
+    }
+
+    /**
+     * Get partner
+     *
+     * @return \AppBundle\Entity\Partner 
+     */
+    public function getPartner()
+    {
+        return $this->partner;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Stock
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Stock
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+}

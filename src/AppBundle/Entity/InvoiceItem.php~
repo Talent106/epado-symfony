@@ -1,0 +1,603 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
+/**
+ * InvoiceItem
+ *
+ * @ORM\Table(name="invoice_item")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity()
+ */
+class InvoiceItem
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="invoice_item", cascade={"persist"})
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=true)
+     */
+    protected $product;
+    
+    
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\OrderProduct", inversedBy="InvoiceItems")
+     * @ORM\JoinColumn(name="order_product_id", referencedColumnName="id", nullable=true)
+     */
+    protected $order_product;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice", inversedBy="InvoiceItems", cascade={"persist"})
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id", nullable=true)
+     */
+    protected $invoice;
+
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="created", cascade={"persist"})
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", nullable=true)
+     */
+    protected $creator;
+    
+    /**
+     * @ORM\Column( type="string", length=255)
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(min=2, groups={"registration"})
+     */
+    private $name;
+
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $gross_price;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $net_price;
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $vat_price;
+    
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $sum_gross_price;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $sum_net_price;
+    
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $sum_vat_price;
+    
+    
+
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $tax_rate;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $tax;
+
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $amount;
+    
+
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $unit;
+
+    
+    /**
+     * @ORM\Column( type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $created;
+    
+
+
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+    
+    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return InvoiceItem
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set gross_price
+     *
+     * @param string $grossPrice
+     * @return InvoiceItem
+     */
+    public function setGrossPrice($grossPrice)
+    {
+        $this->gross_price = $grossPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get gross_price
+     *
+     * @return string 
+     */
+    public function getGrossPrice()
+    {
+        return $this->gross_price;
+    }
+
+    /**
+     * Set net_price
+     *
+     * @param string $netPrice
+     * @return InvoiceItem
+     */
+    public function setNetPrice($netPrice)
+    {
+        $this->net_price = $netPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get net_price
+     *
+     * @return string 
+     */
+    public function getNetPrice()
+    {
+        return $this->net_price;
+    }
+
+    /**
+     * Set tax
+     *
+     * @param string $tax
+     * @return InvoiceItem
+     */
+    public function setTax($tax)
+    {
+        $this->tax = $tax;
+    
+        return $this;
+    }
+
+    /**
+     * Get tax
+     *
+     * @return string 
+     */
+    public function getTax()
+    {
+        return $this->tax;
+    }
+
+    /**
+     * Set tax_display
+     *
+     * @param string $taxDisplay
+     * @return InvoiceItem
+     */
+    public function setTaxDisplay($taxDisplay)
+    {
+        $this->tax_display = $taxDisplay;
+    
+        return $this;
+    }
+
+    /**
+     * Get tax_display
+     *
+     * @return string 
+     */
+    public function getTaxDisplay()
+    {
+        return $this->tax_display;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return InvoiceItem
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param integer $amount
+     * @return InvoiceItem
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+    
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return integer 
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param string $unit
+     * @return InvoiceItem
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+    
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string 
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return InvoiceItem
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set sold
+     *
+     * @param \DateTime $sold
+     * @return InvoiceItem
+     */
+    public function setSold($sold)
+    {
+        $this->sold = $sold;
+    
+        return $this;
+    }
+
+    /**
+     * Get sold
+     *
+     * @return \DateTime 
+     */
+    public function getSold()
+    {
+        return $this->sold;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return InvoiceItem
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Product $product
+     * @return InvoiceItem
+     */
+    public function setProduct(\AppBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+    
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \AppBundle\Entity\Product 
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set invoice
+     *
+     * @param \AppBundle\Entity\Invoice $invoice
+     * @return InvoiceItem
+     */
+    public function setInvoice(\AppBundle\Entity\Invoice $invoice = null)
+    {
+        $this->invoice = $invoice;
+    
+        return $this;
+    }
+
+    /**
+     * Get invoice
+     *
+     * @return \AppBundle\Entity\Invoice 
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\User $creator
+     * @return InvoiceItem
+     */
+    public function setCreator(\AppBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+    
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * Set tax_rate
+     *
+     * @param string $taxRate
+     * @return InvoiceItem
+     */
+    public function setTaxRate($taxRate)
+    {
+        $this->tax_rate = $taxRate;
+    
+        return $this;
+    }
+
+    /**
+     * Get tax_rate
+     *
+     * @return string 
+     */
+    public function getTaxRate()
+    {
+        return $this->tax_rate;
+    }
+
+    /**
+     * Set order_product
+     *
+     * @param \AppBundle\Entity\OrderProduct $orderProduct
+     * @return InvoiceItem
+     */
+    public function setOrderProduct(\AppBundle\Entity\OrderProduct $orderProduct = null)
+    {
+        $this->order_product = $orderProduct;
+    
+        return $this;
+    }
+
+    /**
+     * Get order_product
+     *
+     * @return \AppBundle\Entity\OrderProduct 
+     */
+    public function getOrderProduct()
+    {
+        return $this->order_product;
+    }
+
+    /**
+     * Set vat_price
+     *
+     * @param string $vatPrice
+     * @return InvoiceItem
+     */
+    public function setVatPrice($vatPrice)
+    {
+        $this->vat_price = $vatPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get vat_price
+     *
+     * @return string 
+     */
+    public function getVatPrice()
+    {
+        return $this->vat_price;
+    }
+
+    /**
+     * Set sum_gross_price
+     *
+     * @param string $sumGrossPrice
+     * @return InvoiceItem
+     */
+    public function setSumGrossPrice($sumGrossPrice)
+    {
+        $this->sum_gross_price = $sumGrossPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get sum_gross_price
+     *
+     * @return string 
+     */
+    public function getSumGrossPrice()
+    {
+        return $this->sum_gross_price;
+    }
+
+    /**
+     * Set sum_net_price
+     *
+     * @param string $sumNetPrice
+     * @return InvoiceItem
+     */
+    public function setSumNetPrice($sumNetPrice)
+    {
+        $this->sum_net_price = $sumNetPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get sum_net_price
+     *
+     * @return string 
+     */
+    public function getSumNetPrice()
+    {
+        return $this->sum_net_price;
+    }
+
+    /**
+     * Set sum_vat_price
+     *
+     * @param string $sumVatPrice
+     * @return InvoiceItem
+     */
+    public function setSumVatPrice($sumVatPrice)
+    {
+        $this->sum_vat_price = $sumVatPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get sum_vat_price
+     *
+     * @return string 
+     */
+    public function getSumVatPrice()
+    {
+        return $this->sum_vat_price;
+    }
+}

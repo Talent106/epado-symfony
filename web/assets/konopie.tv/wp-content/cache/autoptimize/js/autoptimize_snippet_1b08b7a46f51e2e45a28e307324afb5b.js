@@ -1,0 +1,1 @@
+(function($){'use strict';$(function(){$('.void-grid .row').each(function(i,elem){$(elem).find('.item').matchHeight({byRow:false});});})})(jQuery);

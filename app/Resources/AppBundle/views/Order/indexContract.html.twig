@@ -1,0 +1,91 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-fire"></i>{% if ad==1 %}{{ 'Usługi do wykonania'|trans }}{% else %}{{ 'Zamówione usługi'|trans }}{% endif %}</h1>{% endblock %}
+
+{% block content %}
+    
+    {#{% if(app.user is not null and app.user.type in ['admin','worker','trader'] ) %}#}
+    <div class="content">
+        {{ filters(filters,filters_params)|raw }}    
+    </div>
+    {#{% endif %}#}
+         
+    
+    <div class="content">  
+        
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Lp'|trans }}</th>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Nazwa'|trans }}</th>
+                        <th colspan="2">{{ 'Kupujący i wykonawca'|trans }}</th>
+                        {#<th>{{ 'Cena'|trans }}</th>#}
+                        <th>{{ 'Data wykonania'|trans }}</th>
+                        
+                        <th><a href="{% if filters_params.sort['op.rating'] is defined and filters_params.sort['op.rating']==1 %}{{extend({'sort':{'op.rating':'0'}})}}{%else%}{{extend({'sort':{'op.rating':'1'}})}}{%endif%}">{{ 'Ocena'|trans }} {% if filters_params.sort['op.rating'] is defined %}{% if filters_params.sort['op.rating']==1 %}<i class="fa fa-sort-amount-desc"></i>{%else%}<i class="fa fa-sort-amount-asc" ></i>{%endif%}{%else%}<i class="fa fa-sort" ></i>{%endif%}</a></th>
+                        <th>{{ 'Utworzono'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr class="{% if(object.order.canceled) %}canceled {% elseif(object.order.done) %}done {% elseif(object.order.confirmed) %}confirmed {% endif %}" >
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td>
+                        <td  class="tip" title="Pochodzi z zamówienia nr: {{object.order.id}}">{{ object.id }}</td>
+                        <td class="tip" title="Pochodzi z zamówienia nr: {{object.order.id}}">
+                            <a href="{{ path('contract_form', {'id': object.id})}}">{{ object.product.name }}</a><br>
+                            {#{% if(app.user.type in ['admin','trader','worker'])  %}
+                                {% if(object.order.confirmed) %}
+                                <a href="{{ path('order_form', {'id': object.order.id})}}" class="">Zamówienie nr {{object.order.id}}</a>
+                                {% else %}
+                                <a href="{{ path('order_form', {'id': object.order.id})}}">Koszyk</a>
+                                {% endif %}
+                                <div class="long">Usługa: <a href="{{ path('product_form',{'id':object.product.id}) }}">{{ object.product.name }}</a></div>
+                                <div class="long">Strona: <a href="{{ path('page_form',{'id':object.page.id}) }}">{{ object.page.name }}</a></div>  
+                            {% else %}
+                                {% if(object.order.confirmed) %}
+                                Zamówienie nr {{object.order.id}}
+                                {% else %}
+                                Koszyk
+                                {% endif %}
+                                <div class="long">Usługa: {{ object.product.name }}</div>
+                                <div class="long">Strona: {{ object.page.name }}</div>  
+                            {% endif %}#}
+                        </td>
+                            
+                            
+                        <td>{{ tabUser(object.order.buyer)|raw }}</td>
+                        <td>{% if object.contractor is not null %}{{ tabUser(object.contractor)|raw }}{% else %}{{ 'Brak'|trans }}{% endif %}</td>
+                        {#<td><span class="tip" title="{% if(object.order.paid) %}Opłacone{% else %}Nieopłacone{% endif %}" style="{% if(object.order.paid) %}color:green;{% else %}color:red;{% endif %}">{{ object.price|price(object.order.currency) }}</span></td>#}
+                        <td>
+                                {{ object.contractorconfirmed|dateornot('d.m.Y')|raw }} 
+                                
+                        </td>
+                        <td>
+                            {% if( object.rating) %}    
+                                <span class="tip" {% if( object.review) %}title="Komentarz: {{object.review}}"{% else %}title="{{ 'Brak komentarza'|trans }}"{% endif %}>
+                                    {{ object.rating|number_format(0)|stars|raw }}
+                                </span> 
+                            {% else %} 
+                                -
+                            {% endif %}      
+                        </td>
+                        
+                        <td class="tip" title="{{object.created|mydate('d.m.Y H:i:s')}}">{{object.created|mydate}}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </table></div>
+            
+            {{ pagination(pager)|raw }}
+        {% else %}
+            {% if(ad==1 ) %}
+            <p>{{ 'Nie odnaleziono żadnych zamówień. Zmień ustawienia filtra.'|trans }}</p>
+            {% else %}    
+            <p>{{ 'Nie posiadasz żadnych usług które wymagają realizacji.'|trans }}</p>
+            {% endif %}
+            
+        {% endif %}
+    </div>
+
+{% endblock %}

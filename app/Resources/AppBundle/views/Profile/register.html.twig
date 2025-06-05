@@ -1,0 +1,28 @@
+{% extends "full.html.twig" %}
+
+{% block title %}{{ 'Rejestracja'|trans }}{% endblock %}
+
+{% block content %}
+    
+    <h1><i class="fa fa-user-plus"></i>{{ 'Rejestracja'|trans }}</h1>
+
+    <div class="content"><div class="options">
+        <a href="{{ facebook_url }}" class="button facebook"><i class="fa fa-facebook"></i>{{ 'Rejestracja przez Facebooka'|trans }}</a>
+        <a class="button" href="{{ path('login') }}">{{ 'Logowanie'|trans }}</a>
+        
+        <p>{{ 'Rejestrując się w Epado za pośrednictwem Facebooka, akceptujesz nasz regulamin:'|trans }} <a href="{{ path('rules') }}">{{ 'Regulamin'|trans }}</a>.</p> 
+    </div></div>
+    
+    <div class="content">        
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+        
+        
+    </div>
+    <div class="content">  
+        <p>{{ 'Rejestrując się w Epado, akceptujesz nasz regulamin:'|trans }} <a href="{{ path('rules') }}">{{ 'Regulamin'|trans }}</a>.</p> 
+    </div>
+        
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-shopping-cart"></i>{{ 'Powiadomienia'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+    
+    <div class="content">
+        
+        {#<div class="options">
+        <a href="{{ path('order_status_form') }}" class="button">Dodaj status</a>
+        </div>#}
+        
+        {% if objects %}
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Nazwa'|trans }}</th>
+                        <th>{{ 'Mail'|trans }}</th>
+                        <th>{{ 'Utworzono'|trans }}</th>
+                    </tr>
+                {% for object in objects %}
+                    <tr>
+                        <td>{{object.id}}</td>
+                        <td><a href="{{ path('mail_form', {'id': object.id})}}">{{object.name}}</a></td>
+                        <td>{% if object.sendmail %}<i class="fa fa-envelope tip" title="{{object.subject}}: {{object.mail }}"></i> {% else %} - {% endif %}</td>
+                        <td>{{object.created|mydate}}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+        {% else %}
+            <p>{{ 'Nie ma powiadomień.'|trans }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

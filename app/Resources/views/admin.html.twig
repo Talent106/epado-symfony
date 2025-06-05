@@ -1,0 +1,150 @@
+{% extends 'wrapper.html.twig' %}
+{% block body %}
+<div class="admin">
+    
+    <div class="size first-content">
+        
+    {{ block('header') }}
+    
+    <div class="notifications">
+        {% for flashMessage in app.session.flashbag.get('notice') %}<div class="notification notice">{{ flashMessage|raw }}</div>{% endfor %}
+        {% for flashMessage in app.session.flashbag.get('warning') %}<div class="notification warning">{{ flashMessage|raw }}</div>{% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}<div class="notification success">{{ flashMessage|raw }}</div>{% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}<div class="notification error">{{ flashMessage|raw }}</div>{% endfor %}
+    </div>
+    
+    
+
+    <div class="right-navigation">
+        <div class="content profile nav-user">
+        {% set user = app.user %}
+        {% if user is not null %}
+            <div class="user">
+            <div class="avatar circle" style="width:65px; height:65px; background-image:url('{{ path('thumbnail', {'resolution': '60x60', 'file': user.avatar })|production }}');"></div>
+
+            {{ user.firstname }} {{ user.lastname }}
+            <br>{{ user.gettypename()|trans }}
+        {% if(app.user is not null and app.user.type in ['partner'] ) %}
+		<b>
+			{% if user.provision <= 30 %} <label class="label">Silver</label>  {% endif %}	
+			{% if user.provision <= 40 and user.provision > 30 %} <label class="label">Gold</label>  {% endif %}
+			{% if user.provision > 50 %} <label class="label">Platinium</label>  {% endif %}
+        </b>    
+        {% endif %}			
+            <div class="buttons">
+                <a href="{{ path('profile_edit') }}" class="button tiny"><i class="fa fa-gear"></i>{{ 'Ustawienia'|trans }}</a>
+                {#<a href="{{ path('logout') }}" class="button tiny"><i class="fa fa-power-off"></i>{{ 'Wyloguj'|trans }}</a>#}
+            </div>
+            </div>
+        {% endif %}
+        </div>
+        {% if(app.user is not null and app.user.type in ['admin','worker','trader', 'contractor','partner'] ) %}
+            
+        {% if(app.user is not null and app.user.type in ['admin'] ) %}
+            <h3>{{ 'Panel administracyjny'|trans }}</h3>
+        {% endif %}
+        {% if(app.user is not null and app.user.type in ['worker'] ) %}
+            <h3>{{ 'Panel pracownika'|trans }}</h3>
+        {% endif %}
+        {% if(app.user is not null and app.user.type in ['trader'] ) %}
+            <h3>{{ 'Panel handlowca'|trans }}</h3>
+        {% endif %}
+        {% if(app.user is not null and app.user.type in ['contractor'] ) %}
+            <h3>{{ 'Panel wykonawcy'|trans }}</h3>
+        {% endif %}
+        {% if(app.user is not null and app.user.type in ['partner'] ) %}
+            <h3>{{ 'Panel partnera'|trans }}</h3>
+        {% endif %}
+            
+        <div class="content nav-admin">
+            <ul class="navigation">
+
+                
+                {% if(app.user is not null and app.user.type in ['admin','worker','trader','partner'] ) %}
+                    <li><a href="{{ path('shop') }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Sklep dla partnerów'|trans }}</a></li>   
+                {% endif %}
+
+                {% if(app.user is not null and app.user.type in ['admin','worker'] ) %}
+                        <li><a href="{{ path('text_list') }}"><i class="fa fa-fw fa-file-text-o"></i>{{ 'Teksty'|trans }}</a></li>   
+                {% endif %}
+                {% if(app.user is not null and app.user.type in ['admin'] ) %}
+                        <li><a href="{{ path('admin') }}"><i class="fa fa-fw fa-wrench"></i>{{ 'Administracja'|trans }}</a></li>   
+                {% endif %}
+                
+                {% if(app.user is not null and app.user.type in ['partner'] and app.user.ads ) %}
+                    <li><a href="{{ path('ads') }}"><i class="fa fa-fw fa-wrench"></i>{{ 'Moje reklamy'|trans }}</a></li>  
+                {% endif %}
+
+                {% if(app.user is not null and app.user.type in ['partner'] ) %}
+                    <li><a href="{{ path('sold') }}"><i class="fa fa-fw fa-qrcode"></i>{{ 'Moje kody'|trans }}</a></li>  
+                {% endif %}    
+                
+                
+                {% if(app.user is not null and app.user.type in ['admin','worker','trader'] ) %}
+
+{#                    <li><a href="{{ path('message_list') }}"><i class="fa fa-fw fa-envelope"></i>{{ 'Wiadomości'|trans }} {{ render_esi(controller('AppBundle:Message:info' )) }}</a></li>#}
+
+                    {% if(app.user is not null and app.user.type in ['admin','worker'] ) %}
+                    <li><a href="{{ path('questions_list') }}"><i class="fa fa-fw fa-question-circle"></i>{{ 'Zapytania i opinie'|trans }} {{ render_esi(controller('AppBundle:Message:infoQuestions' )) }}</a></li>
+                    {% endif %}  
+
+                    <li><a href="{{ path('user_list') }}"><i class="fa fa-fw fa-users"></i>{{ 'Użytkownicy'|trans }}</a></li>
+                    <li><a href="{{ path('product_list') }}"><i class="fa fa-fw fa-cube"></i>{{ 'Produkty'|trans }}</a></li>
+                    <li><a href="{{ path('code_list') }}"><i class="fa fa-fw fa-qrcode"></i>{{ 'Kody'|trans }}</a></li>
+					<li><a href="{{ path('discounts') }}"><i class="fa fa-fw fa-barcode"></i>{{ 'Kody rabatowe'|trans }}</a></li>
+                    <li><a href="{{ path('country_list') }}"><i class="fa fa-fw fa-map"></i>{{ 'Kraje'|trans }}</a></li>
+                    <li><a href="{{ path('mail_list') }}"><i class="fa fa-fw fa-info-circle"></i>{{ 'Powiadomienia'|trans }}</a></li>
+                    
+
+                    
+                    <li><a href="{{ path('page_list',{'ad':1}) }}"><i class="fa fa-fw fa-newspaper-o"></i>{{ 'Wszystkie strony'|trans }}</a></li>
+                    <li><a class="badge-link" data-badge-link="{{ path('cemetery_list',{'ad':1,'p_state':2}) }}" href="{{ path('cemetery_list',{'ad':1}) }}"><i class="fa fa-fw fa-bank"></i>{{ 'Wszystkie cmentarze'|trans }} {{ render_esi(controller('AppBundle:Cemetery:info',{'ad':1} )) }}</a></li>                
+                    <li><a href="{{ path('family_list',{'ad':1}) }}"><i class="fa fa-fw fa-group"></i>{{ 'Wszystkie rodziny'|trans }}</a></li>
+                    <li><a href="{{ path('order_list',{'ad':1}) }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Zamówienia do realizacji'|trans }} {{ render_esi(controller('AppBundle:Order:info',{'ad':1} )) }}</a></li>
+    
+                {% endif %}
+
+                {% if(app.user is not null and app.user.type in ['admin','worker','trader','contractor'] ) %}
+                    <li><a href="{{ path('contract_list',{'ad':1}) }}"><i class="fa fa-fw fa-fire"></i>{{ 'Usługi do wykonania'|trans }} {{ render_esi(controller('AppBundle:Order:infoContract',{'ad':1} )) }}</a></li>   
+                {% endif %}
+                {% if(app.user is not null and app.user.type in ['contractor','partner','trader'] ) %}
+                    <li><a href="{{ path('profile_address') }}"><i class="fa fa-fw fa-truck"></i>{{ 'Dane adresowe'|trans }}</a></li>   
+                {% endif %}
+
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if(app.user is not null and app.user.type in ['admin','worker','trader', 'contractor','partner'] ) %}
+            <h3>{{ 'Konto Epado'|trans }}</h3>
+        {% endif %}   
+                
+        <div class="content nav-user">
+            <ul class="navigation">
+                
+                
+
+                
+{#                <li><a href="{{ path('message_list') }}"><i class="fa fa-fw fa-envelope"></i>Wiadomości {{ render_esi(controller('AppBundle:Message:info' )) }}</a></li>#}
+                <li><a href="{{ path('panel') }}"><i class="fa fa-fw fa-user"></i>{{ 'Moje konto'|trans }}</a></li>
+                <li><a href="{{ path('page_list') }}"><i class="fa fa-fw fa-newspaper-o"></i>{{ 'Moje strony'|trans }}</a></li>
+                <li><a href="{{ path('cemetery_list') }}"><i class="fa fa-fw fa-bank"></i>{{ 'Cmentarze'|trans }}</a></li>
+                <li><a href="{{ path('family_list') }}"><i class="fa fa-fw fa-group"></i>{{ 'Rodziny'|trans }}</a></li>
+                <li><a href="{{ path('order_list') }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Zamówienia'|trans }} {{ render_esi(controller('AppBundle:Order:info' )) }}</a></li>
+                <li><a href="{{ path('contract_list') }}"><i class="fa fa-fw fa-fire"></i>{{ 'Zamówione usługi'|trans }} {{ render_esi(controller('AppBundle:Order:infoContract' )) }}</a></li>                
+                
+ 
+
+            </ul>
+        </div>
+            
+    </div>
+    
+    <div class="left-big">
+        {% block content %}{% endblock %}
+    </div>
+    
+    </div>
+        
+</div>        
+{% endblock %}

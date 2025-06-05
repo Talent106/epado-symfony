@@ -1,0 +1,12 @@
+
+                {% set user = app.user %}
+                {% if user is not null %}
+                    <div class="avatar circle" style="width:60px; height:60px; background-image:url('{{ path('thumbnail', {'resolution': '60x60', 'file': user.avatar })|production }}');"></div>
+
+                    {{ user.firstname }} {{ user.lastname }}<br />
+                    <br />
+
+                    <a href="{{ path('profile_edit') }}">Edytuj</a> <a href="{{ path('profile_show') }}">Zobacz</a>{#{'id': user.id }#}
+                {% endif %}
+        
+                

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>    
+
+    <body>     
+        <htmlpageheader name="header">
+            {% block top %}
+                <div style="float:right; width:350px; text-align: right;">{% block header %}{% endblock %}</div>
+                <div style="width:210px; text-align: left; float:left; margin-left:-12px; margin-bottom:10px;"><img src="/images/logo.png" width="200"></div>
+                <div class="hr" style="clear:both;"></div>
+            {% endblock %}
+        </htmlpageheader>
+
+        <htmlpagefooter name="footer">
+            <div class="hr"></div>
+            <table width="100%" class="hidden" style="">
+                <tr>
+                    <td width="33%" style="text-align: left;  "><img style=" margin-left:-6px; float:left;" src="/images/logo.png" width="100"></td>
+                    <td width="33%" style="text-align: center;"></td>
+                    <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+                </tr>
+            </table>
+        </htmlpagefooter>
+
+        <sethtmlpageheader name="header" value="on" show-this-page="2" />
+        <sethtmlpagefooter name="footer" value="on" />
+        <div class="page">
+		
+        {{ block('content') }}
+        </div>
+        <style>
+
+            @page full{
+                margin-top: 3.5cm;
+                margin-bottom: 2.7cm;
+                margin-left: 1.3cm;
+                margin-right: 1.3cm;
+                
+                odd-footer-name: footer;
+                even-footer-name: footer;
+                odd-header-name: header;
+                even-header-name: header;
+            }
+            
+            .page{
+                page: full;
+            }
+
+            p,td,th,li,h1,h2,h3,div{
+                font-family:Arial;
+                color:#222;
+                font-size:12px;
+            }
+
+            p,td,th,li{
+                line-height:18px;
+                color:#444;
+            }
+
+            h1{
+                font-size:24px;
+                line-height:30px;
+                margin-bottom:20px;
+                color:#444;
+            }
+
+            table{
+                border-collapse: collapse;
+                margin-bottom:20px;
+            }
+
+            td, th{
+                border:1px solid #ccc;
+                padding:4px 6px;
+            }
+
+
+            .hidden td, .hidden th{
+                border:0px solid #ddd;
+                padding:0;
+            } 
+            
+            th{
+                padding:4px 6px; background-color:#eee; border:1px solid #ccc; text-align:left;
+            }
+
+            td{
+                padding:4px 6px; border:1px solid #ccc;
+            }
+
+            .hr {
+                border-top: 1px solid #f0d887;
+            }
+
+        </style>
+            
+    </body>
+</html>

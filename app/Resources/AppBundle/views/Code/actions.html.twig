@@ -1,0 +1,41 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-qrcode"></i>{{ 'Grupy kodów'|trans }}</h1>{% endblock %}
+
+
+{% block content %}
+    
+	
+    
+    <div class="content">
+
+        {% if objects %}
+          
+            <div class="table-wrapper"><table>
+                    <tr>
+                      
+                        <th>{{ 'Status'|trans }}</th>
+                        <th>{{ 'Aktualizacja'|trans }}</th>
+						<th>{{ 'Użytkownik'|trans }}</th>
+				
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr>                     
+                  
+                        <td>{{object.status}}</td>
+                        <td>{{object.statusDate|date('Y-m-d H:i:s')}}</td>
+						<td>{{user.username}}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+      
+        {% else %}
+            <p>{{ 'Nie ma takiej grupy kodów.'|trans }}</p>
+        {% endif %}	
+	
+
+        
+
+    </div>
+
+{% endblock %}

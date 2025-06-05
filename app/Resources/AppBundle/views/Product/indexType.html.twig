@@ -1,0 +1,37 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-cube"></i>{{ 'Typy produktów'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="options">
+        <a href="{{ path('product_type_form') }}" class="button">{{ 'Dodaj typ'|trans }}</a>
+        </div> 
+    </div>
+    
+    <div class="content">
+
+
+        {% if objects %}
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Nazwa'|trans }}</th>
+                        <th>{{ 'Zmieniono'|trans }}</th>
+                        <th>{{ 'Utworzono'|trans }}</th>
+                    </tr>
+                {% for object in objects %}
+                    <tr>
+                        <td>{{object.id}}</td>
+                        <td><a href="{{ path('product_type_form', {'id': object.id})}}">{{object.name}}</a></td>
+                        <td>{{object.updated|mydate}}</td>
+                        <td>{{object.created|mydate}}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+        {% else %}
+            <p>{{ 'Nie ma typów produktów.'|trans }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

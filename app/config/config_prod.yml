@@ -1,0 +1,56 @@
+imports:
+    - { resource: config.yml }
+
+#framework:
+#    validation:
+#        cache: apc
+
+#web_profiler:
+#    toolbar: false
+#    intercept_redirects: false
+    
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: true
+#    profiler: { only_exceptions: false }
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        console:
+            type:  console
+        mail:
+            type: fingers_crossed
+            #critical, error, 
+            action_level: critical
+            handler: buffered
+            # to also log 400 level errors (but not 404's):
+            # action_level: error
+            # excluded_404s:
+            #     - ^/
+            handler:      swift
+        buffered:
+            type: buffer
+            handler: swift
+        swift:
+            type:       swift_mailer
+            from_email: 'office@epado.com'
+            to_email:   'l.boguszewski@gmail.com'
+            subject:    'Błąd na Epado!'
+            formatter:  monolog.formatter.html
+            content_type: text/html
+            level: debug 

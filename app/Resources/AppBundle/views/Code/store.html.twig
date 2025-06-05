@@ -1,0 +1,51 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-qrcode"></i>{{ 'Grupy kodów'|trans }}</h1>{% endblock %}
+
+
+{% block content %}
+    
+
+    
+    <div class="content">
+
+        {% if objects %}
+          
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Kod'|trans }}</th>
+                        <th>{{ 'Status'|trans }}</th>
+                        <th>{{ 'Utworzony'|trans }}</th>
+                        <th>{{ 'Aktualizacja'|trans }}</th>
+						<th>{{ 'Regał'|trans }}</th>
+                        <th>{{ 'Półka'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr>
+                      
+                        <td><a href="{{ path('actions', {'code': object.id})}}">{{object.code}}</a></td>
+                        <td>
+							
+							{{object.status}}
+						</td>
+                        <td>{{object.created|date('Y-m-d H:i:s')}}</td>
+                        <td>{{object.updated|date('Y-m-d H:i:s')}}</td>
+                        <td>{{object.rack}}</td>
+                        <td>{{object.shelf}}</td>
+
+                    </tr>
+                {% endfor %}
+            </table></div>
+      
+        {% else %}
+            <p>{{ 'Nie ma takiej grupy kodów.'|trans }}</p>
+        {% endif %}	
+	
+        
+        <div class="options"> 
+        <a href="{{ path('code_form') }}" class="button">{{ 'Dodaj grupę'|trans }}</a>
+        </div>
+
+    </div>
+
+{% endblock %}

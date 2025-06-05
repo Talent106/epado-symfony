@@ -1,0 +1,14 @@
+    {% if products %}
+              {% for p in products %}
+                <div class="element">
+                    {% if(p.avatar) %}
+                    <div class="avatar" style=" background-image:url('/{{ p.avatar }}');"></div>
+                    {% endif %}
+                    <div class="data">{{ p.name }}</div>
+                    <div class="data">{{ p.price(app.session.get('currency'))|price }}</div>
+                    <a href="?product_id={{p.id}}" class="button tip" title="{{ 'Dodaj produkt do wykonawcy'|trans }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </div>
+              {% endfor %}
+    {% else %}
+        <p>{{ 'Nie odnleziono produktów'|trans }}</p>
+    {% endif %}

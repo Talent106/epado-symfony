@@ -1,0 +1,94 @@
+
+
+_errors:
+    resource: "@TwigBundle/Resources/config/routing/errors.xml"
+    prefix:   /_error
+
+
+#fos_user_security_logout: chenged in templates
+logout:
+    path:    /{_locale}/logout
+    defaults:  { _controller: FOSUserBundle:Security:logout }
+
+#fos_user_security_check: chenged in templates
+login_check:    
+    path:    /{_locale}/login_check
+    defaults:  { _controller: FOSUserBundle:Security:check }
+
+
+Profile:
+    resource: "@AppBundle/Controller/ProfileController.php"
+    type: annotation
+    
+    
+Product:
+    resource: "@AppBundle/Controller/ProductController.php"
+    type: annotation
+
+User:
+    resource: "@AppBundle/Controller/UserController.php"
+    type: annotation
+    
+Image:
+    resource: "@AppBundle/Controller/ImageController.php"
+    type: annotation 
+    
+    
+Code:
+    resource: "@AppBundle/Controller/CodeController.php"
+    type: annotation 
+
+
+Message:
+    resource: "@AppBundle/Controller/MessageController.php"
+    type: annotation 
+    
+
+
+
+Order:
+    resource: "@AppBundle/Controller/OrderController.php"
+    type: annotation 
+    
+    
+Page:
+    resource: "@AppBundle/Controller/PageController.php"
+    type: annotation 
+    
+Country:
+    resource: "@AppBundle/Controller/CountryController.php"
+    type: annotation 
+    
+Cemetery:
+    resource: "@AppBundle/Controller/CemeteryController.php"
+    type: annotation 
+    
+Family:
+    resource: "@AppBundle/Controller/FamilyController.php"
+    type: annotation 
+    
+Home:
+    resource: "@AppBundle/Controller/HomeController.php"
+    type: annotation
+    
+Text:
+    resource: "@AppBundle/Controller/TextController.php"
+    type: annotation
+
+
+
+
+#app:
+#    resource: "@AppBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
+    
+    
+
+
+
+#fos_user:
+#    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+#app:
+#    resource: @AppBundle/Controller/
+#    type:     annotation

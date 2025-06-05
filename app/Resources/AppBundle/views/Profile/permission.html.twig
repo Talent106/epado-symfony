@@ -1,0 +1,38 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-gear"></i>{{ 'Uprawnienia'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    
+    <div class="content">
+        <p>{{ 'Uprawnienia dla użytkownika'|trans }}: {{ object.user.fullname }}</p>
+        {% if(object.user.avatar) %}
+        <div class="avatar" style="width:60px; height:60px;  background-image:url('/{{ object.user.avatar }}'); margin-bottom:20px;"></div>
+        {% endif %}
+        
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {% if(object.page) %}<input type="hidden" name="page_id" value="{{object.page.id}}">{% endif %}
+        {% if(object.family) %}<input type="hidden" name="family_id" value="{{object.family.id}}">{% endif %}
+        <input type="hidden" name="email" value="{{object.user.email}}">
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    
+    <script>
+    $('select').bind('change',function(){ 
+        if($(this).val()=='admin'){
+           $('.widget').each(function(){
+               if($(this).find('input[type=checkbox]').length) $(this).hide();
+           });   
+        }else{
+           $('.widget').each(function(){
+               if($(this).find('input[type=checkbox]').length) $(this).show();
+           }); 
+        }
+        return true;
+    });
+    $('select').change();
+    </script>   
+        
+{% endblock %}

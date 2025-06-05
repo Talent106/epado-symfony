@@ -1,0 +1,28 @@
+{% set template="admin.html.twig" %}    
+
+{% if app.request.xmlHttpRequest %}
+    {% set template="ajax.html.twig" %}    
+{% endif %}
+
+{% extends template %}
+
+{% block object %}{% endblock %}
+
+{% block response %}{% if(response is defined) %}{{response}}{% else %}form{% endif %}{% endblock %}
+
+{% block element %}{% endblock %}
+
+
+{% block header %}<h1><i class="fa fa-box"></i>{{object.name}}</h1>{% endblock %}
+
+{% block content %}
+
+
+    <div class="content">
+
+        <p>{{object.description}}</p>
+        
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        {% set title = block('title') %}
+        {% set full_title = block('full_title') %}
+        {% set description = block('description') %}
+        {% set keywords = block('keywords') %}
+        <title>{% if full_title %}{{full_title}}{% else %}{% if title %}{{title}} | {% endif %}Epado{% endif %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" /> 
+        <meta name="description" content="{% if description %}{{ description }}{% else %}{{ 'Epado to największy w Polsce serwis upamiętniający osoby zmarłe'|trans }}{% endif %}">
+        <meta name="keywords" content="{% if keywords %}{{ keywords }}{% else %}{{ 'epado, osoby zmarłe, cmentarze, baza cmentarzy'|trans }}{% endif %}">
+        <meta name="author" content="artgate.pl">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+        <meta name="theme-color" content="#000000">
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#dac572">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        {% block meta %}{% endblock %}
+        
+        
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        
+        <script src="/js/jquery.min.js"></script>
+        <link rel="stylesheet" href="/css/animate.css">
+        <script src="/js/jwaypoints/jquery.waypoints.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fontawsome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/rippler/dist/css/rippler.min.css">
+        <script src="/css/rippler/dist/js/jquery.rippler.min.js"></script>
+		
+       <script type="text/javascript" src="/css/jquery-timepicker-master/lib/bootstrap-datepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/jquery-timepicker-master/lib/bootstrap-datepicker.css" />
+        <script src="/css/datepair/dist/datepair.js"></script>
+        <script src="/css/datepair/dist/jquery.datepair.js"></script>
+        
+        <link href="/js/jquery.scrollbar/jquery.scrollbar.css" rel="stylesheet">
+        <script src="/js/jquery.scrollbar/jquery.scrollbar.min.js"></script>   
+      
+        <link href="/js/fancybox/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet">
+        <script src="/js/fancybox/fancybox/jquery.fancybox-1.3.4.pack.js"></script>    
+
+        
+        <link href="/js/tooltipster-master/css/tooltipster.css" rel="stylesheet">
+        <link href="/js/tooltipster-master/css/themes/tooltipster-light.css" rel="stylesheet">
+        <script src="/js/tooltipster-master/js/jquery.tooltipster.min.js"></script>      
+        
+        <script src="/js/prettyloader/js/jquery.prettyLoader.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="/js/prettyloader/css/prettyLoader.css" type="text/css" media="screen" charset="utf-8" />
+                
+        <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDrDcdgTitaBN0crJOZP_Go8-5DoI3-fGQ" type="text/javascript"></script>
+        
+        <script src="/js/tageditor/jquery.caret.min.js"></script>
+        <script src="/js/tageditor/jquery.tag-editor.min.js"></script>
+        
+        <script src="/js/jquery-ui-custom/jquery-ui.min.js"></script>  
+		
+		<script src="/js/bootstrap-cookie-consent-settings.js"></script>
+        
+        <link href="/js/lightgallery/css/lightgallery.css" rel="stylesheet">
+        <script src="/js/lightgallery/js/lightgallery.js"></script>
+        <script src="/js/lightgallery/js/lg-video.js"></script>
+        {#<script src="/js/lightgallery/js/lg-autoplay.js"></script>#}
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+        {% block stylesheets %}{% endblock %}
+        
+        <link rel="stylesheet" href="/css/main.css?v=3.4.7" />
+        <script src="/js/main.js?v=3.4.7"></script>		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+		<style>
+		.modal-backdrop {
+			background:#000;
+			opacity:0.8;
+		}
+
+		.modal-dialog {
+			background: #fff;
+			display: inline-block;
+			position: absolute;
+			max-width: 80%;
+			max-height: 80%;
+			margin: auto !important;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			/* overflow-x: hidden; */
+			/* overflow-y: auto; */
+			width:600px;
+		}
+
+		.TS-modal-inner {
+			padding:20px;
+		}
+					
+		@media screen and (min-width: 700px) {                
+			.modal {
+				height:90%;
+				max-height: 600px;
+			}
+		}
+
+		.modal {
+			padding: 12px 15px;
+			z-index: 999999 !important;
+		}
+		
+		
+		.modal-dialog {
+			max-width: 93% !important;
+			max-height: 96% !important;
+
+		}		
+		
+		#bccs-buttonAgree {
+			position: absolute;
+			bottom: 7px;
+			left: 5px;
+		}
+		
+		</style>
+    </head>
+    <body data-language="{{ app.request.locale }}">		
+        {% block after_body %}{% endblock %}
+        <div class="top">
+            
+            <div class="header">
+                <div class="size">
+                    <div class="left search">
+                        <div class="bg"><i class="fa fa-search"></i><input type="text" data-url="{{ path('search') }}" autocomplete="off" class="search-input" name="search" data-placeholder="{{ 'Osoba lub miejsce...'|trans }}"></div>
+                        <div class="result"><div class="inner"><h4 style=""><i class="fa fa-fw fa-search"></i> {{ 'Wyszukiwarka'|trans }}</h4><p>{{ 'Wpisz imię i nazwisko osoby zmarłej, nazwę upamiętnianego miejsca, miasto lub nazwę cmentarza'|trans }}</p></div></div>
+                    </div>    
+
+                    {#<div class="right spec currency dropwrapper">
+                        {{ currency() }} <i class="fa fa-caret-down"></i>
+                        <div class="dropmenu">   
+                        {% for currency in currencies %}
+                            {% if( app.request.attributes.get('_route') in ['homepage'] )  %}
+                            <a href="?currency={{currency}}">{{currency}}</a>  
+                            {% else  %}    
+                            <a href="{{extend({'currency':currency})}}">{{currency}}</a>  
+                            {% endif  %}
+                        {% endfor %}  
+                        </div>  
+                    </div>#}
+                        
+                    {% if( code is not defined ) %}{% set code=null %}{% endif  %}
+                        
+                    <div class="right spec language dropwrapper">
+                        <span class="click">
+                        <img src="/images/flags/{{ app.request.locale }}.png" alt="Language {{ app.request.locale }}"> <i class="fa fa-caret-down"></i>
+                        </span>
+                        <div class="dropmenu"> 
+                        {% for locale in locales %}
+                            {% set url=extend({'_locale':locale}) %}
+                            {% if( app.request.attributes.get('_route') in ['homepage','page'] )  %}
+                               {% set url=path(app.request.attributes.get('_route')~'_locale',{'_locale':locale,'code':code}) %} 
+                               {% if( locale==default_locale )  %}
+                                  {% set url=path(app.request.attributes.get('_route'),{'code':code}) %} 
+                               {% endif  %}    
+                            {% endif  %}
+                            {% if( app.request.attributes.get('_route') in ['homepage_locale'] )  %}
+                               {% set url=path(app.request.attributes.get('_route'),{'_locale':locale}) %} 
+                               {% if( locale==default_locale )  %}
+                                  {% set url=path('homepage') %} 
+                               {% endif  %}    
+                            {% endif  %}
+                            {% if( app.request.attributes.get('_route') in ['page_locale'] )  %}
+                               {% set url=path(app.request.attributes.get('_route'),{'_locale':locale,'code':code}) %} 
+                               {% if( locale==default_locale )  %}
+                                  {% set url=path('page',{'code':code}) %} 
+                               {% endif  %}    
+                            {% endif  %}
+                            
+                            <a href="{{url}}"><img src="/images/flags/{{locale}}.png" class="tip" title="{{ locale }}" alt="Language {{locale}}"></a>
+                        {% endfor %} 
+                        </div> 
+                        
+                    </div>
+
+                        
+                    {% set user = app.user %}
+                    {% if user is not null %}
+  
+                    <div class="right messages logout ">
+                        <a href="{{ path('logout') }}" class="tip" title="{{ 'Wyloguj'|trans }}"><i class="fa fa-power-off"></i></a>
+                    </div>    
+                    <div class="right messages settings biger">
+                        <a href="{{ path('profile_edit') }}" class="tip" title="{{ 'Ustawienia'|trans }}"><i class="fa fa-gear"></i></a>
+                    </div>      
+                    <div class="right messages">
+                        <a href="{{ path('message_list') }}" class="tip" title="{{ 'Wiadomości'|trans }}"><i class="fa fa-envelope"></i>{{ render_esi(controller('AppBundle:Message:info' )) }}</a>
+                    </div>    
+                    <div class="right messages cart biger first">
+                        <a href="{{ path('cart') }}" class="tip" title="{{ 'Koszyk'|trans }}"><i class="fa fa-shopping-cart"></i>{{ render_esi(controller('AppBundle:Order:infoCart' )) }}</a>
+                    </div>  
+
+                    
+                    {% endif %}    
+
+                    <div class="right person navnotmobile dropwrapper">
+                        {% block top_right %}
+                            {% set user = app.user %}
+                            {% if user is not null %}
+                                <span class="click">
+                                    <div class="avatar circle" style="background-image:url('{{ path('thumbnail', {'resolution': '60x60', 'file': user.avatar })|production }}');"></div>
+                                    <span>{{ 'Panel'|trans }}</span>
+                                </span>
+                                
+                                <div class="dropmenu"> 
+                                    <ul>
+                            {% if(app.user is not null and app.user.type in ['admin'] ) %}
+                                <li><span>{{ 'Panel administracyjny'|trans }}</span></li>
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['worker'] ) %}
+                                <li><span>{{ 'Panel pracownika'|trans }}</span></li>
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['trader'] ) %}
+                                <li><span>{{ 'Panel handlowca'|trans }}</span></li>
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['contractor'] ) %}
+                                <li><span>{{ 'Panel wykonawcy'|trans }}</span></li>
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['partner'] ) %}
+                                <li><span>{{ 'Panel partnera'|trans }}</span></li>
+                            {% endif %}   
+
+                            
+                            {% if(app.user is not null and app.user.type in ['admin','worker','trader','partner'] ) %}
+                                <li><a href="{{ path('shop') }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Sklep dla partnerów'|trans }}</a></li>   
+                            {% endif %}
+
+                            {% if(app.user is not null and app.user.type in ['admin','worker'] ) %}
+                                <li><a href="{{ path('text_list') }}"><i class="fa fa-fw fa-file-text-o"></i>{{ 'Teksty'|trans }}</a></li>   
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['admin'] ) %}
+                                <li><a href="{{ path('admin') }}"><i class="fa fa-fw fa-wrench"></i>{{ 'Administracja'|trans }}</a></li>   
+                            {% endif %}
+                            
+                            
+                            {% if(app.user is not null and app.user.type in ['partner'] and app.user.ads ) %}
+                                <li><a href="{{ path('ads') }}"><i class="fa fa-fw fa-wrench"></i>{{ 'Moje reklamy'|trans }}</a></li>  
+                            {% endif %}
+
+                            {% if(app.user is not null and app.user.type in ['partner'] ) %}
+                                <li><a href="{{ path('sold') }}"><i class="fa fa-fw fa-qrcode"></i>{{ 'Moje kody'|trans }}</a></li>  
+                            {% endif %}    
+
+                            {% if(app.user is not null and app.user.type in ['admin','worker','trader'] ) %}
+
+{#                                <li><a href="{{ path('message_list') }}"><i class="fa fa-fw fa-envelope"></i>{{ 'Wiadomości'|trans }} {{ render_esi(controller('AppBundle:Message:info' )) }}</a></li>#}
+
+                                {% if(app.user is not null and app.user.type in ['admin','worker'] ) %}
+                                <li><a href="{{ path('questions_list') }}"><i class="fa fa-fw fa-question-circle"></i>{{ 'Zapytania i opinie'|trans }} {{ render_esi(controller('AppBundle:Message:infoQuestions' )) }}</a></li>
+                                {% endif %}  
+
+                                <li><a href="{{ path('user_list') }}"><i class="fa fa-fw fa-users"></i>{{ 'Użytkownicy'|trans }}</a></li>
+                                <li><a href="{{ path('product_list') }}"><i class="fa fa-fw fa-cube"></i>{{ 'Produkty'|trans }}</a></li>
+                                <li><a href="{{ path('code_list') }}"><i class="fa fa-fw fa-qrcode"></i>{{ 'Kody'|trans }}</a></li>
+								<li><a href="{{ path('discounts') }}"><i class="fa fa-fw fa-barcode"></i>{{ 'Kody rabatowe'|trans }}</a></li>
+                                <li><a href="{{ path('country_list') }}"><i class="fa fa-fw fa-map"></i>{{ 'Kraje'|trans }}</a></li>
+                                <li><a href="{{ path('mail_list') }}"><i class="fa fa-fw fa-info-circle"></i>{{ 'Powiadomienia'|trans }}</a></li>
+
+                                
+                                <li><a href="{{ path('page_list',{'ad':1}) }}"><i class="fa fa-fw fa-newspaper-o"></i>{{ 'Wszystkie strony'|trans }}</a></li>
+                                <li><a  class="badge-link" data-badge-link="{{ path('cemetery_list',{'ad':1,'p_state':2}) }}"  href="{{ path('cemetery_list',{'ad':1}) }}"><i class="fa fa-fw fa-bank"></i>{{ 'Wszystkie cmentarze'|trans }} {{ render_esi(controller('AppBundle:Cemetery:info',{'ad':1} )) }}</a></li>                
+                                <li><a href="{{ path('family_list',{'ad':1}) }}"><i class="fa fa-fw fa-group"></i>{{ 'Wszystkie rodziny'|trans }}</a></li>
+                                <li><a href="{{ path('order_list',{'ad':1}) }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Zamówienia do realizacji'|trans }} {{ render_esi(controller('AppBundle:Order:info',{'ad':1} )) }}</a></li>
+
+                            {% endif %}
+
+                            {% if(app.user is not null and app.user.type in ['admin','worker','trader','contractor'] ) %}
+                                <li><a href="{{ path('contract_list',{'ad':1}) }}"><i class="fa fa-fw fa-fire"></i>{{ 'Usługi do wykonania'|trans }} {{ render_esi(controller('AppBundle:Order:infoContract',{'ad':1} )) }}</a></li>   
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['contractor','partner','trader'] ) %}
+                                <li><a href="{{ path('profile_address') }}"><i class="fa fa-fw fa-truck"></i>{{ 'Dane adresowe'|trans }}</a></li>   
+                            {% endif %}
+                            
+                            {% if(app.user is not null and app.user.type in ['admin','worker','trader', 'contractor','partner'] ) %}
+                                <li class="title"><span>{{ 'Konto Epado'|trans }}</span></li>
+                            {% endif %}   
+                            
+                            <li><a href="{{ path('panel') }}"><i class="fa fa-fw fa-user"></i>{{ 'Moje konto'|trans }}</a></li>
+                            <li><a href="{{ path('page_list') }}"><i class="fa fa-fw fa-newspaper-o"></i>{{ 'Moje strony'|trans }}</a></li>
+                            <li><a href="{{ path('cemetery_list') }}"><i class="fa fa-fw fa-bank"></i>{{ 'Cmentarze'|trans }}</a></li>
+                            <li><a href="{{ path('family_list') }}"><i class="fa fa-fw fa-group"></i>{{ 'Rodziny'|trans }}</a></li>
+                            <li><a href="{{ path('order_list') }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Zamówienia'|trans }} {{ render_esi(controller('AppBundle:Order:info' )) }}</a></li>
+                            <li><a href="{{ path('contract_list') }}"><i class="fa fa-fw fa-fire"></i>{{ 'Zamówione usługi'|trans }} {{ render_esi(controller('AppBundle:Order:infoContract' )) }}</a></li>
+
+                            
+                                    </ul>    
+                                </div>  
+                            {% else %}
+                                <a href="{{ path('register') }}">{{ 'Rejestracja'|trans }}</a>
+                                <span class="separator"></span>
+                                <a href="{{ path('login') }}">{{ 'Logowanie'|trans }}</a>
+                            {% endif %}
+                        {% endblock %}
+                    </div>
+                    
+                    <div class="right person navmobile dropwrapper topaccount">
+                        
+                        {% set user = app.user %}
+                        {% if user is not null %}
+                        {% else %}
+                            <a class="sometimes" href="{{ path('register') }}">{{ 'Rejestracja'|trans }}</a>
+                            <span class="sometimes separator"></span>
+                            <a href="{{ path('login') }}">{{ 'Logowanie'|trans }}</a>
+                        {% endif %}
+                        
+                    </div>  
+
+                    
+                </div>
+            </div>
+                    
+               {% set url=path('homepage_locale',{'_locale':app.request.locale}) %} 
+               {% if( app.request.locale==default_locale )  %}
+                  {% set url=path('homepage') %} 
+               {% endif  %}   
+               
+                    
+                
+            <div class="main">
+                <div class="size">
+                    <a class="home" href="{% if( app.request.locale==default_locale )  %}{{ path('homepage') }}{% else  %}{{ path('homepage_locale',{'_locale':app.request.locale}) }}{% endif  %}"><img src="/images/epado.png"></a>
+                    <div class="nav">
+                    <div class="ico navmobile"><i class="fa fa-bars"></i></div>    
+                    <ul>{% set user = app.user %}
+                        {% if user is not null %}
+                            
+                            {% if(app.user is not null and app.user.type in ['admin'] ) %}
+                                <li class="navmobile"><span>{{ 'Panel administracyjny'|trans }}</span></li>
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['worker'] ) %}
+                                <li class="navmobile"><span>{{ 'Panel pracownika'|trans }}</span></li>
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['trader'] ) %}
+                                <li class="navmobile"><span>{{ 'Panel handlowca'|trans }}</span></li>
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['contractor'] ) %}
+                                <li class="navmobile"><span>{{ 'Panel wykonawcy'|trans }}</span></li>
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['partner'] ) %}
+                                <li class="navmobile"><span>{{ 'Panel partnera'|trans }}</span></li>
+                            {% endif %}
+
+                            {% if(app.user is not null and app.user.type in ['admin','worker','trader','partner'] ) %}
+                                <li class="navmobile"><a href="{{ path('shop') }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Sklep dla partnerów'|trans }}</a></li>   
+                            {% endif %}
+
+                            {% if(app.user is not null and app.user.type in ['admin','worker'] ) %}
+                                <li class="navmobile"><a href="{{ path('text_list') }}"><i class="fa fa-fw fa-file-text-o"></i>{{ 'Teksty'|trans }}</a></li>   
+                            {% endif %}
+                            {% if(app.user is not null and app.user.type in ['admin'] ) %}
+                                <li class="navmobile"><a href="{{ path('admin') }}"><i class="fa fa-fw fa-wrench"></i>{{ 'Administracja'|trans }}</a></li>   
+                            {% endif %}
+
+                            
+                            {% if(app.user is not null and app.user.type in ['admin','worker','trader'] ) %}
+
+                                {% if(app.user is not null and app.user.type in ['admin','worker'] ) %}
+                                <li class="navmobile"><a href="{{ path('questions_list') }}"><i class="fa fa-fw fa-question-circle"></i>{{ 'Zapytania i opinie'|trans }} {{ render_esi(controller('AppBundle:Message:infoQuestions' )) }}</a></li>
+                                {% endif %}  
+
+                                <li class="navmobile"><a href="{{ path('user_list') }}"><i class="fa fa-fw fa-users"></i>{{ 'Użytkownicy'|trans }}</a></li>
+                                <li class="navmobile"><a href="{{ path('product_list') }}"><i class="fa fa-fw fa-cube"></i>{{ 'Produkty'|trans }}</a></li>
+                                <li class="navmobile"><a href="{{ path('code_list') }}"><i class="fa fa-fw fa-qrcode"></i>{{ 'Kody'|trans }}</a></li>
+								<li class="navmobile"><a href="{{ path('discounts') }}"><i class="fa fa-fw fa-barcode"></i>{{ 'Kody rabatowe'|trans }}</a></li>
+                                <li class="navmobile"><a href="{{ path('country_list') }}"><i class="fa fa-fw fa-map"></i>{{ 'Kraje'|trans }}</a></li>
+                                <li class="navmobile"><a href="{{ path('mail_list') }}"><i class="fa fa-fw fa-info-circle"></i>{{ 'Powiadomienia'|trans }}</a></li>
+
+                                <li class="navmobile"><a href="{{ path('page_list',{'ad':1}) }}"><i class="fa fa-fw fa-newspaper-o"></i>{{ 'Wszystkie strony'|trans }}</a></li>
+                                <li class="navmobile"><a  class="badge-link" data-badge-link="{{ path('cemetery_list',{'ad':1,'p_state':2}) }}"  href="{{ path('cemetery_list',{'ad':1}) }}"><i class="fa fa-fw fa-bank"></i>{{ 'Wszystkie cmentarze'|trans }} {{ render_esi(controller('AppBundle:Cemetery:info',{'ad':1} )) }}</a></li>                
+                                <li class="navmobile"><a href="{{ path('family_list',{'ad':1}) }}"><i class="fa fa-fw fa-group"></i>{{ 'Wszystkie rodziny'|trans }}</a></li>
+                                <li class="navmobile"><a href="{{ path('order_list',{'ad':1}) }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Zamówienia do realizacji'|trans }} {{ render_esi(controller('AppBundle:Order:info',{'ad':1} )) }}</a></li>
+
+                            {% endif %}
+
+                            {% if(app.user is not null and app.user.type in ['admin','worker','trader','contractor','partner'] ) %}
+                                <li class="navmobile"><a href="{{ path('contract_list',{'ad':1}) }}"><i class="fa fa-fw fa-fire"></i>{{ 'Usługi do wykonania'|trans }} {{ render_esi(controller('AppBundle:Order:infoContract',{'ad':1} )) }}</a></li>   
+                            {% endif %}
+                            
+                            {% if(app.user is not null and app.user.type in ['contractor','partner'] ) %}
+                                <li class="navmobile"><a href="{{ path('profile_address') }}"><i class="fa fa-fw fa-truck"></i>{{ 'Dane adresowe'|trans }}</a></li>   
+                            {% endif %}
+                            
+                            {% if(app.user is not null and app.user.type in ['admin','worker','trader', 'contractor','partner'] ) %}    
+                                <li class="navmobile"><span>{{ 'Konto Epado'|trans }}</span></li>
+                            {% endif %}
+                            
+                            
+                            <li class="navmobile"><a href="{{ path('panel') }}"><i class="fa fa-fw fa-user"></i>{{ 'Moje konto'|trans }}</a></li>
+                            {#<li class="navmobile"><a href="{{ path('profile_address') }}"><i class="fa fa-fw fa-truck"></i>{{ 'Dane adresowe'|trans }}</a></li>#}
+                            <li class="navmobile"><a href="{{ path('page_list') }}"><i class="fa fa-fw fa-newspaper-o"></i>{{ 'Moje strony'|trans }}</a></li>
+                            <li class="navmobile"><a href="{{ path('cemetery_list') }}"><i class="fa fa-fw fa-bank"></i>{{ 'Cmentarze'|trans }}</a></li>
+                            <li class="navmobile"><a href="{{ path('family_list') }}"><i class="fa fa-fw fa-group"></i>{{ 'Rodziny'|trans }}</a></li>
+                            <li class="navmobile"><a href="{{ path('order_list') }}"><i class="fa fa-fw fa-shopping-cart"></i>{{ 'Zamówienia'|trans }} {{ render_esi(controller('AppBundle:Order:info' )) }}</a></li>
+                            <li class="navmobile"><a href="{{ path('contract_list') }}"><i class="fa fa-fw fa-fire"></i>{{ 'Zamówione usługi'|trans }} {{ render_esi(controller('AppBundle:Order:infoContract' )) }}</a></li>
+                            
+                            {% if(app.user is not null and app.user.type in ['admin','worker','trader','contractor'] ) %}
+                                <li class="navmobile"><span>{{ 'Strona główna'|trans }}</span></li>
+                            {% endif %} 
+                            
+                        {% else %}
+                            <li class="navmobile"><a href="{{ path('register') }}">{{ 'Rejestracja'|trans }}</a></li>
+                            <li class="navmobile"><a href="{{ path('login') }}">{{ 'Logowanie'|trans }}</a></li>
+                        {% endif %}
+                        
+                        <li><a href="{{ url }}#what">{{ 'Czym jestem'|trans }}</a></li>
+                        <li><a href="{{ url }}#work">{{ 'Jak działam'|trans }}</a></li>
+                        <li><a href="{{ url }}#price">{{ 'Cennik'|trans }}</a></li>
+                        <li><a href="{{ url }}#footer">{{ 'Kontakt'|trans }}</a></li>
+                    </ul>  
+                    </div>
+                </div>
+            </div>  
+
+        </div>
+                    
+        <div class="wrapper">
+   
+            <div class="content-wrapper">
+            {% block body %}{% endblock %}
+            </div>
+            
+            <div class="footer" id="footer">
+                <div class="size">
+                    <div class="contact col">
+                        <h4 class="triggerMany delay12" data-animate="pulse">{{ 'Kontakt'|trans }}</h4>
+                        <p>
+                            Stono Sp. z o. o.<br>
+                            Wspólna 50A/35, Warszawa<br>
+                            <a href="mailto:office@epado.com">office@epado.com</a><br>
+                            {{ 'tel.'|trans }}: +48502502188<br>
+                            NIP: 7010387978,<br> REGON: 14677061500000
+                            <br><br>
+                            Copyright {{ 'now'|date('Y') }} Stono Sp. z o. o.
+                        </p>
+                    </div>
+                    <div class="find col">
+                        <h4 class="triggerMany delay12" data-animate="pulse">{{ 'Znajdź nas'|trans }}</h4>
+                        <p>
+                           {% if social['twitter'][app.request.locale] is defined %}
+                           <a href="{{social['twitter'][app.request.locale]}}"><i class="fa fa-twitter"></i></a> 
+                           {% endif %}
+                           {% if social['facebook'][app.request.locale] is defined %}
+                           <a href="{{ social['facebook'][app.request.locale] }}"><i class="fa fa-facebook"></i></a> 
+                           {% endif %}
+                           {% if social['youtube'][app.request.locale] is defined %}
+                           <a href="{{ social['youtube'][app.request.locale] }}"><i class="fa fa-youtube-play"></i></a> 
+                           {% endif %}
+                           {% if social['instagram'][app.request.locale] is defined %}
+                           <a href="{{ social['instagram'][app.request.locale] }}"><i class="fa fa-instagram"></i></a>
+                           {% endif %}
+                        </p>
+                        <br>
+                        <p>{{ 'Płatności obsługuje'|trans }}:</p>
+                        <p>
+                        <img src="/images/payu.png" width="100" >
+                        </p>
+                    </div>
+                        
+                        
+                    <div class="menu col">
+                        <h4 class="triggerMany delay12" data-animate="pulse">{{ 'Menu'|trans }}</h4>
+                        <ul>
+                            <li><a href="{{ path('rules') }}"><i class="fa fa-fw fa-certificate"></i>{{ 'Regulamin serwisu'|trans }}</a></li>
+                            <li><a href="{{ path('prv') }}"><i class="fa fa-fw fa-certificate"></i>{{ 'Polityka prywatności'|trans }}</a></li>
+                            <li><a href="{{ path('login') }}"><i class="fa fa-fw fa-user"></i>{{ 'Logowanie'|trans }}</a></li>
+                            <li><a href="{{ path('register') }}"><i class="fa fa-fw fa-user-plus"></i>{{ 'Rejestracja'|trans }}</a></li>
+                            <li><a href="{{ path('reset') }}"><i class="fa fa-fw fa-key"></i>{{ 'Zapomniałem hasła'|trans }}</a></li>
+                            <li><a href="{{ path('page_form') }}"><i class="fa fa-fw fa-plus"></i>{{ 'Dodaj stronę'|trans }}</a></li>
+                            <li><a href="/" class="contactus{% if(app.request.get('show')=='contact-us') %} show{% endif %}"><i class="fa fa-fw fa-envelope"></i>{{ 'Wyślij do nas sugestie'|trans }}</a>
+                            <div class="hidden">
+                            <h1><i class="fa fa-envelope"></i>{{ 'Twoja sugestia'|trans }}</h1>
+                            <div class="content">
+                            <form action="{{ path('contact') }}" method="post">
+                                <input type="hidden" id="type" name="type" value="idea" />
+                                 
+                                <div class="widget">
+                                    <label for="name">{{ 'Twój adres IP'|trans }}</label>
+                                    <div class="field"><input type="text" id="name" name="name" value="{{ ip() }}" disabled /></div>
+                                </div>
+                                <div class="widget">
+                                    <label for="name">{{ 'Imię i nazwisko'|trans }}</label>
+                                    <div class="field"><input type="text" id="name" name="name" value="" required="required" autocomplete="off" /><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>{{ 'To pole jest wymagane'|trans }}</li></ul></div>
+                                </div>
+                                <div class="widget">
+                                    <label for="mail">{{ 'Adres email'|trans }}</label>
+                                    <div class="field"><input type="text" id="mail" name="mail" value="" required="required" autocomplete="off" /><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>{{ 'To pole jest wymagane'|trans }}</li></ul></div>
+                                </div>  
+                                <div class="widget">
+                                    <label for="subject">{{ 'Temat'|trans }}</label>
+                                    <div class="field"><input type="text" id="subject" name="subject" value="" required="required" autocomplete="off" /><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>{{ 'To pole jest wymagane'|trans }}</li></ul></div>
+                                </div>
+                                <div class="widget">
+                                    <label for="message">{{ 'Wiadomość'|trans }}</label>
+                                    <div class="field"><textarea id="message" name="message" required="required"></textarea><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>{{ 'To pole jest wymagane'|trans }}</li></ul></div>
+                                </div> 
+                                <div class="widget">
+                                    <div class="field">
+                                    <div class="captcha"></div>
+                                    </div>
+                                </div> 
+                                
+                                
+                                <button type="submit" name="submit">{{ 'Wyślij wiadomość'|trans }}</button>
+                            </form>
+                            </div>
+                            </div>
+                            </li>
+                            
+                            <li><a href="/" class="contactus"><i class="fa fa-fw fa-envelope"></i>{{ 'Formularz reklamacyjny'|trans }}</a>
+                            <div class="hidden">
+                            <h1><i class="fa fa-envelope"></i>{{ 'Formularz reklamacyjny'|trans }}</h1>
+                            <div class="content">
+                            <form action="{{ path('contact') }}" method="post">
+                                <input type="hidden" id="type" name="type" value="complaint" />
+                                
+                                <div class="widget" style="display:none;">
+                                    <label for="name">{{ 'Twój adres IP'|trans }}</label>
+                                    <div class="field"><input type="text" id="name" name="name" value="{{ ip() }}" disabled /></div>
+                                </div>
+                                <div class="widget">
+                                    <label for="name">{{ 'Imię i nazwisko'|trans }}</label>
+                                    <div class="field"><input type="text" id="name" name="name" value="" required="required" autocomplete="off" /><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>{{ 'To pole jest wymagane'|trans }}</li></ul></div>
+                                </div>
+                                <div class="widget">
+                                    <label for="mail">{{ 'Adres email'|trans }}</label>
+                                    <div class="field"><input type="text" id="mail" name="mail" value="" required="required" autocomplete="off" /><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>{{ 'To pole jest wymagane'|trans }}</li></ul></div>
+                                </div>  
+                                <div class="widget">
+                                    <label for="subject">{{ 'Temat'|trans }}</label>
+                                    <div class="field"><input type="text" id="subject" name="subject" value="" required="required" autocomplete="off" /><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>{{ 'To pole jest wymagane'|trans }}</li></ul></div>
+                                </div>
+                                <div class="widget">
+                                    <label for="message">{{ 'Opis reklamacji'|trans }}</label>
+                                    <div class="field"><textarea id="message" name="message" required="required"></textarea><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>{{ 'To pole jest wymagane'|trans }}</li></ul></div>
+                                </div> 
+                                <div class="widget">
+                                    <div class="field">
+                                    <div class="captcha"></div>
+                                    </div>
+                                </div> 
+                                
+                                
+                                <button type="submit" name="submit">{{ 'Wyślij zgłoszenie'|trans }}</button>
+                            </form>
+                            </div>
+                            </div>
+                            </li>
+                            
+                            <li><a href="/" class="contactus"><i class="fa fa-fw fa-users"></i>{{ 'Zostań partnerem'|trans }}</a>
+                            <div class="hidden">
+                            <h1><i class="fa fa-envelope"></i>{{ 'Zostań partnerem'|trans }}</h1>
+                            <div class="content">
+                            <form action="{{ path('contact') }}" method="post">
+                                <input type="hidden" id="type" name="type" value="partner" />
+                                <div class="widget" style="display:none;">
+                                    <label for="name">{{ 'Twój adres IP'|trans }}</label>
+                                    <div class="field"><input type="text" id="name" name="name" value="{{ ip() }}" disabled /></div>
+                                </div>
+                                <div class="widget">
+                                    <label for="name">{{ 'Imię i nazwisko'|trans }}</label>
+                                    <div class="field"><input type="text" id="name" name="name" value="" required="required" autocomplete="off" /><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>To pole jest wymagane</li></ul></div>
+                                </div>
+                                <div class="widget">
+                                    <label for="mail">{{ 'Adres email'|trans }}</label>
+                                    <div class="field"><input type="text" id="mail" name="mail" value="" required="required" autocomplete="off" /><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>To pole jest wymagane</li></ul></div>
+                                </div>  
+                                <div class="widget">
+                                    <label for="subject">{{ 'Temat'|trans }}</label>
+                                    <div class="field"><input type="text" id="subject" name="subject" value="{{ 'Program partnerski'|trans }}" required="required" autocomplete="off" /><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>To pole jest wymagane</li></ul></div>
+                                </div>
+                                <div class="widget">
+                                    <label for="message">{{ 'Wiadomość'|trans }}</label>
+                                    <div class="field"><textarea id="message" name="message" required="required"></textarea><ul class="errors hidden"><li><i class="fa fa-warning fa-fw"></i>To pole jest wymagane</li></ul></div>
+                                </div> 
+                                <div class="widget">
+                                    <div class="field">
+                                    <div class="captcha"></div>
+                                    </div>
+                                </div>
+                                <button type="submit" name="submit">{{ 'Wyślij wiadomość'|trans }}</button>
+                            </form>
+                            </div>
+                            </div>
+                            
+                            </li>
+                        </ul>    
+                    </div>
+					
+                    
+                            
+                    <div class="info col">
+                        <h4 class="triggerMany delay12" data-animate="pulse">{{ 'Informacje'|trans }}</h4>
+                        <p>
+                           {{ 'Strona Epado używa ciasteczka w celu usprawnienia działania strony i użycia niektórych jej funkcjonalności. Jeżeli nie zgadzasz się na używanie ciastek przez naszą stronę możesz zmienić ustawienia swojej przeglądarki lub opuścić stronę.'|trans }} 
+                        </p>
+                    </div>
+					
+					
+
+					
+
+                    
+                </div>
+      
+	  <a href="#" class="up triggerAnimation fadeInDown"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+	  
+	  
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-75772683-1', 'auto');
+          ga('send', 'pageview');
+
+        </script>  
+		
+		<script>
+			//$("myModal").modal('show');
+		
+			$(document).ready(function($){
+
+			  $('.modal-dialog').each(function() {
+				var divInner = $('.TS-modal-inner', this).outerHeight();
+				  $(this).css('height', divInner+'px');
+				});
+			});			
+			
+		</script>
+
+<!--
+<script src="/js/bootstrap-cookie-consent-settings.js"></script>
+<script>
+    var cookieSettings = new BootstrapCookieConsentSettings()
+
+    function showSettingsDialog() {
+        cookieSettings.showDialog()
+    }
+
+    $(document).ready(function () {
+        $("#settingsOutput").text(JSON.stringify(cookieSettings.getSettings()))
+        $("#settingsAnalysisOutput").text(cookieSettings.getSettings("analyses"))
+    })
+</script>
+-->
+		
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
+
+ {% if user is not null %}
+ 
+ <script>
+setInterval(function()
+{
+
+	$.ajax({
+			url: "{{ path('isonline') }}?id={{user.id}}",
+			type: 'GET',
+
+			success: function(res) {
+			}
+		});
+}, 15000);  
+ </script>
+ 
+ {% endif %}
+    </body>
+</html>

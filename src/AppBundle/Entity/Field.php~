@@ -1,0 +1,313 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
+/**
+ * Field
+ *
+ * @ORM\Table(name="field")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\FieldRepository")
+ */
+class Field
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ProductType", inversedBy="fields", cascade={"persist"})
+     * @ORM\JoinColumn(name="product_type_id", referencedColumnName="id", nullable=true)
+     */
+    protected $product_type;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Value", mappedBy="field")
+     */
+    protected $values;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="created", cascade={"persist"})
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", nullable=true)
+     */
+    protected $creator;
+ 
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(min=2, groups={"registration"})
+     */
+    private $name;
+    
+    /**
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    protected $description;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $type;
+
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $configurable;
+  
+    
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Fields
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Fields
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return Fields
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set product_type
+     *
+     * @param \AppBundle\Entity\ProductType $productType
+     * @return Fields
+     */
+    public function setProductType(\AppBundle\Entity\ProductType $productType = null)
+    {
+        $this->product_type = $productType;
+
+        return $this;
+    }
+
+    /**
+     * Get product_type
+     *
+     * @return \AppBundle\Entity\ProductType 
+     */
+    public function getProductType()
+    {
+        return $this->product_type;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\User $creator
+     * @return Fields
+     */
+    public function setCreator(\AppBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->values = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add values
+     *
+     * @param \AppBundle\Entity\Value $values
+     * @return Field
+     */
+    public function addValue(\AppBundle\Entity\Value $values)
+    {
+        $this->values[] = $values;
+
+        return $this;
+    }
+
+    /**
+     * Remove values
+     *
+     * @param \AppBundle\Entity\Value $values
+     */
+    public function removeValue(\AppBundle\Entity\Value $values)
+    {
+        $this->values->removeElement($values);
+    }
+
+    /**
+     * Get values
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getValues()
+    {
+        return $this->values;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Field
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Field
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+
+    /**
+     * Set configurable
+     *
+     * @param boolean $configurable
+     * @return Field
+     */
+    public function setConfigurable($configurable)
+    {
+        $this->configurable = $configurable;
+
+        return $this;
+    }
+
+    /**
+     * Get configurable
+     *
+     * @return boolean 
+     */
+    public function getConfigurable()
+    {
+        return $this->configurable;
+    }
+}

@@ -1,0 +1,76 @@
+{% extends "AppBundle::default.html.twig" %}
+{% block content %}
+    
+    <h1>Wiadomość</h1>
+
+{% if object.id is defined %}
+    <div class="content messages">
+        <div class="element {% if object.creator is not null and object.creator==app.user %}me{% endif%}">
+            {% if object.creator is null %}
+                <div class="avatar"><div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': '/images/system.png' })|production }}');"></div></div>
+                <div class="info">
+                Powiadomienia systemowe<br />   
+                {{ object.created|date }}
+                </div>  
+            {% else %}    
+                <div class="avatar"><div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': object.creator.avatar })|production }}');"></div></div>
+                <div class="info">
+                {{ object.creator.firstname }} {{ object.creator.lastname }}<br />   
+                {{ object.created|date }}
+                </div>
+            {% endif %}
+            <p class="message">
+            Temat: {{ object.subject }}<br /><br />
+            {{ object.message }}
+            </p>
+        </div>
+  
+        {% for message in messages %}     
+        <div class="element {% if message.creator==app.user %}me{% endif%}">
+            <div class="avatar"><div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': message.creator.avatar })|production }}');"></div></div>
+            <div class="info">
+            {{ message.creator.firstname }} {{ message.creator.lastname }}<br />   
+            {{ message.created|date }}
+            </div>
+            <p class="message">
+            {{ message.message }}
+            </p>
+        </div>
+        {% endfor %}    
+    </div>
+{% endif %}
+
+    <div class="content new-message">
+       <form method="post">
+           
+            {% if object.creator is defined and object.creator is null %}
+
+            {% else %} 
+                {% if new.recipient is null %}
+                <div class="widget last">      
+                    <label>Wyszukaj odbiorce</label>
+                    <input class="clear" type="text" name="user" placeholder="Wpisz dane osoby lub firmy" value="{% if(app.user.type in ['partner'] ) %}Solarnet{% endif %}">
+                    <div class="result"></div>
+                </div>     
+                {% else %}     
+                <div class="last">  
+                    <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': new.recipient.avatar })|production }}');"></div>
+                    <div class="info">Odbiorca:<br />{{new.recipient.firstname }} {{new.recipient.lastname }}</div>
+                </div> 
+                {% endif %} 
+            {% endif %} 
+            {% if object.id is not defined %} 
+            <div class="widget last">
+                <input type="text" name="subject" required="required" placeholder="Podaj temat">
+            </div>
+            {% endif %}
+            <div class="widget last">
+                <textarea name="message" required="required" placeholder="Podaj treść wiadomości"></textarea> 
+            </div>
+            <input type="submit" value="{% if object.creator is defined and object.creator is null %}Zostaw notatke{% else %}Wyślij wiadomość{% endif %}">
+       </form>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-map"></i>{{ 'Administracja'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    
+
+    <div class="content">
+        <div class="options">
+        <a href="?clear=1" class="button clear">{{ 'Czyść cache'|trans }}</a>
+        </div>
+        <script>
+            $('.clear').click(function(e){      
+
+                $.ajax({
+                    url : '?',
+                    type : 'GET',
+                    data : {
+                        'clear' : 1
+                    },
+                    success : function(data) {              
+                        alert(data);
+                    },
+                    error : function(request,error)
+                    {
+                       alert('Error');
+                    }
+                });
+                e.preventDefault();
+
+            });
+        </script>
+    </div>
+
+    {% if text %}  
+    <div class="content">
+
+         <h3>{{text.title}}</h3>
+         {{text.content|raw}}
+        
+    </div>
+    {% endif %}
+    
+    
+
+    {% if pages_active %}{% set sum=0 %}
+        <div class="content"><h3>{{ 'Aktywne strony'|trans }}</h3>
+        <div class="table-wrapper"><table><tr><th>{{ 'Typ strony'|trans }}</th><th>{{ 'Język'|trans }}</th><th>{{ 'Kategoria'|trans }}</th><th>{{ 'Ilość'|trans }}</th></tr>
+        {% for row in pages_active %}{% set sum=sum+row['amount'] %}  
+                <tr>
+                <td>{{row['page'].type.name}}</td>
+                <td>{{row['page'].locale}}</td>
+                <td>{% if row['page'].category %}{{row['page'].category.name}}{% else %}{{ 'Osoba'|trans }}{% endif%}</td>
+                <td>{{row['amount']}}</td>
+                </tr>
+        {% endfor %} 
+        <tr><th></th><th></th><th>{{ 'Suma'|trans }}:</th><th>{{sum}}</th></tr>
+        </table></div>
+        </div>
+    {% endif %}
+
+    {% if pages_inactive %}{% set sum=0 %}
+        <div class="content"><h3>{{ 'Nieaktywne strony'|trans }}</h3>
+        <div class="table-wrapper"><table><tr><th>{{ 'Typ strony'|trans }}</th><th>{{ 'Język'|trans }}</th><th>{{ 'Kategoria'|trans }}</th><th>{{ 'Ilość'|trans }}</th></tr>
+        {% for row in pages_inactive %}{% set sum=sum+row['amount'] %}  
+                <tr>
+                <td>{{row['page'].type.name}}</td>
+                <td>{{row['page'].locale}}</td>
+                <td>{% if row['page'].category %}{{row['page'].category.name}}{% else %}{{ 'Osoba'|trans }}{% endif%}</td>
+                <td>{{row['amount']}}</td>
+                </tr>
+        {% endfor %} 
+        <tr><th></th><th></th><th>{{ 'Suma'|trans }}:</th><th>{{sum}}</th></tr>
+        </table></div>
+        </div>
+    {% endif %}
+    
+    
+
+    {% if images %}{% set sum=0 %}
+        <div class="content"><h3>{{ 'Zdjęcia'|trans }}</h3>
+        <div class="table-wrapper"><table><tr><th>{{ 'Typ strony'|trans }}</th><th>{{ 'Język'|trans }}</th><th>{{ 'Kategoria'|trans }}</th><th>{{ 'Ilość'|trans }}</th></tr>
+        {% for row in images %}{% set sum=sum+row['amount'] %} 
+                <tr>
+                <td>{{row['image'].page.type.name}}</td>
+                <td>{{row['image'].page.locale}}</td>
+                <td>{% if row['image'].page.category %}{{row['image'].page.category.name}}{% else %}{{ 'Osoba'|trans }}{% endif%}</td>
+                <td>{{row['amount']}}</td>
+                </tr>
+        {% endfor %} 
+        <tr><th></th><th></th><th>{{ 'Suma'|trans }}:</th><th>{{sum}}</th></tr>
+        </table></div>
+        </div>
+    {% endif %}
+    
+    {% if videos %}{% set sum=0 %}
+        <div class="content"><h3>{{ 'Wideo'|trans }}</h3>
+        <div class="table-wrapper"><table><tr><th>{{ 'Typ strony'|trans }}</th><th>{{ 'Język'|trans }}</th><th>{{ 'Kategoria'|trans }}</th><th>{{ 'Ilość'|trans }}</th></tr>
+        {% for row in videos %}{% set sum=sum+row['amount'] %}  
+                <tr>
+                <td>{{row['image'].page.type.name}}</td>
+                <td>{{row['image'].page.locale}}</td>
+                <td>{% if row['image'].page.category %}{{row['image'].page.category.name}}{% else %}{{ 'Osoba'|trans }}{% endif%}</td>
+                <td>{{row['amount']}}</td>
+                </tr>
+        {% endfor %} 
+        <tr><th></th><th></th><th>{{ 'Suma'|trans }}:</th><th>{{sum}}</th></tr>
+        </table></div>
+        </div>
+    {% endif %}
+    
+    {% if audiobooks %}{% set sum=0 %}
+        <div class="content"><h3>{{ 'Audiobooki'|trans }}</h3>
+        <div class="table-wrapper"><table><tr><th>{{ 'Typ strony'|trans }}</th><th>{{ 'Język'|trans }}</th><th>{{ 'Kategoria'|trans }}</th><th>{{ 'Ilość'|trans }}</th></tr>
+        {% for row in audiobooks %}{% set sum=sum+row['amount'] %} 
+                <tr>
+                <td>{{row['image'].page.type.name}}</td>
+                <td>{{row['image'].page.locale}}</td>
+                <td>{% if row['image'].page.category %}{{row['image'].page.category.name}}{% else %}{{ 'Osoba'|trans }}{% endif%}</td>
+                <td>{{row['amount']}}</td>
+                </tr>
+        {% endfor %} 
+        <tr><th></th><th></th><th>{{ 'Suma'|trans }}:</th><th>{{sum}}</th></tr>
+        </table></div>
+        </div>
+    {% endif %}
+    
+    {% if posts %}{% set sum=0 %}
+        <div class="content"><h3>{{ 'Kondolencje'|trans }}</h3>
+        <div class="table-wrapper"><table><tr><th>{{ 'Typ strony'|trans }}</th><th>{{ 'Język'|trans }}</th><th>{{ 'Kategoria'|trans }}</th><th>{{ 'Ilość'|trans }}</th></tr>
+        {% for row in posts %}{% set sum=sum+row['amount'] %}  
+                <tr>
+                <td>{{row['image'].page.type.name}}</td>
+                <td>{{row['image'].page.locale}}</td>
+                <td>{% if row['image'].page.category %}{{row['image'].page.category.name}}{% else %}{{ 'Osoba'|trans }}{% endif%}</td>
+                <td>{{row['amount']}}</td>
+                </tr>
+        {% endfor %} 
+        <tr><th></th><th></th><th>{{ 'Suma'|trans }}:</th><th>{{sum}}</th></tr>
+        </table></div>
+        </div>
+    {% endif %}
+    
+    
+    
+{% endblock %}

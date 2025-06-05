@@ -1,0 +1,46 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-qrcode"></i>{{ 'Moje kody'|trans }}</h1>{% endblock %}
+
+
+{% block content %}
+    
+    <div class="content">
+        <form action="" method="get" class="filters">
+            <div class="field"><label for="code">Szukaj pojedynczego kodu</label><div class="text"><input type="text" name="code" value="{{code}}"></div></div>
+            <div class="buttons"><input type="submit" value="{{ 'Szukaj'|trans }}"></div>
+        </form>
+      
+    </div>
+    
+    <div class="content">
+        
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Kod'|trans }}</th>
+                        <th>{{ 'Osoba<br>upamiętniana'|trans|raw }}</th>
+                        <th>{{ 'Czy kod<br>został wykorzystany'|trans|raw }}</th>
+                        <th>{{ 'Wyświetlanie<br>reklam'|trans|raw }}</th>
+                        <th>{{ 'Opcje'|trans|raw }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr>
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td>
+                        <td>{{object.code}} ({% if object.group.months is not null %}{{ object.group.months/12 }} lat{% else %}Brak{% endif %})</td>
+                        <td>{% if(object.page) %}{{object.page.firstname}} {{object.page.lastname}}{%else%}Brak{%endif%}</td>
+                        <td>{% if(object.page) %}Tak{%else%}Nie{%endif%}</td>
+                        <td>{% if(object.page) %}{%if(object.page.ads) %}<a href="{{path_page(object.code)}}"><i class="fa fa-eye" style="color:green;"></i> <span style="color:green;">Tak</span></a>{%else%}<i class="fa fa-eye-slash" style="color:red;"></i> <span style="color:red;">Nie</span>{%endif%}{%else%}Brak strony{%endif%}</td>
+                        <td>{% if(object.page) %}<a class="button small" style="height: 22px; line-height: 22px; margin:2px;" href="{{ path('sold', {'change_id': object.id})}}">{%if(object.page.ads) %}Wyłącz reklamy{%else%}Włącz reklamy{%endif%}</a>{%else%}Brak strony{%endif%}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie ma kupionych kodów.'|trans }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

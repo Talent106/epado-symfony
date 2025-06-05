@@ -1,0 +1,511 @@
+{% extends "admin.html.twig"  %}
+
+
+{% block header %}<h1>{%  if filters['parent_partner_id'] is not defined %}<i class="fa fa-line-chart"></i>{{ 'Statystyki'|trans }}{% else %}<i class="fa fa-money"></i>{{ 'Prowizje'|trans }}{% endif %}</h1>{% endblock %}
+
+{% block content %}
+    
+    <div class="content">
+        <form class="filters" >
+
+            {% for name, value in filters %}
+           
+                {% if( name not in ['to','from','type','currency'])%}
+                    <input type="hidden" name="filters[{{name}}]" value="{{value}}">
+                {% endif %}    
+                
+            {% endfor %} 
+            
+            <div class="field">
+                <label for="">Od</label>
+                <div>
+                    <input type="text" required="required" value="{{ filters['from'] }}" name="filters[from]" class="dateselect from">
+                </div>
+            </div>
+            <div class="field">
+                <label for="">Do</label>
+                <div>
+                    <input type="text" required="required" value="{{ filters['to'] }}" name="filters[to]" class="dateselect to">
+                </div>
+            </div>
+            <div class="field">
+                <label for="">Kwartał</label>
+                <div class="select">
+                    <select name="quarter">
+                        <option value=""></option>
+                        {% for year in "now"|date("Y")..2014 %}
+                            {% for quorter in ['IV','III','II','I'] %}
+                                {% if("now"|date("Y") != year  
+                                   or ( quorter=='IV' and "now"|date("m")>9 )
+                                   or ( quorter=='III' and "now"|date("m")>6 )
+                                   or ( quorter=='II' and "now"|date("m")>3 )
+                                   or ( quorter=='I' )
+                                   )
+                                %}
+                                    {% if(quorter=='I') %}
+                                        {% set from=year~'-01-01' %}
+                                        {% set to=(year~'-03-01')|date('Y-m-t') %}
+                                    {% endif %} 
+                                    {% if(quorter=='II') %}
+                                        {% set from=year~'-04-01' %}
+                                        {% set to=(year~'-06-01')|date('Y-m-t') %}
+                                    {% endif %} 
+                                    {% if(quorter=='III') %}
+                                        {% set from=year~'-07-01' %}
+                                        {% set to=(year~'-09-01')|date('Y-m-t') %}
+                                    {% endif %} 
+                                    {% if(quorter=='IV') %}
+                                        {% set from=year~'-10-01' %}
+                                        {% set to=(year~'-12-01')|date('Y-m-t') %}
+                                    {% endif %} 
+                                    <option from="{{from}}" to="{{to}}" {% if to==filters['to'] and from==filters['from'] %} selected="selected"{% endif %} value="{{year}}{{quorter}}">{{year}} - {{quorter}}</option>
+                                {% endif %}
+                            {% endfor %}     
+                        {% endfor %}    
+                    </select>
+                </div>
+            </div>
+            <div class="field ">
+                <label for="">Miesiąc</label>
+                <div class="select">
+                    <select name="month">
+                        <option value=""></option>
+                        {% for year in "now"|date("Y")..2014 %}
+                            {% for month in 12..1 %}
+                                {% if("now"|date("Y") != year or month<="now"|date("m"))%}
+                                    {% set from=(year~'-'~month~'-01')|date('Y-m-d') %}
+                                    {% set to=from|date('Y-m-t') %}
+                                    <option from="{{from}}" to="{{to}}" {% if to==filters['to'] and from==filters['from'] %} selected="selected"{% endif %} value="{{year}}{{month}}">{{from|date('Y-m')}}</option>
+                                {% endif %}    
+                            {% endfor %}     
+                        {% endfor %} 
+                    </select>
+                </div>
+            </div>
+            
+            {%  if app.user.type!='partner' %}
+            <div class="field " {%  if parent_partner or stat_user %}style="display:none;"{% endif %}>
+                <label for="">Rodzaj statystyk</label>
+                <div class="select">
+                    <select class="auto" name="filters[type]">
+                        <option value="">Wszystkie</option>
+                        <option {% if 'partner'==filters['type'] %} selected="selected"{% endif %} value="partner">Partnerzy</option>
+                        <option {% if 'user'==filters['type'] %} selected="selected"{% endif %} value="user">Użytkownicy</option>
+                    </select>
+                </div>
+            </div>
+                    
+                    
+            <div class="field ">
+                <label for="">Waluta</label>
+                <div class="select">
+                    <select class="auto" name="filters[currency]">
+                        {% for currency in currencies %}
+                            <option {% if currency==filters['currency']  %} selected="selected"{% endif %} value="{{currency}}">{{currency}}</option>
+  
+                        {% endfor %} 
+                    </select>
+                </div>
+            </div>      
+            {% endif %}  
+            
+            
+            
+
+            <div class="buttons"><input type="submit" value="{{ 'Filtruj'|trans }}"><button type="submit" name="reset" value="1">{{ 'Resetuj'|trans }}</button></div>
+        </form>
+    </div>
+        
+    <div class="content breadcrumps" >    
+        {%  if app.user.type!='partner' %}
+            
+            {%  if not parent_partner and not stat_user %}
+                <span class="breadcrump"><i class="fa fa-fw fa-line-chart"></i> Statystyki</span>
+            {% else %}
+                {% set tab={'filters':{'user_id':null, 'parent_partner_id':null} } %}
+                <a class="breadcrump" href="{{ extend(tab)}}"><i class="fa fa-fw fa-line-chart"></i> Statystyki</a>
+            {% endif %}
+            
+            {%  if parent_partner and stat_user %}
+                {% set tab={'filters':{'user_id':null} } %}
+                <i class="fa fa-fw fa-caret-right"></i>  <a class="breadcrump" href="{{ extend(tab)}}"><i class="fa fa-fw fa-money"></i> Partner nadżędny: {{parent_partner.fullname}}</a>
+            {% endif %} 
+            {%  if parent_partner and not stat_user %}
+                <i class="fa fa-fw fa-caret-right"></i> <span class="breadcrump"><i class="fa fa-fw fa-money"></i> Partner nadżędny: {{parent_partner.fullname}}</span>
+            {% endif %}     
+            
+            
+            {%  if stat_user %}
+                <i class="fa fa-fw fa-caret-right"></i> <span class="breadcrump"><i class="fa fa-user"></i> Osoba: {{stat_user.fullname}}</span>
+            {% endif %} 
+            
+            
+        {% else %} 
+            
+            
+            {%  if parent_partner and stat_user %}
+                {% set tab={'filters':{'user_id':null} } %}
+                <a class="breadcrump" href="{{ extend(tab)}}"><i class="fa fa-fw fa-money"></i> Prowizje</a>
+            {% endif %} 
+            {%  if parent_partner and not stat_user %}
+                <span class="breadcrump"><i class="fa fa-fw fa-money"></i> Prowizje</span>
+            {% endif %}     
+            
+            
+            {%  if stat_user %}
+                <i class="fa fa-fw fa-caret-right"></i> <span class="breadcrump"><i class="fa fa-user"></i> Osoba: {{stat_user.fullname}}</span>
+            {% endif %} 
+            
+        {% endif %}   
+    </div> 
+        
+    <h1><i class="fa fa-money"></i>{{ 'Podsumowanie'|trans }}</h1>    
+    
+    <div class="content">
+        <div class="options">
+        {%  if app.user.type!='partner' %}    
+        {% for currency, price in stats['price'] if currency==filters['currency'] %}
+            <div class="stat">
+            <i class="fa fa-fw fa-shopping-cart"></i>    
+            <div class="text">Sprzedaż:</div><br><div class="value">{{ price|price(currency) }}</div>
+            </div>
+        {% endfor %} 
+        {% endif %}
+        
+        {% for currency, price in stats['provision_price']  if currency==filters['currency'] %}
+            <div class="stat">
+            <i class="fa fa-fw fa-money"></i>    
+            <div class="text">Prowizja:</div><br><div class="value">{{ price|price(currency) }}</div>
+            </div>
+        {% endfor %}
+        
+        {%  if app.user.type!='partner' %}
+        {% for currency, price in stats['provision_price']  if currency==filters['currency'] and app.user.type!='partner' %}
+            <div class="stat">
+            <i class="fa fa-fw fa-balance-scale"></i>    
+            <div class="text">Bilans:</div><br><div class="value">{{ (stats['price'][currency]-price)|price(currency) }}</div>
+            </div>
+        {% endfor %}
+        {% endif %}
+        </div>
+    </div> 
+
+        
+
+    {% if stats['orders'] is defined and stats['orders'] is not empty %}    
+        <h1><i class="fa fa-shopping-cart"></i>{{ 'Zamówienia'|trans }}</h1>
+
+        <div class="content">
+            <div class="options">
+            <div class="table-wrapper"><table>
+                <tr>
+                    <th width="20">Lp</th>
+                    <th>Zamówienie</th>
+                    <th><a 
+                        href="{% set name='provision_price' %}{% if filters['sortd'] is defined and filters['sortd']==1 %}{{extend({'filters':{'sortd':'0','sort':name} })}}{%else%}{{extend({'filters':{'sortd':'1','sort':name} })}}{%endif%}">
+                        {{ 'Prowizja'|trans }} 
+                        {% if filters['sort'] is defined and filters['sort']==name and filters['sortd'] is defined %}
+                            {% if filters['sortd']==1 %}
+                                <i class="fa fa-sort-amount-desc"></i>
+                            {%else%}
+                                <i class="fa fa-sort-amount-asc" ></i>
+                            {%endif%}
+                        {%else%}
+                            <i class="fa fa-sort" ></i>
+                        {%endif%}</a>
+                    </th>
+                    <th><a 
+                        href="{% set name='price' %}{% if filters['sortd'] is defined and filters['sortd']==1 %}{{extend({'filters':{'sortd':'0','sort':name} })}}{%else%}{{extend({'filters':{'sortd':'1','sort':name} })}}{%endif%}">
+                        {{ 'Sprzedaż'|trans }} 
+                        {% if filters['sort'] is defined and filters['sort']==name and filters['sortd'] is defined %}
+                            {% if filters['sortd']==1 %}
+                                <i class="fa fa-sort-amount-desc"></i>
+                            {%else%}
+                                <i class="fa fa-sort-amount-asc" ></i>
+                            {%endif%}
+                        {%else%}
+                            <i class="fa fa-sort" ></i>
+                        {%endif%}</a>
+                    </th>
+                    {%  if app.user.type!='partner' %}<th>Bilans</th>{% endif %}
+                </tr>    
+
+            {% for object in stats['orders'] %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>Zamówienie nr: {{ object['id'] }}</td>
+                    <td>{{ object['provision_price']|price(filters['currency']) }}</td>
+                    <td>{{ object['price']|price(filters['currency']) }}</td>
+                    {%  if app.user.type!='partner' %}<td>{{ (object['price']-object['provision_price'])|price(filters['currency']) }}</td>{% endif %} 
+                </tr> 
+                {% for object in object['object'].orderproducts %}
+                    <tr class="subrow">
+                        <th></th>
+                        <td class="first">{{ object.name }}</td>
+                        <td style="white-space: nowrap;">{{ (object.provisionprice*object.amount)|price(filters['currency']) }}</td>
+                        <td style="white-space: nowrap;">{{ object.price|price(filters['currency']) }} x {{ object.amount }}</td>
+                        {%  if app.user.type!='partner' %}<td style="white-space: nowrap;">{{ (object.price*object.amount-object.provisionprice*object.amount)|price(filters['currency']) }}</td>{% endif %} 
+                    </tr> 
+                {% endfor %} 
+            {% endfor %} 
+                <tr>
+                    <th></th>
+                    <th style="text-align:right;">Suma:</th>
+                    <td style="white-space: nowrap;">{{ stats['orders_provision_price']|price(filters['currency']) }}</td>
+                    <td style="white-space: nowrap;">{{ stats['orders_price']|price(filters['currency']) }}</td>
+                    {%  if app.user.type!='partner' %}<td style="white-space: nowrap;">{{ (stats['orders_price']-stats['orders_provision_price'])|price(filters['currency']) }}</td>{% endif %}
+                </tr> 
+            </table></div>
+            </div>
+        </div> 
+    {% endif %} 
+        
+    
+
+    {% if stats['parent'] is defined and stats['parent'] is not empty %}    
+        <h1><i class="fa fa-users"></i>{{ 'Partnerzy nadrzędni'|trans }}</h1>
+
+        <div class="content">
+            <div class="options">
+            <div class="table-wrapper"><table>
+                <tr>
+                    <th width="20">Lp</th>
+                    <th colspan="2">Osoba</th>
+                    <th>Opcje</th>
+                    <th><a 
+                        href="{% set name='provision_price' %}{% if filters['sortd'] is defined and filters['sortd']==1 %}{{extend({'filters':{'sortd':'0','sort':name} })}}{%else%}{{extend({'filters':{'sortd':'1','sort':name} })}}{%endif%}">
+                        {{ 'Prowizja'|trans }} 
+                        {% if filters['sort'] is defined and filters['sort']==name and filters['sortd'] is defined %}
+                            {% if filters['sortd']==1 %}
+                                <i class="fa fa-sort-amount-desc"></i>
+                            {%else%}
+                                <i class="fa fa-sort-amount-asc" ></i>
+                            {%endif%}
+                        {%else%}
+                            <i class="fa fa-sort" ></i>
+                        {%endif%}</a>
+                    </th>
+                    <th><a 
+                        href="{% set name='price' %}{% if filters['sortd'] is defined and filters['sortd']==1 %}{{extend({'filters':{'sortd':'0','sort':name} })}}{%else%}{{extend({'filters':{'sortd':'1','sort':name} })}}{%endif%}">
+                        {{ 'Sprzedaż'|trans }} 
+                        {% if filters['sort'] is defined and filters['sort']==name and filters['sortd'] is defined %}
+                            {% if filters['sortd']==1 %}
+                                <i class="fa fa-sort-amount-desc"></i>
+                            {%else%}
+                                <i class="fa fa-sort-amount-asc" ></i>
+                            {%endif%}
+                        {%else%}
+                            <i class="fa fa-sort" ></i>
+                        {%endif%}</a>
+                    </th>
+                    {%  if app.user.type!='partner' %}<th>Bilans</th>{% endif %}
+                </tr>    
+
+            {% for object in stats['parent'] %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td width="20">{{ tabUser(object['object'].parentpartner)|raw }}</td> 
+                    <td>{{ object['object'].parentpartner.firstname }} {{ object['object'].parentpartner.lastname }} {% if object['object'].parentpartner.billingaddress.company is defined and object['object'].parentpartner.billingaddress.company  %}({{object['object'].parentpartner.billingaddress.company}}){% endif %}</td>
+                    <td><a href="{{ extend({'filters[parent_partner_id]':object['object'].parentpartner.id}) }}" class="button small"><i class="fa fa-fw fa-money"></i> Szczegóły</a></td>
+                    <td style="white-space: nowrap;">{{ object['provision_price']|price(filters['currency']) }}</td>
+                    <td style="white-space: nowrap;">{{ object['price']|price(filters['currency']) }}</td>
+                    {%  if app.user.type!='partner' %}<td style="white-space: nowrap;">{{ (object['price']-object['provision_price'])|price(filters['currency']) }}</td>{% endif %}
+                </tr> 
+            {% endfor %} 
+                <tr>
+                    <th></th>
+                    <th style="text-align:right;" colspan="3">Suma:</th>
+                    <td style="white-space: nowrap;">{{ stats['parent_provision_price']|price(filters['currency']) }}</td>
+                    <td style="white-space: nowrap;">{{ stats['parent_price']|price(filters['currency']) }}</td>
+                    {%  if app.user.type!='partner' %}<td style="white-space: nowrap;">{{ (stats['parent_price']-stats['parent_provision_price'])|price(filters['currency']) }}</td>{% endif %}
+                </tr> 
+            </table></div>
+            </div>
+        </div> 
+    {% endif %} 
+    
+        
+        
+    {% if stats['users'] is defined and stats['users'] is not empty %}    
+        <h1><i class="fa fa-users"></i>{{ 'Sprzedaż'|trans }}</h1>
+
+        <div class="content">
+            <div class="options">
+            <div class="table-wrapper"><table>
+                <tr>
+                    <th width="20">Lp</th>
+                    <th colspan="2">Osoba</th>
+                    <th>Opcje</th>
+                    <th><a 
+                        href="{% set name='provision_price' %}{% if filters['sortd'] is defined and filters['sortd']==1 %}{{extend({'filters':{'sortd':'0','sort':name} })}}{%else%}{{extend({'filters':{'sortd':'1','sort':name} })}}{%endif%}">
+                        {{ 'Prowizja'|trans }} 
+                        {% if filters['sort'] is defined and filters['sort']==name and filters['sortd'] is defined %}
+                            {% if filters['sortd']==1 %}
+                                <i class="fa fa-sort-amount-desc"></i>
+                            {%else%}
+                                <i class="fa fa-sort-amount-asc" ></i>
+                            {%endif%}
+                        {%else%}
+                            <i class="fa fa-sort" ></i>
+                        {%endif%}</a>
+                    </th>
+                    <th><a 
+                        href="{% set name='price' %}{% if filters['sortd'] is defined and filters['sortd']==1 %}{{extend({'filters':{'sortd':'0','sort':name} })}}{%else%}{{extend({'filters':{'sortd':'1','sort':name} })}}{%endif%}">
+                        {{ 'Sprzedaż'|trans }} 
+                        {% if filters['sort'] is defined and filters['sort']==name and filters['sortd'] is defined %}
+                            {% if filters['sortd']==1 %}
+                                <i class="fa fa-sort-amount-desc"></i>
+                            {%else%}
+                                <i class="fa fa-sort-amount-asc" ></i>
+                            {%endif%}
+                        {%else%}
+                            <i class="fa fa-sort" ></i>
+                        {%endif%}</a>
+                    </th>
+                    {%  if app.user.type!='partner' %}<th>Bilans</th>{% endif %}
+                </tr>    
+
+            {% for object in stats['users'] %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td width="20">{{ tabUser(object['object'].buyer)|raw }}</td> 
+                    <td>{{ object['object'].buyer.firstname }} {{ object['object'].buyer.lastname }} {% if object['object'].buyer.billingaddress.company is defined and object['object'].buyer.billingaddress.company  %}({{object['object'].buyer.billingaddress.company}}){% endif %}</td>
+                    <td><a href="{{ extend({'filters[user_id]':object['object'].buyer.id}) }}" class="button small"><i class="fa fa-fw fa-shopping-cart"></i> Szczegóły</a></td>
+                    <td style="white-space: nowrap;">{{ object['provision_price']|price(filters['currency']) }}</td>
+                    <td style="white-space: nowrap;">{{ object['price']|price(filters['currency']) }}</td>
+                    {%  if app.user.type!='partner' %}<td style="white-space: nowrap;">{{ (object['price']-object['provision_price'])|price(filters['currency']) }}</td>{% endif %}
+                </tr> 
+            {% endfor %} 
+                <tr>
+                    <th></th>
+                    <th style="text-align:right;" colspan="3">Suma:</th>
+                    <td style="white-space: nowrap;">{{ stats['users_provision_price']|price(filters['currency']) }}</td>
+                    <td style="white-space: nowrap;">{{ stats['users_price']|price(filters['currency']) }}</td>
+                    {%  if app.user.type!='partner' %}<td style="white-space: nowrap;">{{ (stats['users_price']-stats['users_provision_price'])|price(filters['currency']) }}</td>{% endif %}
+                </tr> 
+            </table></div>
+            </div>
+        </div> 
+    {% endif %} 
+    
+  
+    {% if stats['bad_partners'] is defined and stats['bad_partners'] is not empty %}    
+        <h1><i class="fa fa-users"></i>{{ 'Partnerzy z zerową sprzedażą'|trans }}</h1>
+
+        <div class="content">
+            <div class="options">
+            <div class="table-wrapper"><table>
+                <tr>
+                    <th width="20">Lp</th>
+                    <th colspan="2">Osoba</th>
+                </tr>    
+
+            {% for object in stats['bad_partners'] %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td width="20">{{ tabUser(object['object'])|raw }}</td> 
+                    <td>{{ object['object'].firstname }} {{ object['object'].lastname }} {% if object['object'].billingaddress.company is defined and object['object'].billingaddress.company %}({{object['object'].billingaddress.company}}){% endif %}</td>
+                </tr> 
+            {% endfor %} 
+            </table></div>
+            </div>
+        </div> 
+    {% endif %} 
+    
+        
+    {% if stats['products'] is defined and stats['products'] is not empty %}    
+        <h1><i class="fa fa-cube"></i>{{ 'Produkty'|trans }}</h1>
+
+        <div class="content">
+            <div class="options">
+            <div class="table-wrapper"><table>
+                <tr>
+                    <th width="20">Lp</th>
+                    <th colspan="2">Produkt</th>
+                    <th>Ilość</th>
+                    <th><a 
+                        href="{% set name='provision_price' %}{% if filters['sortd'] is defined and filters['sortd']==1 %}{{extend({'filters':{'sortd':'0','sort':name} })}}{%else%}{{extend({'filters':{'sortd':'1','sort':name} })}}{%endif%}">
+                        {{ 'Prowizja'|trans }} 
+                        {% if filters['sort'] is defined and filters['sort']==name and filters['sortd'] is defined %}
+                            {% if filters['sortd']==1 %}
+                                <i class="fa fa-sort-amount-desc"></i>
+                            {%else%}
+                                <i class="fa fa-sort-amount-asc" ></i>
+                            {%endif%}
+                        {%else%}
+                            <i class="fa fa-sort" ></i>
+                        {%endif%}</a>
+                    </th>
+                    <th><a 
+                        href="{% set name='price' %}{% if filters['sortd'] is defined and filters['sortd']==1 %}{{extend({'filters':{'sortd':'0','sort':name} })}}{%else%}{{extend({'filters':{'sortd':'1','sort':name} })}}{%endif%}">
+                        {{ 'Sprzedaż'|trans }} 
+                        {% if filters['sort'] is defined and filters['sort']==name and filters['sortd'] is defined %}
+                            {% if filters['sortd']==1 %}
+                                <i class="fa fa-sort-amount-desc"></i>
+                            {%else%}
+                                <i class="fa fa-sort-amount-asc" ></i>
+                            {%endif%}
+                        {%else%}
+                            <i class="fa fa-sort" ></i>
+                        {%endif%}</a>
+                    </th>
+                    {%  if app.user.type!='partner' %}<th>Bilans</th>{% endif %}
+                </tr>    
+
+            {% for object in stats['products'] %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td width="20"><div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': object['object'].product.avatar })|production }}');"></div></td>
+                    <td>{{ object['product'] }}</td>
+                    <td>{{ object['amount'] }}</td>
+                    <td style="white-space: nowrap;">{{ object['provision_price']|price(filters['currency']) }}</td>
+                    <td style="white-space: nowrap;">{{ object['price']|price(filters['currency']) }}</td>
+                    {%  if app.user.type!='partner' %}<td style="white-space: nowrap;">{{ (object['price']-object['provision_price'])|price(filters['currency']) }}</td>{% endif %}
+                </tr> 
+            {% endfor %} 
+                <tr>
+                    <th></th>
+                    <th style="text-align:right;" colspan="2">Suma:</th>
+                    <td>{{ stats['products_amount'] }}</td>
+                    <td style="white-space: nowrap;">{{ stats['products_provision_price']|price(filters['currency']) }}</td>
+                    <td style="white-space: nowrap;">{{ stats['products_price']|price(filters['currency']) }}</td>
+                    {%  if app.user.type!='partner' %}<td style="white-space: nowrap;">{{ (stats['products_price']-stats['products_provision_price'])|price(filters['currency']) }}</td>{% endif %}
+                </tr> 
+            </table></div>
+            </div>
+        </div> 
+    {% endif %} 
+        
+        
+        
+    <script>
+        
+
+        $('[name=month]').change(function(e){
+            $('.to').val($('[name=month] option:selected').attr('to'));
+            $('.from').val($('[name=month] option:selected').attr('from'));
+            $(this).parents('form').submit();
+            
+            return true;
+        });
+       
+
+        $('[name=quarter]').change(function(e){
+            $('.to').val($('[name=quarter] option:selected').attr('to'));
+            $('.from').val($('[name=quarter] option:selected').attr('from'));
+            $(this).parents('form').submit();
+            
+            return true;
+        });
+       
+        $('.auto').change(function(e){
+            $(this).parents('form').submit(); 
+            return true;
+        });
+       
+    
+    </script> 
+{% endblock %}
+
+
+

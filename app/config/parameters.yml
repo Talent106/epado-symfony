@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 23122.m.tld.pl
+    database_port: null
+    database_name: baza23122_xbrtyjbn
+    database_user: admin23122_xbrtyjbn
+    database_password: 4JgA%4xnGB
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: pl
+    secret: fgagergrefgrefgre

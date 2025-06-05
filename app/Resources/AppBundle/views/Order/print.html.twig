@@ -1,0 +1,89 @@
+{% extends do == 'print' 
+    ? "print.html.twig" 
+    : "empty.html.twig" %}
+
+    
+{% block header %}<h1 style="padding-top:17px;">{{ 'Zamówienie nr'|trans }}: {{ object.id }}</h1>{% endblock %}
+    
+{% block content %}
+    
+{% if object.id %}
+            
+
+            
+			
+			
+			<table style="width:100%;border:none;">
+				<tr style="border:none;">
+					<td style="border:none;">
+						<p>
+						<b>{{ 'Zamawiający'|trans }}:</b> {{ object.buyer.firstname }} {{ object.buyer.lastname }}<br>
+						<b>{{ 'Opis'|trans }}:</b> {{ object.note|ornot|raw }}
+						</p>
+					</td>
+					<td style="border:none;">
+						<p><b>{{ 'Data zamówienia'|trans }}:</b> {{ object.created|date('Y-m-d H:i') }}</p>
+						<p> </p>
+					</td>
+				</tr>
+			</table>			
+			
+			
+			<table style="width:100%;border:none;">
+				<tr style="border:none;">
+					<td style="border:none;">
+						 <p><b>{{ 'Adres dostawy'|trans }}:</b><br>{% if object.delivery  %}{{ object.delivery|nl2br }}{% else  %}Brak{% endif  %}</p>
+					</td>
+					<td style="border:none;">
+						<p><b>{{ 'Dane rozliczeniowe'|trans }}:</b><br>{% if object.billing  %}{{ object.billing|nl2br }}{% else  %}Brak{% endif  %}</p>
+					</td>
+				</tr>
+			</table>
+			
+           
+
+
+            
+
+            
+            {% if order_products.first() %}
+
+                <table width="100%" class="products" style=" border-collapse: collapse;"  cellspacing="0">
+                        <tr>
+                            <th>{{ 'Nr'|trans }}</th>
+                            <th>{{ 'Nazwa'|trans }}</th>
+                            
+                            <th>{{ 'Ilość'|trans }}</th>
+                            <th>{{ 'Cena za sztukę'|trans }}</th>
+                            <th>{{ 'Suma'|trans }}</th>
+                        </tr>
+                    {% set i=0 %}    
+                    {% for object_product in order_products %}{% set i=i+1 %}
+                        <tr>
+                            <th>{{i}}</th>
+                            <td>{{ 'Produkt'|trans }}: {{object_product.name}}{% if  object_product.page  %}<br>{{ 'Strona'|trans }}: {{object_product.page.translate(object_product.page.locale).name}}{% endif %}</td>
+                            
+                            <td>{{ object_product.amount }}</td>
+                            <td>{{object_product.price|price(object.currency)}}</td>
+                            <td>{{(object_product.price*object_product.amount)|price(object.currency)}}</td>
+                            
+                        </tr>
+                    {% endfor %}
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>{{ 'Suma'|trans }}</th>
+                            <td>{{ object.price|price(object.currency) }}</td>
+                        </tr>
+                </table>
+            {% else %}
+                <p>{{ 'Nie ma dodanych produktów.'|trans }}</p>
+            {% endif %}
+            <br><br>
+{% endif %} 
+    
+
+
+
+{% endblock %}

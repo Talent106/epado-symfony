@@ -1,0 +1,424 @@
+{% extends "admin.html.twig" %}
+{#{% form_theme form 'AppBundle:Form:base.html.twig' %}#}
+
+{#{% form_theme form _self %}#}
+
+
+{% block header %}<h1><i class="fa fa-fire"></i>{{ 'Usługa'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+    {% if object.id %}
+    <div class="content">
+        
+        <p>
+            <b>{{ 'Potwierdzenie wykonania usługi przez firmę'|trans }}:</b> {{ object.contractorconfirmed|dateornot|raw }}<br> 
+            <b>{{ 'Potwierdzenie odebrania usługi przez klienta'|trans }}:</b> {{ object.customerconfirmed|dateornot|raw }}
+        </p>
+        
+        <div class="persons">
+        <div class="person">{{ 'Zamawiający'|trans }}:<br><br> {{ tabUser(object.order.buyer)|raw }}</div>
+        <div class="person">{{ 'Wykonawca'|trans }}:<br><br> {% if object.contractor is not null %}{{ tabUser(object.contractor)|raw }}{% else %}{{ 'Brak'|trans }}{% endif %}</div>
+        </div>
+        
+        <p>
+        {% if(app.user.type in ['admin','worker'])  %}
+            {% if(object.order.confirmed) %}
+            <a href="{{ path('order_form', {'id': object.order.id})}}" class="">{{ 'Zamówienie'|trans }} {{ 'nr'|trans }} {{object.order.id}}</a>
+            {% else %}
+            <a href="{{ path('order_form', {'id': object.order.id})}}">{{ 'Koszyk'|trans }}</a>
+            {% endif %}
+            <div class="long">{{ 'Usługa'|trans }}: <a href="{{ path('product_form',{'id':object.product.id}) }}">{{ object.product.name }}</a></div>
+            <div class="long">{{ 'Strona'|trans }}: <a href="{{ path('page_form',{'id':object.page.id}) }}">{{ object.page.translate(object.page.locale).name }}</a></div>  
+        {% else %}
+            {% if(object.order.confirmed) %}
+            {{ 'Zamówienie'|trans }} {{ 'nr'|trans }} {{object.order.id}}
+            {% else %}
+            {{ 'Koszyk'|trans }}
+            {% endif %}
+            <div class="long">{{ 'Usługa'|trans }}: {{ object.product.name }}</div>
+            <div class="long">{{ 'Strona'|trans }}: {{ object.page.translate(object.page.locale).name }}</div>  
+        {% endif %}
+        </p>
+        
+        {% if (  (object.contractor==app.user or app.user.type in ['admin','worker']) and object.contractorconfirmed is null ) or
+              (  (object.order.buyer==app.user or app.user.type in ['admin','worker']) and object.customerconfirmed is null and object.contractorconfirmed is not null ) %}  
+            
+            <div class="options">
+            {% if (object.contractor==app.user or app.user.type in ['admin','worker']) and object.contractorconfirmed is null  %}    
+            <a href="?contractor_confirm=1" class="button">{{ 'Oznacz usługę jako wykonana'|trans }}</a>
+            {% endif %}
+            </div>
+        
+        {% endif %}
+
+        {% if (object.contractor==app.user) and object.contractorconfirmed is null  %}       
+        <p>{{ 'Po wykonaniu usługi proszę dodać zdjęcia prezentujące jej efekt i oznaczyć usługę jako wykonaną.'|trans }}</p>    
+        {% endif %}
+        
+        {% if (object.order.buyer==app.user) and object.contractorconfirmed is not null  and object.customerconfirmed is null  %}       
+        <p>{{ 'Proszę potwierdzić wykonanie usługi przez firmę na podstawie załączonych poniżej zdjęć.'|trans }}</p>    
+        {% endif %}
+        
+        {% if (object.order.buyer==app.user) and object.contractorconfirmed is null  %}       
+        <p>{{ 'Po wykonaniu usługi pojawią się tutaj zdjęcia to potwierdzające.'|trans }}</p>    
+        {% endif %}
+        
+        
+    </div>
+    {% endif %}
+        
+      
+    {% if ((object.contractor==app.user or app.user.type in ['admin','worker']) or object.getImagesSort())  %}
+        
+    {% if object.id %}
+        <h1 id="photos"><i class="fa fa-photo"></i>Zdjęcia</h1>
+        <div class="content">
+
+
+            <div class="drop-wrapper">
+            <form action="{{ app.request.schemeAndHttpHost~app.request.requestUri }}" data-edit="{{ path('image_form')}}" data-sort="{{ path('image_sort')}}" method="post" class="drop" id="drop">
+                {% if (object.contractor==app.user or app.user.type in ['admin','worker'])  %}
+                <div class="dz-message">
+                    {{ 'Upuść tutaj zdjęcia albo kliknij i wybierz je ze swojego urządzenia.'|trans }}<br>
+                </div>
+                {% endif %}
+                    
+                {% for image in object.getImagesSort() %}
+                    <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete exists" data-id="{{ image.getId() }}">
+                        <div class="dz-image" style="background-image: url({{ path('thumbnail', {'resolution': '160x120', 'file': image.webPath    })|production }}); background-size: cover; background-repeat: no-repeat;"></div>
+                        <div class="dz-details">
+                            {% if (object.contractor==app.user or app.user.type in ['admin','worker'])  %} <span data-id="{{image.id}}" class="btn-del tip" title="{{ 'Usuń zdjęcie'|trans }}" ></span>{% endif %}
+                        </div>
+                        <span class="zoom tip" title="{{ 'Powiększ zdjęcie'|trans }}"><a style="position:absolute; top:0; left:0; width:100%; height:100%; display:block;" href="/{{image.webPath|production}}"  
+                               data-sub-html="{% if image.name %}<h4>{{image.name}}</h4>{% endif %}{% if image.description %}<p>{{image.description}}</p>{% endif %}">
+                        </a></span>
+                    </div>
+                {% endfor %}
+            
+
+            </form>
+            </div>
+            {% if (object.contractor==app.user or app.user.type in ['admin','worker'])  %}
+            <script type="text/javascript" src="/js/dropzone/dropzone.js"></script>
+            <script type="text/javascript">
+
+
+
+            $(document).ready(function() {
+
+                function buttonsBind(container){
+                    if(container.parents('form.drop.ui-sortable').length){ container.parents('form.drop.ui-sortable').find('.dz-preview,.dz-image,.dz-image img,.dz-details').css('cursor', 'move'); }
+                    
+                    container.find('form.drop').sortable({ 
+                        items: ".dz-preview",
+                        placeholder: "dz-preview placeholder",
+                        revert: true,
+                        
+                        
+                        update: function(){
+                            var sorted = $(this).sortable('toArray',{attribute:'data-id'}).toString();
+                            console.log(sorted);
+                            var url=$(this).data('sort');
+                            $.ajax({url: url+'/'+sorted});            
+                        } 
+                    }).disableSelection().find('.dz-preview,.dz-image,.dz-details').css('cursor', 'move');
+                    
+                    
+                    
+                    container.find(".dz-details span.btn-del").click(function() {
+                        var element=$(this);
+
+                        $.post(updateQueryString('order_id',null,$(this).closest('form').attr('action'))+'/image/del', {'delImgId':$(this).data('id')}, function(response) {
+                            if(response.status==true) {
+                               element.parents('.dz-preview').fadeOut(300);
+                            }
+                        });
+                    });
+
+                    container.find(".dz-details span.btn-def").click(function() {
+                        var element=$(this);
+                        $.post(updateQueryString('order_id',null,$(this).closest('form').attr('action'))+'/image/def', {'defImgId':$(this).data('id')}, function(response) {
+                            if(response.status==true) {
+                               $('.is-def').removeClass('show');
+                               $(element).parent().parent().find('.is-def').addClass('show'); 
+                               //element.parents('.dz-preview').fadeOut(300);
+                            }
+                        });
+                    });
+                    
+                    container.find(".dz-details span.btn-edit").click(function() {
+                        var element=$(this);
+                        
+                        $.ajax({
+                          url: $(this).closest('form').data('edit')+'/'+$(this).data('id'),
+                          //dataType    : 'json',
+                          beforeSend: function( xhr ) {
+                            //xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+                          }
+                        })
+                        .done(function( data ) {
+                          ajaxForm(data, { test: 1 });
+                        });
+                    });
+                    
+                }
+
+                buttonsBind($('body'));
+
+                var url=$('#drop').attr('action');
+
+                $('#drop').dropzone({ 
+                    url: url, 
+                    autoProcessQueue: true,
+                    maxFilesize: 12,
+                    acceptedFiles: 'image/jpg,image/png,image/jpeg' ,
+                    dictInvalidFileType: '{{ 'Niewłaściwy format pliku, dozwolone pliki to jpg lub png.'|trans }}',
+                    dictFileTooBig: '{{ 'Plik jest za duży. Dozwolony rozmiar to:'|trans }} {{ '{{' }}maxFilesize{{ '}}' }} MB.',
+                    dictResponseError: '{{ 'Wystąpił błąd.'|trans }}',
+                    dictMaxFilesExceeded: '{{ 'Dodałeś zbyt dużo plików.'|trans }}',
+                    
+                    thumbnailWidth: 159,
+                    thumbnailHeight: 120,
+                    
+                    success: function(file) {
+                      obj = JSON.parse(file.xhr.response);  
+                      var def_class='';
+                      if(obj.status!='ok') {
+                        var node, _i, _len, _ref, _results;
+                        var message = obj.message // modify it to your error message
+                        file.previewElement.classList.add("dz-error");
+                        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                        _results = [];
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                          node = _ref[_i];
+                          _results.push(node.textContent = message);
+                        }
+                        return _results;
+                      }
+        
+                      if($('.dz-preview.exists').length==0) def_class='show';
+                      
+                      $(file.previewElement).attr('data-id',obj.id);
+                      $(file.previewElement).append({#'<span class="is-def tip '+def_class+'" title="Zdjęcie jest domyślne dla tej osoby" ></span>'#})
+                        .find('.dz-details').html(
+                        {% if (object.contractor==app.user or app.user.type in ['admin','worker'])  %}'<span data-id="'+obj.id+'" class="btn-del tip" title="{{ 'Usuń zdjęcie'|trans }}" ></span>'{% endif %}
+                        {#'<span data-id="'+obj.id+'" class="btn-def tip" title="Ustaw zdjęcie jako domyślne dla tej osoby"></span>'+#}
+                        {#'<span data-id="'+obj.id+'" class="btn-edit tip" title="Edytuj zdjęcie"></span>'#});
+
+                      buttonsBind($(file.previewElement));
+                      preapareContent($(file.previewElement));
+
+                      if (file.previewElement) {
+                        return file.previewElement.classList.add("dz-success");
+                      }
+
+                    },
+                    fallback: function() {
+                        
+                        $('.dz-fallback').show();
+                        $('.dz-message').hide();
+                        
+                        var child, messageElement, span, _i, _len, _ref;
+                        this.element.className = "" + this.element.className + " dz-browser-not-supported";
+                        _ref = this.element.getElementsByTagName("div");
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                          child = _ref[_i];
+                          if (/(^| )dz-message($| )/.test(child.className)) {
+                            messageElement = child;
+                            child.className = "dz-message";
+                            continue;
+                          }
+                        }
+                        if (!messageElement) {
+                          messageElement = Dropzone.createElement("<div class=\"dz-message\"><span></span></div>");
+                          this.element.appendChild(messageElement);
+                        }
+                        span = messageElement.getElementsByTagName("span")[0];
+                        if (span) {
+                          span.textContent = this.options.dictFallbackMessage;
+                        }
+                        return this.element.appendChild(this.getFallbackForm());
+                    },
+                    thumbnail: function(file, dataUrl) {
+                           var thumbnailElement, _i, _len, _ref;
+                           if (file.previewElement) {
+                             file.previewElement.classList.remove("dz-file-preview");
+                             _ref = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+                             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                               thumbnailElement = _ref[_i];
+                               //thumbnailElement.alt = file.name;
+                               thumbnailElement.src = dataUrl;
+                               //$(thumbnailElement).css('background-image','url(\''+dataUrl+'\')').css('background-size','cover').css('background-repeat','no-repeat');
+                               //thumbnailElement.style = 'background-image: url('+dataUrl+')';
+                             }
+                             return setTimeout(((function(_this) {
+                               return function() {
+                                 return file.previewElement.classList.add("dz-image-preview");
+                               };
+                             })(this)), 1);
+                           }
+                         }
+                });
+
+                
+            });
+
+
+
+            </script>
+            {% endif %}
+
+
+            
+            <link rel="stylesheet" href="/css/dropzone.css" />   
+
+            
+            {% if (object.order.buyer==app.user or app.user.type in ['admin','worker']) and object.contractorconfirmed is not null   %}   
+            
+                
+            <p>{{ 'Oceń wykonawcę'|trans }}</p>    
+            <span class="rating">
+              <span class="star" data-rating="5"></span><span class="star" data-rating="4"></span><span class="star" data-rating="3"></span><span class="star" data-rating="2"></span><span class="star" data-rating="1"></span>
+            </span>  
+            <input type="hidden" id="rating" name="rating" value="{{object.rating}}">
+            <textarea class="review" id="review"  name="review" placeholder="Komentarz">{{object.review}}</textarea>    
+                
+            <div class="options"><a href="?customer_confirm=1" id="link" class="button">{{ 'Oceń wykonawcę'|trans }}</a></div> 
+
+            <script type="text/javascript">
+              document.getElementById("link").onclick = function() {
+                document.getElementById("link").href="?customer_confirm=1&rating="+document.getElementById("rating").value+"&review="+document.getElementById("review").value; 
+                return true;
+              };
+
+                $(document).ready(function() {
+
+                    $('input[name=rating]').change(function (){
+                        if($(this).val()!=='' && $(this).val()<6 && $(this).val()>0){
+                            var i=0;
+                            var j=0;
+                            var value=$(this).val();
+                            $('.rating .star').removeClass('chosen');
+                            $('.rating .star').each(function(){
+
+                                i=i+1;
+                                j=6-i;
+                                if(j<=parseInt(value) ) $(this).addClass('chosen');
+                            });
+                        }
+
+                    });
+
+                    $('input[name=rating]').change();
+
+                    $('.rating .star').hover(function(){
+                        $('.rating .star').removeClass('chosen');
+                    },function (){
+                        $('input[name=rating]').change(); 
+                    });
+
+                    $('.rating .star').click(function(){
+                        $('input[name=rating]').val($(this).data('rating'));
+                    });
+
+                });
+
+            </script>
+            
+            
+            
+            
+            
+            
+            {% endif %}
+            
+            
+        </div>
+        {% endif %}    
+            
+
+        <div class="dz-fallback content hidden" >
+          <p>{{ 'Twoja przeglądarka nie obsługuje dodawania wielu plików jednocześnie'|trans }}</p>  
+          <form action="{{ app.request.schemeAndHttpHost~app.request.requestUri }}" style="" enctype="multipart/form-data"  method="post">
+
+          <div class="widget">
+            <label>{{ 'Wybierz plik'|trans }}</label>
+            <div class="field">
+            <input name="file" type="file" />
+            </div>
+          </div>
+          <div>
+              <button type="submit" id="page_save" name="page[save]" >{{ 'Dodaj zdjęcie'|trans }}</button>
+          </div>
+          </form>  
+        </div>      
+            
+          
+        {#<div class="content" >
+            
+          <p>Możesz dodać film wklejając do niego linka z serwisu YouTube lub Vimeo</p>  
+          <form action="{{ app.request.schemeAndHttpHost~app.request.requestUri }}" style="" method="post">
+
+          <div class="widget">
+            <label>Link do filmu</label>
+            <div class="field">
+                <input name="video" required="true" type="text" />
+            </div>
+          </div>
+          <div>
+              <button type="submit" id="page_save" name="page[save]" >Dodaj film</button>
+          </div>
+          </form> 
+          
+        </div>#}   
+
+    {% endif %}
+
+    
+    
+    {% if (object.contractor==app.user or app.user.type in ['admin','worker'])  %}  
+        <h1><i class="fa fa-map"></i>{{ 'Miejsce'|trans }}</h1>
+        {% set page=object.page %}
+       
+        
+        <div class="content">  
+            
+            <div class="onright">
+            <b>{{ 'Cmentarz'|trans }}:</b> {{ page.cemetery.name }}<br><br>
+            {{ address(page.cemetery.address)|raw }}</p>
+            </div>
+            
+            <p><b>{{ 'Osoba'|trans }}:</b> {{ page.firstname }} {{ page.lastname }}<br>
+            <b>{{ 'Data urodzenia'|trans }}:</b> {{ page.begin|mydate }}<br>
+            <b>{{ 'Data śmierci'|trans }}:</b> {{ page.end|mydate }}<br>
+            <b>{{ 'Żył lat'|trans }}:</b> {{ lived(page.begin,page.end) }}<br>
+
+            
+            <div id="map" class="map"></div>
+            <p></p>
+            <script>
+              $(function() {
+
+
+                var latLng = {lat: {{ page.localisation.latitude }}, lng: {{ page.localisation.longitude }}};
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  center: latLng,
+                  zoom: 15
+                });
+                var marker = new google.maps.Marker({
+                  position: latLng,
+                  map: map,
+                  title: '{{ page.firstname }} {{ page.lastname }}, Miejsce spoczynku'
+                });
+              });
+            </script>
+        </div>
+        
+    {% endif %}  
+
+
+
+
+{% endblock %}

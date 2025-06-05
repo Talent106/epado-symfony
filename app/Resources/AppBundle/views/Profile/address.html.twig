@@ -1,0 +1,102 @@
+{% extends "admin.html.twig"  %}
+
+{% form_theme form _self %}
+
+{% block _user_address_delivery_address_company_row %}
+    <h3><i class="fa fa-fw fa-truck"></i>&nbsp; {{ 'Wysyłkowe dane adresowe'|trans }}</h3>
+    <div class="delivery">
+        <div class="widget">
+            {{ form_label(form) }}
+            <div class="field">
+            {{ form_widget(form) }}
+            </div>
+            {{ form_errors(form) }}
+        </div> 
+{% endblock %}
+
+{% block _user_address_delivery_address_postal_code_row %}
+        <div class="widget">
+            {{ form_label(form) }}
+            <div class="field">
+            {{ form_widget(form) }}
+            </div>
+            {{ form_errors(form) }}
+        </div> 
+    </div>
+{% endblock %}
+
+{% block _user_address_billing_address_company_row %}
+    
+    <h3><i class="fa fa-fw fa-credit-card-alt"></i>&nbsp; {{ 'Dane rozliczeniowe'|trans }}</h3>
+    
+    <div class="widget checkbox">
+        <label for="copy">{{ 'Takie jak wysyłkowe'|trans }}</label>
+
+        <div class="field switch single">
+            <input type="checkbox" id="copy" name="copy" value="1" checked="checked" />
+            <label for="copy">{{ 'Takie jak wysyłkowe'|trans }}</label>
+        </div>
+    </div>
+    
+    <div class="billing" style="display:none;">
+        <div class="widget">
+            {{ form_label(form) }}
+            <div class="field">
+            {{ form_widget(form) }}
+            </div>
+            {{ form_errors(form) }}
+        </div> 
+{% endblock %}
+
+{% block _user_address_billing_address_postal_code_row %}
+        <div class="widget">
+            {{ form_label(form) }}
+            <div class="field">
+            {{ form_widget(form) }}
+            </div>
+            {{ form_errors(form) }}
+        </div> 
+    </div>
+{% endblock %}
+
+
+
+{% block header %}<h1><i class="fa fa-truck"></i>{{ 'Dane adresowe'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+    <div class="content">
+        {{ form_start(form,{'action':extend()}) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.delivery .copy').change(function(){
+                
+                if($(this).val()!=''){
+                  if ($('#copy').prop('checked')==true)  $('.billing').find('[data-name='+$(this).data('name')+']').val($(this).val());
+                }
+            });
+            
+            $('#copy').change(function(){
+                if ($(this).prop('checked')==true){ 
+                    $('.billing').hide();
+                }else{
+                    $('.billing').show();
+                }
+            });
+            
+            {% if( error or (formuser.deliveryaddress.id is defined and formuser.deliveryaddress.id is not null) ) %}$('#copy').click();{% else %}{% endif %}
+
+        }); 
+    </script>
+    
+
+{% endblock %}
+
+
+

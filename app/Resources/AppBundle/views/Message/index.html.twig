@@ -1,0 +1,55 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-envelope"></i>{{ 'Wiadomości'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+    
+    <div class="content">
+        
+        <div class="options"> 
+        <a href="{{ path('message_form') }}" class="button">{{ 'Wyślij zapytanie lub opinie do Epado'|trans }}</a>
+        </div>
+    </div>
+
+    <div class="content">  
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th colspan="2">{{ 'Osoba'|trans }}</th>
+                        <th>{{ 'Temat'|trans }}</th>
+                        <th>{{ 'Zmieniono'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr class="{% if object.updater != app.user and object.read is null %}unread{% endif %}">
+                        <td>
+                            
+                            {% if object.creator is null or (object.recipient is null) %}
+                            <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': '/images/system.png' })|production }}');"></div>
+                            {% else %}  
+                               {% if object.creator!=app.user %}{{ tabUser(object.creator)|raw }}{% else %}{{ tabUser(object.recipient)|raw }}{% endif %} 
+                            {% endif %}
+                    
+                        </td>
+                        <td>
+                            <a href="{{ path('message_form', {'id': object.id})}}">   
+                            {% if object.creator is null or (object.recipient is null) %}
+                            Epado
+                            {% else %} 
+                            {% if object.creator!=app.user %}{{ object.creator.firstname }} {{ object.creator.lastname }}{% else %}{{ object.recipient.firstname }} {{ object.recipient.lastname }}{% endif %}
+                            {% endif %}
+                            </a>
+                            </td>
+                        <td>{{object.subject}}</td>
+                        <td class="tip" title="{{object.updated|mydate('d.m.Y H:i:s')}}">{{object.updated|mydate}}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie masz wiadomości.'|trans }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

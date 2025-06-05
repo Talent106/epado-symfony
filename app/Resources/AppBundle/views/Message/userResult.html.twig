@@ -1,0 +1,16 @@
+            {% if not result %}
+                <br />{{ 'Nie odnaleziono osoby.'|trans }}
+            {% else %}    
+            {% for p in result %}
+                <label class="element" for="radio{{p.id}}" style="width:auto;">
+                    <div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': p.avatar })|production }}');"></div>
+                    <div class="info">
+                    
+                    {{ p.firstname }} {{ p.lastname }}<br />
+                    
+                    <input type="radio" name="recipient_id" class="radio-mark" id="radio{{p.id}}" value="{{p.id}}">
+                    
+                    </div>
+                </label>
+            {% endfor %}
+            {% endif %}    

@@ -1,0 +1,46 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-map"></i>{{ 'Kraje'|trans }}</h1>{% endblock %}
+
+{% block content %}
+    
+    <div class="content">
+        {{ filters(filters,filters_params)|raw }}    
+    </div>
+
+    <div class="content">
+        <div class="options">
+        <a href="{{ path('country_form') }}" class="button">{{ 'Dodaj kraj'|trans }}</a>
+        </div>
+    </div>
+    
+    <div class="content">
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Nazwa kraju'|trans }}</th>
+                        <th>{{ 'Strona'|trans }}</th>
+                        <th>{{ 'Dostawa'|trans }}</th>
+                        <th>{{ 'Biling'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr class="">
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td>
+                        <td><a href="{{ path('country_form', {'id': object.id}) }}" class="longtext tip" title="{{object.name}}">{{object.name}}</a></td>
+                        <td>{% if object.page %}{{ 'Tak'|trans }}{% else %}-{% endif %}</td> 
+                        <td>{% if object.delivery %}{{ 'Tak'|trans }}{% else %}-{% endif %}</td> 
+                        <td>{% if object.billing %}{{ 'Tak'|trans }}{% else %}-{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+            
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie ma dodanego kraju.'|trans }}</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}

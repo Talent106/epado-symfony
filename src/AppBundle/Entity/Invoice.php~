@@ -1,0 +1,731 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
+/**
+ * Invoice
+ *
+ * @ORM\Table(name="invoice")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\InvoiceRepository")
+ */
+class Invoice
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+ 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\InvoiceItem", mappedBy="invoice")
+     */
+    protected $items;
+    
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order", inversedBy="invoices", cascade={"persist"})
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id", nullable=true)
+     */
+    protected $order;
+    
+    
+
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Company", inversedBy="invoices_get", cascade={"persist"})
+     * @ORM\JoinColumn(name="buyer_id", referencedColumnName="id", nullable=true)
+     */
+    protected $buyer;
+
+
+    
+    /**
+     * @ORM\Column( type="string", length=355, nullable=true)
+     */
+    protected $buyer_data;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Company", inversedBy="invoices_created", cascade={"persist"})
+     * @ORM\JoinColumn(name="seller_id", referencedColumnName="id", nullable=true)
+     */
+    protected $seller;
+
+
+    
+    /**
+     * @ORM\Column( type="string", length=355, nullable=true)
+     */
+    protected $seller_data;
+    
+    
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $amount;
+    
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $type;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="created_invoices", cascade={"persist"})
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", nullable=true)
+     */
+    protected $creator;
+
+    
+    /**
+     * @ORM\Column( type="string", length=255, nullable=true)
+     */
+    protected $number;
+    
+    
+    
+    /**
+     * @ORM\Column(name="note", type="string", length=1200, nullable=true)
+     */
+    protected $note;
+   
+    
+    
+    /**
+     * @ORM\Column( type="string", length=255, nullable=true)
+     */
+    protected $payment;
+    
+    /**
+     * @ORM\Column( type="string", length=255, nullable=true)
+     */
+    protected $account; 
+    
+    
+    /**
+     * @ORM\Column( type="string", length=255, nullable=true)
+     */
+    protected $city; 
+    
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $deadline;
+    
+    
+    
+    
+    
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $paid;
+    
+    
+    /**
+     * @ORM\Column(name="deleted", type="datetime", nullable=true)
+     */
+    private $deleted;
+    
+    
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column( type="date")
+     */
+    private $sold;
+    
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $gross_price;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $net_price;
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $vat_price;
+     
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set buyer_data
+     *
+     * @param string $buyerData
+     * @return Invoice
+     */
+    public function setBuyerData($buyerData)
+    {
+        $this->buyer_data = $buyerData;
+    
+        return $this;
+    }
+
+    /**
+     * Get buyer_data
+     *
+     * @return string 
+     */
+    public function getBuyerData()
+    {
+        return $this->buyer_data;
+    }
+
+    /**
+     * Set seller_data
+     *
+     * @param string $sellerData
+     * @return Invoice
+     */
+    public function setSellerData($sellerData)
+    {
+        $this->seller_data = $sellerData;
+    
+        return $this;
+    }
+
+    /**
+     * Get seller_data
+     *
+     * @return string 
+     */
+    public function getSellerData()
+    {
+        return $this->seller_data;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param integer $amount
+     * @return Invoice
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+    
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return integer 
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set number
+     *
+     * @param string $number
+     * @return Invoice
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return string 
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return Invoice
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * Set paid
+     *
+     * @param \DateTime $paid
+     * @return Invoice
+     */
+    public function setPaid($paid)
+    {
+        $this->paid = $paid;
+    
+        return $this;
+    }
+
+    /**
+     * Get paid
+     *
+     * @return \DateTime 
+     */
+    public function getPaid()
+    {
+        return $this->paid;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param \DateTime $deleted
+     * @return Invoice
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return \DateTime 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Invoice
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Invoice
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set gross_price
+     *
+     * @param string $grossPrice
+     * @return Invoice
+     */
+    public function setGrossPrice($grossPrice)
+    {
+        $this->gross_price = $grossPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get gross_price
+     *
+     * @return string 
+     */
+    public function getGrossPrice()
+    {
+        return $this->gross_price;
+    }
+
+    /**
+     * Set net_price
+     *
+     * @param string $netPrice
+     * @return Invoice
+     */
+    public function setNetPrice($netPrice)
+    {
+        $this->net_price = $netPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get net_price
+     *
+     * @return string 
+     */
+    public function getNetPrice()
+    {
+        return $this->net_price;
+    }
+
+    /**
+     * Add items
+     *
+     * @param \AppBundle\Entity\InvoiceItem $items
+     * @return Invoice
+     */
+    public function addItem(\AppBundle\Entity\InvoiceItem $items)
+    {
+        $this->items[] = $items;
+    
+        return $this;
+    }
+
+    /**
+     * Remove items
+     *
+     * @param \AppBundle\Entity\InvoiceItem $items
+     */
+    public function removeItem(\AppBundle\Entity\InvoiceItem $items)
+    {
+        $this->items->removeElement($items);
+    }
+
+    /**
+     * Get items
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Set buyer
+     *
+     * @param \AppBundle\Entity\Company $buyer
+     * @return Invoice
+     */
+    public function setBuyer(\AppBundle\Entity\Company $buyer = null)
+    {
+        $this->buyer = $buyer;
+    
+        return $this;
+    }
+
+    /**
+     * Get buyer
+     *
+     * @return \AppBundle\Entity\Company 
+     */
+    public function getBuyer()
+    {
+        return $this->buyer;
+    }
+
+    /**
+     * Set seller
+     *
+     * @param \AppBundle\Entity\Company $seller
+     * @return Invoice
+     */
+    public function setSeller(\AppBundle\Entity\Company $seller = null)
+    {
+        $this->seller = $seller;
+    
+        return $this;
+    }
+
+    /**
+     * Get seller
+     *
+     * @return \AppBundle\Entity\Company 
+     */
+    public function getSeller()
+    {
+        return $this->seller;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\User $creator
+     * @return Invoice
+     */
+    public function setCreator(\AppBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+    
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return Invoice
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set sold
+     *
+     * @param \DateTime $sold
+     * @return Invoice
+     */
+    public function setSold($sold)
+    {
+        $this->sold = $sold;
+    
+        return $this;
+    }
+
+    /**
+     * Get sold
+     *
+     * @return \DateTime 
+     */
+    public function getSold()
+    {
+        return $this->sold;
+    }
+
+    /**
+     * Set order
+     *
+     * @param \AppBundle\Entity\Order $order
+     * @return Invoice
+     */
+    public function setOrder(\AppBundle\Entity\Order $order = null)
+    {
+        $this->order = $order;
+    
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return \AppBundle\Entity\Order 
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set payment
+     *
+     * @param string $payment
+     * @return Invoice
+     */
+    public function setPayment($payment)
+    {
+        $this->payment = $payment;
+    
+        return $this;
+    }
+
+    /**
+     * Get payment
+     *
+     * @return string 
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * Set account
+     *
+     * @param string $account
+     * @return Invoice
+     */
+    public function setAccount($account)
+    {
+        $this->account = $account;
+    
+        return $this;
+    }
+
+    /**
+     * Get account
+     *
+     * @return string 
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return Invoice
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set deadline
+     *
+     * @param integer $deadline
+     * @return Invoice
+     */
+    public function setDeadline($deadline)
+    {
+        $this->deadline = $deadline;
+    
+        return $this;
+    }
+
+    /**
+     * Get deadline
+     *
+     * @return integer 
+     */
+    public function getDeadline()
+    {
+        return $this->deadline;
+    }
+
+    /**
+     * Set vat_price
+     *
+     * @param string $vatPrice
+     * @return Invoice
+     */
+    public function setVatPrice($vatPrice)
+    {
+        $this->vat_price = $vatPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get vat_price
+     *
+     * @return string 
+     */
+    public function getVatPrice()
+    {
+        return $this->vat_price;
+    }
+}

@@ -1,0 +1,317 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Test
+ *
+ * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\TestingRepository")
+ */
+class Testing
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+    * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", inversedBy="testings", cascade={"persist"})
+    * @ORM\JoinTable(name="testing_tag",
+     *     joinColumns={@ORM\JoinColumn(name="testing_id",referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="tag_id",referencedColumnName="id")},
+     * )
+    */
+    private $tags;
+    
+    //cascade presist save that object automaticly
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="testings", cascade={"persist"})
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", nullable=true)
+     */
+    protected $creator;
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="testing", cascade={"persist"})
+     */
+    protected $images;
+    
+    
+    /**
+     * @ORM\Column(name="creator_id", type="integer")
+     */
+    //private $creator_id;
+    
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(min=7, groups={"registration"})
+     */
+    private $name;
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $price;
+    
+    /**
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank(groups={"registration"})
+     */
+    private $description;    
+    
+    //, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+    /**
+     * @ORM\Column(type="datetime") 
+     */
+    private $created_at;  
+
+    //way to set date on create without database information 
+    //imortant need HasLifecycleCallbacks annotation before class definition
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        //$this->setModifiedAt(new \DateTime(date('Y-m-d H:i:s')));
+        //die('aa');
+        $this->created_at = new \DateTime();
+        /*
+        if($this->getCreatedAt() == null)
+        {
+            $this->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        */
+    }
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Test
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Test
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return Test
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     * @return Test
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\User $creator
+     * @return Testing
+     */
+    public function setCreator(\AppBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * Set creator_id
+     *
+     * @param integer $creatorId
+     * @return Testing
+     */
+    public function setCreatorId($creatorId)
+    {
+        $this->creator_id = $creatorId;
+
+        return $this;
+    }
+
+    /**
+     * Get creator_id
+     *
+     * @return integer 
+     */
+    public function getCreatorId()
+    {
+        return $this->creator_id;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     * @return Testing
+     */
+    public function addTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Add images
+     *
+     * @param \AppBundle\Entity\Image $images
+     * @return Testing
+     */
+    public function addImage(\AppBundle\Entity\Image $images)
+    {
+        //die('aa');
+        //$images->setTesting($this);
+        $this->images[] = $images;
+        $images->setTesting($this);
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \AppBundle\Entity\Image $images
+     */
+    public function removeImage(\AppBundle\Entity\Image $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+}

@@ -1,0 +1,478 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * Contract
+ *
+ * @ORM\Table(name="contract")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity()
+ */
+class Contract
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ContractNote", mappedBy="contract")
+     */
+    protected $notes;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Company", inversedBy="contracts", cascade={"persist"})
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
+     */
+    protected $company;
+
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="contracts", cascade={"persist"})
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", nullable=true)
+     */
+    protected $creator;
+    
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(min=3, groups={"registration"})
+     */
+    private $name;
+ 
+    
+    /**
+     * @ORM\Column(name="content", type="text")
+     */
+    protected $content;
+    
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="signed", cascade={"persist"})
+     * @ORM\JoinColumn(name="signer_id", referencedColumnName="id", nullable=true)
+     */
+    protected $signer;
+    
+    
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $signed;
+    
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255, nullable=true)
+     */
+    private $path;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Contract
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Contract
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set company
+     *
+     * @param \AppBundle\Entity\Company $company
+     * @return Contract
+     */
+    public function setCompany(\AppBundle\Entity\Company $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \AppBundle\Entity\Company 
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\User $creator
+     * @return Contract
+     */
+    public function setCreator(\AppBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->notes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add notes
+     *
+     * @param \AppBundle\Entity\ContractNote $notes
+     * @return Contract
+     */
+    public function addNote(\AppBundle\Entity\ContractNote $notes)
+    {
+        $this->notes[] = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Remove notes
+     *
+     * @param \AppBundle\Entity\ContractNote $notes
+     */
+    public function removeNote(\AppBundle\Entity\ContractNote $notes)
+    {
+        $this->notes->removeElement($notes);
+    }
+
+    /**
+     * Get notes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Contract
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Contract
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+    
+    
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+        // check if we have an old image path
+        if (isset($this->path)) {
+            // store the old name to delete after the update
+            $this->temp = $this->path;
+            $this->path = null;
+        } else {
+            $this->path = 'initial';
+        }
+    }
+    
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            // do whatever you want to generate a unique name, this is overwritten by double persist in controller
+           $filename = sha1(uniqid(mt_rand(), true));
+           $this->path = $filename.'.'.$this->getFile()->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+        //$this->path = $this->getId().'.'.$this->getFile()->guessExtension();
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $test=$this->getFile()->move($this->getUploadRootDir(), $this->path);
+
+        //var_dump($this->path);
+        //die($this->getUploadRootDir());
+        
+        
+        // check if we have an old image
+        if (isset($this->temp)) {
+            // delete the old image
+            // if(file_exists($this->getUploadRootDir().'/'.$this->temp))
+            // unlink($this->getUploadRootDir().'/'.$this->temp);
+            // clear the temp image path
+            $this->temp = null;
+        }
+        $this->file = null;
+    }
+    
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->temp = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (isset($this->temp)) {
+            unlink($this->temp);
+        }
+    }
+    
+    
+    
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        
+        //die(__DIR__.'/../../../web/'.$this->getUploadDir()); // za daleko wychodzil po wywaleniu katalogu nadrzednego z nazwa firmy
+        return __DIR__.'/../../../web/'.$this->getUploadDir(); // za daleko wychodzil po wywaleniu katalogu nadrzednego z nazwa firmy
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/contracts';
+    }
+
+
+    /**
+     * Set signed
+     *
+     * @param \DateTime $signed
+     * @return Contract
+     */
+    public function setSigned($signed)
+    {
+        $this->signed = $signed;
+
+        return $this;
+    }
+
+    /**
+     * Get signed
+     *
+     * @return \DateTime 
+     */
+    public function getSigned()
+    {
+        return $this->signed;
+    }
+
+    /**
+     * Set signer
+     *
+     * @param \AppBundle\Entity\User $signer
+     * @return Contract
+     */
+    public function setSigner(\AppBundle\Entity\User $signer = null)
+    {
+        $this->signer = $signer;
+
+        return $this;
+    }
+
+    /**
+     * Get signer
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getSigner()
+    {
+        return $this->signer;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Contract
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+}

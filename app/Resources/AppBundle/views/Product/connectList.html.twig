@@ -1,0 +1,13 @@
+{% for p in connected %}
+    {% if( (app.user.type in ['partner'] and p.enabled) or (app.user.type not in ['partner'])  ) %}
+    <tr class="{% if( not p.enabled ) %}disabled{% endif %}">
+        <td>{{i}}</td>
+        <td><div class="avatar" style="background-image:url('{{ path('thumbnail', {'resolution': '42x42', 'file': p.avatar })|production }}');"></div></td> 
+        <td><a href="{{ path('product_form', {'id': p.id,'order_id': order_id})}}">{{p.name}}</a></td>
+        <td>{{p.price(currency())|price}}</td>
+        <td>{{p.updated|mydate}}</td>
+        <td style="padding-right:25px;">{{p.created|mydate}} {% if(app.user.type in ['admin','trader'] ) %}<a class="btn-del tip" title="{{ 'Usuń ten produkt z powiazanych'|trans }}" href="?disconnected_product_id={{p.id}}"></a>{% endif %}</td>
+    </tr>
+    {% set i=i+1 %}
+    {% endif %}
+{% endfor %}

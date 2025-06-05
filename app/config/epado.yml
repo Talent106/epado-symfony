@@ -1,0 +1,123 @@
+# konfiguracja aplikacji epado.com po zmianie konfiguracji należy w panelu administracyjnym na podstronie 'Administracja' użyć opcji 'Wyczyść cache'
+parameters:
+    
+    # domyślny język
+    default_locale: pl
+    
+    # języki dostępne na stronie w standardzie ISO 639-1 np en lub w celu powiązania z regionem należy dodać kod kraju w standardzie ISO 3166-1 np en_US
+    locales: [pl,en,de] 
+    
+    # języki pokazywane w panelu administracyjnym, można ich użyć przed odpaleniem języka w celu uzupełnienia tłumaczenia
+    admin_locales: [pl,en,de]
+    
+    # waluty dostępne na stronie zgodnie ze standardem ISO 4217
+    currencies: [PLN] 
+    
+    # waluty dostępne w panelu administracyjnym, można ich użyć przed odpaleniem waluty w celu uzupełnienia cen w produktach
+    admin_currencies: [PLN,EUR] 
+    
+    # domyślne waluty dla różnych języków
+    default_currencies:
+        pl: PLN
+        en: EUR
+        de: EUR
+        
+    # pełny skrót języka oraz kraju zgodny z ISO 639-1 dla języka oraz ISO 3166-1 dla kraju np en_US
+    default_codes:
+        pl: pl_PL
+        en: en_US
+        de: de_DE
+         
+        
+    #kod do strony pokazowej/demo na stronie głównej dla języków
+    demo:
+        pl: '015040163920008'
+        en: '015040163920008'
+        de: '015040163920008'
+        
+    #linki do social media dla języka
+    social:
+        #social media
+        facebook:
+            pl: '//www.facebook.com/epadopl'
+            en: '//www.facebook.com/epadopl'
+        twitter:
+            pl: '//twitter.com/epado'
+            en: '//twitter.com/epado'    
+        youtube:
+            pl: '//www.youtube.com/channel/UCGlE9NT4sdZW94f1h3G1xxw'
+            en: '//www.youtube.com/channel/UCGlE9NT4sdZW94f1h3G1xxw'   
+        instagram:
+            pl: '//www.instagram.com/epado/'
+            en: '//www.instagram.com/epado/'
+        #nazwa strony dla dodatku wyświetlającego nowości z facebooka na stronie główenej    
+        facebook_feed:
+            pl: 'epadopl'
+        #aplikacja do pobrania    
+        windows_store:
+            pl: '//www.microsoft.com/pl-pl/store/apps/epado/9nblggh4v348'
+        google_play:
+            pl: '//play.google.com/store/apps/details?id=pl.epado.mobile'
+        app_store:
+            pl: '//itunes.apple.com/us/app/epado/id1109410925?l=pl&ls=1&mt=8' 
+        
+    # dane aplikacji facebook potrzebne do logowania i rejestracji    
+    facebook:
+        app_id: '1857414584485351'
+        app_secret: '9328ca4557a0f5e5cb0604f67dbd04b6'
+        default_graph_version: 'v2.5'    
+        scope: 'email,public_profile'  
+   
+    # system płatności należy włączyć dla każdej waluty podając wartość true, dane do punktu payu muszą być skonfigurowane dla wszystkich walut    
+    payu_switch:
+        #kod waluty dla punktu sprzedażowego w payu
+        PLN: true
+        
+    # system płatności dane do api, dla każdej z walut trzeba dodać punkt sprzedażowy w panelu payu  
+    payu:
+        #kod waluty dla punktu sprzedażowego w payu
+        PLN:
+            # produkcyjne epado       
+            enviroment: 'secure'
+            domain: 'payu.com'
+            pos_id: '213770'     
+            signature_key: '880e70e09a9e40d03eb257ed41120301'
+            # testowe
+            #enviroment: 'secure'
+            #domain: 'payu.com'
+            #pos_id: '145227'     
+            #signature_key: '13a980d4f851f3d9a1cfc792fb1f5e50'
+        EUR:
+            enviroment: 'secure'
+            domain: 'payu.com'
+            pos_id: '145227'     
+            signature_key: '13a980d4f851f3d9a1cfc792fb1f5e50'
+            
+    # dane do integracji z wfirma
+    wfirma:
+        login: 'office@epado.com'	
+        password: '!Epado2016!'
+        company_document_type: 'normal'
+        auto_send: '1'
+
+    # dane do integracji z smsapi    
+    smsapi:
+        login: 'epado.com@gmail.com'
+        password: 'Epado2021'
+        token: 'FoY5gds4LUoFHpHKtr4GbC3IqwwAKGBLB5orXaXt'
+        
+#    host: "mail.epado.com"       
+# konfiguracja maila z którego wysyłane są wiadomośći z epado   
+swiftmailer:
+    transport: "smtp"
+    host:      "s27.cyber-folks.pl"
+    username:  "office@epado.com"
+    password:  "qomandos11"
+    port:      "587"
+    encryption: "tls"
+    spool:     { type: memory }
+    #stream_options: 
+    #    ssl: 
+    #        allow_self_signed: true
+    #        verify_peer: false
+    #        verify_peer_name: false

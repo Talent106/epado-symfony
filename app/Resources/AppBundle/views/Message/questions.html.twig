@@ -1,0 +1,44 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-question-circle"></i>{{ 'Zapytania i opinie'|trans }}</h1>{% endblock %}
+
+{% block content %}
+
+    
+    <div class="content">
+        <p>{{ 'Pojawiają się tu zapytania od klientów, w przypadku odpowiedzi na jedno z zapytań zostanie ono przeniesione do Twojego folderu z wiadomościami gdzie będzie można kontynuować korespondencję z klientem.'|trans }}</p>
+    </div>
+
+    <div class="content">  
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th colspan="2">{{ 'Osoba'|trans }}</th>
+                        <th>{{ 'Temat'|trans }}</th>
+                        <th>{{ 'Zmieniono'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr class="{% if object.updater != app.user and object.read is null %}unread{% endif %}">
+                        <td>
+   
+                           {% if object.creator %}{{ tabUser(object.creator)|raw }}{% else %}{{ tabUser(object.recipient)|raw }}{% endif %} 
+                    
+                        </td>
+                        <td>
+                            <a href="{{ path('message_form', {'id': object.id})}}">   
+                            {% if object.creator %}{{ object.creator.firstname }} {{ object.creator.lastname }}{% else %}{{ object.recipient.firstname }} {{ object.recipient.lastname }}{% endif %}    
+                            </a>
+                            </td>
+                        <td>{{object.subject}}</td>
+                        <td>{{object.updated|mydate}}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie masz wiadomości.'|trans }}</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

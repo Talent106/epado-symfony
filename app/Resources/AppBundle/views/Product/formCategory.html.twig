@@ -1,0 +1,29 @@
+{% extends "admin.html.twig" %}
+
+{% block header %}<h1><i class="fa fa-cube"></i>{{ 'Kategoria produktu'|trans }}</h1>{% endblock %}
+
+
+{% block content %}
+
+    <div class="content">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    {#{% if object.creator %}
+        <p>Stworzona przez: {{ object.creator.username }}</p>
+    {% endif %} 
+    #}
+
+    {#{% if object.products %}
+
+        <h1>Powiązane produkty</h1>
+        {% for product in object.products %}
+            <a href="{{ path('product_form', {'id': product.id})}}">{{product.name}}</a> 
+        {% endfor %}
+
+    {% endif %}#}
+    </div>
+
+{% endblock %}

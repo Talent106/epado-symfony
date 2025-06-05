@@ -1,0 +1,48 @@
+{% extends "admin.html.twig" %}
+
+
+{% block header %}<h1><i class="fa fa-users"></i>{% if ad==1 %}{{ 'Wszystkie rodziny'|trans }}{% else %}{{ 'Rodziny'|trans }}{% endif %}</h1>{% endblock %}
+
+{% block content %}
+    
+
+    {% if(app.user is not null and app.user.type in ['admin','worker','trader'] and ad==1 ) %}
+    <div class="content">
+        {{ filters(filters,filters_params)|raw }}    
+    </div>
+    {% endif %}
+
+    <div class="content">
+        <div class="options">
+        <a href="{{ path('family_form') }}" class="button">{{ 'Dodaj rodzinę'|trans }}</a>
+        </div>
+    </div>
+    
+    <div class="content">
+        {% if objects %}
+            {{ pagination(pager)|raw }}
+            
+            <div class="table-wrapper"><table>
+                    <tr>
+                        <th>{{ 'Nr'|trans }}</th>
+                        <th>{{ 'Dodający'|trans }}</th>
+                        <th>{{ 'Nazwisko'|trans }}</th>
+                        <th>{{ 'Data dodania'|trans }}</th>
+                    </tr>
+                {% set i=0 %}{% for object in objects %}{% set i=i+1 %}
+                    <tr class="">
+                        <td>{{ i+(pager.per_page*(pager.page-1)) }}</td>
+                        <td>{{ tabUser(object.creator)|raw }}</td>
+                        <td><a href="{{ path('family_form', {'id': object.id}) }}" class="longtext tip" title="{{object.name}}">{{object.name}}</a></td> 
+                        <td>{{ object.created|mydate }}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+            
+            {{ pagination(pager)|raw }}
+        {% else %}
+            <p>{{ 'Nie dodałeś rodziny. Możesz to zrobić podczas dodawania nowej strony dla osoby upamiętniającej lub dodać rodzinę przed dodaniem strony. Osoby upamiętniane połączone rodziną będą powiązane dzięki czemu na stronie osobby pojawią się inni członkowie jej rodziny.'|trans }}</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}

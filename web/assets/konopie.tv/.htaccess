@@ -1,0 +1,56 @@
+
+
+# BEGIN rlrssslReallySimpleSSL rsssl_version[5.0.2]
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+# END rlrssslReallySimpleSSL
+# BEGIN WordPress
+# Dyrektywy zawarte między "BEGIN WordPress" oraz "END WordPress"
+# są generowane dynamicznie i powinny być modyfikowane tylko za pomocą
+# filtrów WordPressa. Zmiany dokonane bezpośrednio tutaj będą nadpisywane.
+
+# END WordPress
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://www.konopie.tv/$1 [R=301,L] 
+RewriteCond %{http_host} ^konopie.tv [NC]
+RewriteRule ^(.*)$ https://www.konopie.tv/$1 [R=301,L]  
+# BEGIN cPanel-generated php ini directives, do not edit
+# Manual editing of this file may result in unexpected behavior.
+# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+<IfModule php7_module>
+   php_flag display_errors Off
+   php_value max_execution_time 180
+   php_value max_input_time 120
+   php_value max_input_vars 1000
+   php_value memory_limit 1024M
+   php_value post_max_size 128M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php72"
+   php_value upload_max_filesize 60M
+   php_flag zlib.output_compression Off
+</IfModule>
+<IfModule lsapi_module>
+   php_flag display_errors Off
+   php_value max_execution_time 180
+   php_value max_input_time 120
+   php_value max_input_vars 1000
+   php_value memory_limit 1024M
+   php_value post_max_size 128M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php72"
+   php_value upload_max_filesize 60M
+   php_flag zlib.output_compression Off
+</IfModule>
+# END cPanel-generated php ini directives, do not edit
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php74” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php74___lsphp .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

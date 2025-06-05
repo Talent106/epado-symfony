@@ -1,0 +1,48 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    app.type.entity_hidden:
+      class: AppBundle\Form\EntityHiddenType
+      arguments: ["@doctrine.orm.entity_manager"]
+      tags:
+      - { name: form.type, alias: entity_hidden }  
+    app.twig_extension:
+        class: AppBundle\Twig\AppExtension
+        public: true
+        arguments: ["@request_stack","@router","@session","@security.token_storage","@translator"]
+        tags:
+            - { name: twig.extension }
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.session_listener:
+        class: AppBundle\Listener\SessionListener
+        arguments: [@service_container, @controller_resolver, @templating]    
+        tags:
+         - { name: kernel.event_listener, event: kernel.request, method: onRequest }
+         - { name: kernel.event_listener, event: kernel.controller, method: onController } 
+         
+#    twig.localized_route_extension:
+#        class: AppBundle\Twig\AppExtension
+#        tags:
+#            - { name: twig.extension }
+#            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+#        arguments: [@router]
+         
+    app.not_found_controller:
+        class:     AppBundle\Controller\HomeController
+        arguments: ["@templating"]
+        
+#    extension.listener:
+#        class: AppBundle\Listener\DoctrineExtensionListener
+#        calls:
+#            - [ setContainer, [ @service_container ] ]
+#        tags:
+#            # translatable sets locale after router processing
+#            - { name: kernel.event_listener, event: kernel.request, method: onLateKernelRequest, priority: -10 }
+#            # loggable hooks user username if one is in security context
+#            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

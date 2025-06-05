@@ -1,0 +1,2730 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+//* @UniqueEntity(fields="username", message="Istnieje już użytkownik z tym loginem.", groups={"create", "update","register","profile"})
+ 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="user")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @UniqueEntity(fields="email", message="Istnieje już użytkownik z tym adresem email.", groups={"create", "update","register","profile"})
+ * @UniqueEntity(fields="parent_partner_code", ignoreNull="true", message="Istnieje już partner z tym kodem.", groups={"create", "update","register","profile"})
+ * 
+ */
+class User extends BaseUser
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cemetery", mappedBy="creator")
+     */
+    protected $cemeteries;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserProduct", mappedBy="user")
+     */
+    protected $products;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserProduct", mappedBy="creator")
+     */
+    protected $created_user_products;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CodeGroup", mappedBy="creator")
+     */
+    protected $created_code_groups;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PageCredentials", mappedBy="creator")
+     */
+    protected $created_credentials;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OrderProduct", mappedBy="creator")
+     */
+    protected $created_order_products;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PageCategory", mappedBy="creator")
+     */
+    protected $created_page_categories;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PageType", mappedBy="creator")
+     */
+    protected $created_page_types; 
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProductCategory", mappedBy="creator")
+     */
+    protected $created_product_categories;
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProductConnection", mappedBy="creator")
+     */
+    protected $created_product_connections;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ProductType", mappedBy="creator")
+     */
+    protected $created_product_types; 
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment", mappedBy="creator")
+     */
+    protected $created_payments;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OrderStatusHistory", mappedBy="creator")
+     */
+    protected $created_status_histories;  
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message", mappedBy="creator")
+     */
+    protected $created_messages;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message", mappedBy="recipient")
+     */
+    protected $recived_messages;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message", mappedBy="updater")
+     */
+    protected $updated_messages;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Group", mappedBy="creator")
+     */
+    protected $created_groups;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Post", mappedBy="creator")
+     */
+    protected $created_posts;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Mail", mappedBy="creator")
+     */
+    protected $created_mails;    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="creator")
+     */
+    protected $created_products;  
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OrderStatus", mappedBy="creator")
+     */
+    protected $created_order_statuses;  
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Page", mappedBy="buyer")
+     */
+    protected $pages;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Page", mappedBy="creator")
+     */
+    protected $created_pages;
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PageCredentials", mappedBy="user")
+     */
+    protected $credentials;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order", inversedBy="cart_owners", cascade={"persist"})
+     * @ORM\JoinColumn(name="cart_id", referencedColumnName="id", nullable=true)
+     */
+    protected $cart;
+
+    
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Order", mappedBy="buyer")
+     */
+    protected $orders;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Order", mappedBy="creator")
+     */
+    protected $created_orders;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Order", mappedBy="parent_partner")
+     */
+    protected $parent_partner_orders;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Order", mappedBy="partner")
+     */
+    protected $partner_orders;
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Address", mappedBy="creator")
+     */
+    protected $created_addresses;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OrderProduct", mappedBy="contractor")
+     */
+    protected $contracted_orders;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Family", mappedBy="creator")
+     */
+    protected $families;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $first_name;
+        
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $last_name;
+
+    
+    
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $phone;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Address", inversedBy="billing_users", cascade={"persist"})
+     * @ORM\JoinColumn(name="billing_address_id", referencedColumnName="id", nullable=true)
+     */
+    protected $billing_address;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Address", inversedBy="delivery_users", cascade={"persist"})
+     * @ORM\JoinColumn(name="delivery_address_id", referencedColumnName="id", nullable=true)
+     */
+    protected $delivery_address;
+    
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    protected $type;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $registration_token;
+   
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    protected $notification_order=false;
+    
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    protected $invoice=false;
+    
+    
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    protected $ads=false;
+    
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": true})
+     */
+    protected $ads_show=true;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $ads_name;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $ads_description;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $ad_mobile;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $ad_desktop;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $ad_link;
+    
+    /**
+     * @ORM\Column(name="locale", type="string", length=255, nullable=true)
+     */
+    private $locale;
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255, nullable=true)
+     */
+    private $path;
+
+    
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $discount;  
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $provision;
+    
+    
+    
+    
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    protected $rating=null;
+    
+    
+    /**
+     * @ORM\Column(name="cities", type="text", nullable=true)
+     */
+    protected $cities;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column( type="string", length=255, nullable=true)
+     */
+    private $facebook_id;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default": true})
+     */
+    protected $notification_message; //Opłacono
+    
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default": true})
+     */
+    protected $notification_post; //Opłacono 
+    
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
+
+    /**
+     * @ORM\Column(name="deleted", type="datetime", nullable=true)
+     */
+    private $deleted;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="creator")
+     */
+    protected $created_users;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="created_users", cascade={"persist"})
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", nullable=true)
+     */
+    protected $creator;
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="parent_partner")
+     */
+    protected $partners;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="partners", cascade={"persist"})
+     * @ORM\JoinColumn(name="parent_partner_id", referencedColumnName="id", nullable=true)
+     */
+    protected $parent_partner;
+    
+    /**
+     * @ORM\Column(name="parent_partner_code", type="string", length=255, nullable=true)
+     */
+    private $parent_partner_code;
+    
+    
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        $this->setUsername($email);
+        //die('aa');
+        return $this;
+    }
+
+    public function setEmailCanonical($emailCanonical)
+    {
+        $this->emailCanonical = $emailCanonical;
+        $this->setUsernameCanonical($emailCanonical);
+        //die('aa');
+        return $this;
+    }
+
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->testings = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    
+    public function havePagePermission($page,$type=null)
+    {
+        if($this==$page->getCreator()) return true;
+        if(in_array($this->getType(),array('admin','worker') )) return true;
+        
+        if($type==null){
+            foreach($this->getCredentials() as $c){
+                if($c->getPage()==$page){
+                    return true;
+                }
+            }
+            
+            return false; 
+        } 
+        elseif($type=='admin'){
+            foreach($this->getCredentials() as $c){
+                if($c->getPage()==$page){
+                    if($c->getType()=='admin'){
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+        elseif($type=='redactor'){
+            foreach($this->getCredentials() as $c){
+                if($c->getPage()==$page){
+                    if($c->getType()=='redactor'){
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+       
+        if($this->getCredentials()){
+            foreach($this->getCredentials() as $c){
+                if($c->getPage()==$page){
+                    $parts=explode('_',$type);
+                    $method="get";
+                    foreach($parts as $part){
+                        $method.=ucfirst($part);
+                    }
+                    if(method_exists($c, $method)){
+                        return $c->{$method}();
+                    }else return false;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+
+    
+    public function haveFamilyPermission($family,$type=null)
+    {
+        if($this==$family->getCreator()) return true;
+        if(in_array($this->getType(),array('admin','worker') )) return true;
+        
+        if($type==null){
+            foreach($this->getCredentials() as $c){
+                if($c->getFamily()==$family){
+                    return true;
+                }
+            }
+            
+            return false; 
+        } 
+        elseif($type=='admin'){
+            foreach($this->getCredentials() as $c){
+                if($c->getFamily()==$family){
+                    if($c->getType()=='admin'){
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+        elseif($type=='redactor'){
+            foreach($this->getCredentials() as $c){
+                if($c->getFamily()==$family){
+                    if($c->getType()=='redactor'){
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+       
+        if($this->getCredentials()){
+            foreach($this->getCredentials() as $c){
+                if($c->getFamily()==$family){
+                    $parts=explode('_',$type);
+                    $method="get";
+                    foreach($parts as $part){
+                        $method.=ucfirst($part);
+                    }
+                    if(method_exists($c, $method)){
+                        return $c->{$method}();
+                    }else return false;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    
+    
+    
+    public function getPermissionTypes()
+    {
+        $names=array('admin' => 'Administrator', 'redactor' => 'Redaktor');
+        return $names;
+    }
+    
+    public function getPermissionType($type)
+    {
+        $names=$this->getPermissionTypes();
+        return $names[$type];
+    }
+    
+    
+    
+    
+    public function getInvoiceTypes()
+    {
+        //$names=array('nip' => 'NIP', 'vat' => 'VAT EU', 'custom' => 'Inny');
+        $names=array('nip' => 'NIP');
+        return $names;
+    }
+    
+    public function getInvoiceType($type)
+    {
+        $names=$this->getInvoiceTypes();
+        return $names[$type];
+    }
+    
+    
+    public function getInvoicePrefixes()
+    {
+        $names=array(1 => 'FV', 2 => 'PF', 3 => 'PA');
+        return $names;
+    }
+    
+    public function getInvoicePrefix($type)
+    {
+        $names=$this->getInvoicePrefixes();
+        return $names[$type];
+    }
+    
+    public function getInvoiceTaxes()
+    {
+        $names=array(1 => '23%', 2 => '8%', 3 => '0%');
+        return $names;
+    }
+    
+    public function getInvoiceTax($type)
+    {
+        $names=$this->getInvoiceTaxes();
+        return $names[$type];
+    }
+    
+    public function getInvoiceTaxRates()
+    {
+        $names=array(1 => 23, 2 => 8, 3 => 0);
+        return $names;
+    }
+
+
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getTypeName()
+    {
+        $names=$this->getTypeNames();
+        return $names[$this->getType()];
+    }   
+    
+    public function getTypeNames()
+    {
+        $names=array('admin' => 'Administrator', 'user' => 'Użytkownik', 'worker' => 'Pracownik', 'contractor' => 'Wykonawca','partner'=>'Partner'); // 'trader'=>'Handlowiec', 
+        return $names;
+    }      
+    
+   
+    
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return User
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return User
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+    
+    
+    
+    public function setAvatar($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    public function getAvatar()
+    {
+        //return $this->path;
+        if(!$this->path) {
+            return 'images/user.png';
+        }    
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+    
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+        // check if we have an old image path
+        if (isset($this->path)) {
+            // store the old name to delete after the update
+            $this->temp = $this->path;
+            $this->path = null;
+        } else {
+            $this->path = 'initial';
+        }
+    }
+    
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            // do whatever you want to generate a unique name, this is overwritten by double persist in controller
+           $filename = sha1(uniqid(mt_rand(), true));
+           $this->path = $filename.'.'.$this->getFile()->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+        //$this->path = $this->getId().'.'.$this->getFile()->guessExtension();
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $test=$this->getFile()->move($this->getUploadRootDir(), $this->path);
+
+        //var_dump($this->path);
+        //die($this->getUploadRootDir());
+        
+        
+        // check if we have an old image
+        if (isset($this->temp)) {
+            // delete the old image
+             if(file_exists($this->getUploadRootDir().'/'.$this->temp))
+             unlink($this->getUploadRootDir().'/'.$this->temp);
+            // clear the temp image path
+            $this->temp = null;
+        }
+        $this->file = null;
+    }
+    
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->temp = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (isset($this->temp)) {
+            unlink($this->temp);
+        }
+    }
+    
+    
+    
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    public function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        
+        //die(__DIR__.'/../../../web/'.$this->getUploadDir()); // za daleko wychodzil po wywaleniu katalogu nadrzednego z nazwa firmy
+        return __DIR__.'/../../../web/'.$this->getUploadDir(); // za daleko wychodzil po wywaleniu katalogu nadrzednego z nazwa firmy
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/users';
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return User
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return User
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return User
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set first_name
+     *
+     * @param string $firstName
+     * @return User
+     */
+    public function setFirstName($firstName)
+    {
+        $this->first_name = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get first_name
+     *
+     * @return string 
+     */
+    public function getFirstName()
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * Set last_name
+     *
+     * @param string $lastName
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->last_name = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get last_name
+     *
+     * @return string 
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+    
+    public function getFullName()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
+
+
+    /**
+     * Set notification_stock_alert
+     *
+     * @param boolean $notificationStockAlert
+     * @return User
+     */
+    public function setNotificationStockAlert($notificationStockAlert)
+    {
+        $this->notification_stock_alert = $notificationStockAlert;
+
+        return $this;
+    }
+
+    /**
+     * Get notification_stock_alert
+     *
+     * @return boolean 
+     */
+    public function getNotificationStockAlert()
+    {
+        return $this->notification_stock_alert;
+    }
+
+    /**
+     * Set notification_order
+     *
+     * @param boolean $notificationOrder
+     * @return User
+     */
+    public function setNotificationOrder($notificationOrder)
+    {
+        $this->notification_order = $notificationOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get notification_order
+     *
+     * @return boolean 
+     */
+    public function getNotificationOrder()
+    {
+        return $this->notification_order;
+    }
+
+    /**
+     * Set partner_contact
+     *
+     * @param boolean $partnerContact
+     * @return User
+     */
+    public function setPartnerContact($partnerContact)
+    {
+        $this->partner_contact = $partnerContact;
+
+        return $this;
+    }
+
+    /**
+     * Get partner_contact
+     *
+     * @return boolean 
+     */
+    public function getPartnerContact()
+    {
+        return $this->partner_contact;
+    }
+
+
+    /**
+     * Set registration_token
+     *
+     * @param string $registrationToken
+     * @return User
+     */
+    public function setRegistrationToken($registrationToken)
+    {
+        $this->registration_token = $registrationToken;
+    
+        return $this;
+    }
+
+    /**
+     * Get registration_token
+     *
+     * @return string 
+     */
+    public function getRegistrationToken()
+    {
+        return $this->registration_token;
+    }
+
+    /**
+     * Set billingAddress
+     *
+     * @param \AppBundle\Entity\Address $billingAddress
+     *
+     * @return User
+     */
+    public function setBillingAddress(\AppBundle\Entity\Address $billingAddress = null)
+    {
+        $this->billing_address = $billingAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get billingAddress
+     *
+     * @return \AppBundle\Entity\Address
+     */
+    public function getBillingAddress()
+    {
+        return $this->billing_address;
+    }
+
+    /**
+     * Set deliveryAddress
+     *
+     * @param \AppBundle\Entity\Address $deliveryAddress
+     *
+     * @return User
+     */
+    public function setDeliveryAddress(\AppBundle\Entity\Address $deliveryAddress = null)
+    {
+        $this->delivery_address = $deliveryAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get deliveryAddress
+     *
+     * @return \AppBundle\Entity\Address
+     */
+    public function getDeliveryAddress()
+    {
+        return $this->delivery_address;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     *
+     * @return User
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Set country
+     *
+     * @param \AppBundle\Entity\Country $country
+     *
+     * @return User
+     */
+    public function setCountry(\AppBundle\Entity\Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \AppBundle\Entity\Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set invoice
+     *
+     * @param boolean $invoice
+     *
+     * @return User
+     */
+    public function setInvoice($invoice)
+    {
+        $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Get invoice
+     *
+     * @return boolean
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
+    }
+
+    /**
+     * Add cemetery
+     *
+     * @param \AppBundle\Entity\Cemetery $cemetery
+     *
+     * @return User
+     */
+    public function addCemetery(\AppBundle\Entity\Cemetery $cemetery)
+    {
+        $this->cemeteries[] = $cemetery;
+
+        return $this;
+    }
+
+    /**
+     * Remove cemetery
+     *
+     * @param \AppBundle\Entity\Cemetery $cemetery
+     */
+    public function removeCemetery(\AppBundle\Entity\Cemetery $cemetery)
+    {
+        $this->cemeteries->removeElement($cemetery);
+    }
+
+    /**
+     * Get cemeteries
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCemeteries()
+    {
+        return $this->cemeteries;
+    }
+
+    /**
+     * Add family
+     *
+     * @param \AppBundle\Entity\Family $family
+     *
+     * @return User
+     */
+    public function addFamily(\AppBundle\Entity\Family $family)
+    {
+        $this->families[] = $family;
+
+        return $this;
+    }
+
+    /**
+     * Remove family
+     *
+     * @param \AppBundle\Entity\Family $family
+     */
+    public function removeFamily(\AppBundle\Entity\Family $family)
+    {
+        $this->families->removeElement($family);
+    }
+
+    /**
+     * Get families
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFamilies()
+    {
+        return $this->families;
+    }
+
+    /**
+     * Set facebookId
+     *
+     * @param string $facebookId
+     *
+     * @return User
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebook_id = $facebookId;
+
+        return $this;
+    }
+
+    /**
+     * Get facebookId
+     *
+     * @return string
+     */
+    public function getFacebookId()
+    {
+        return $this->facebook_id;
+    }
+
+    /**
+     * Add contractedOrder
+     *
+     * @param \AppBundle\Entity\OrderProduct $contractedOrder
+     *
+     * @return User
+     */
+    public function addContractedOrder(\AppBundle\Entity\OrderProduct $contractedOrder)
+    {
+        $this->contracted_orders[] = $contractedOrder;
+
+        return $this;
+    }
+
+    /**
+     * Remove contractedOrder
+     *
+     * @param \AppBundle\Entity\OrderProduct $contractedOrder
+     */
+    public function removeContractedOrder(\AppBundle\Entity\OrderProduct $contractedOrder)
+    {
+        $this->contracted_orders->removeElement($contractedOrder);
+    }
+
+    /**
+     * Get contractedOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContractedOrders()
+    {
+        return $this->contracted_orders;
+    }
+
+    /**
+     * Add page
+     *
+     * @param \AppBundle\Entity\Page $page
+     *
+     * @return User
+     */
+    public function addPage(\AppBundle\Entity\Page $page)
+    {
+        $this->pages[] = $page;
+
+        return $this;
+    }
+
+    /**
+     * Remove page
+     *
+     * @param \AppBundle\Entity\Page $page
+     */
+    public function removePage(\AppBundle\Entity\Page $page)
+    {
+        $this->pages->removeElement($page);
+    }
+
+    /**
+     * Get pages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPages()
+    {
+        return $this->pages;
+    }
+
+    /**
+     * Add order
+     *
+     * @param \AppBundle\Entity\Order $order
+     *
+     * @return User
+     */
+    public function addOrder(\AppBundle\Entity\Order $order)
+    {
+        $this->orders[] = $order;
+
+        return $this;
+    }
+
+    /**
+     * Remove order
+     *
+     * @param \AppBundle\Entity\Order $order
+     */
+    public function removeOrder(\AppBundle\Entity\Order $order)
+    {
+        $this->orders->removeElement($order);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param \DateTime $deleted
+     *
+     * @return User
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return \DateTime
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\User $creator
+     *
+     * @return User
+     */
+    public function setCreator(\AppBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * Set notificationMessage
+     *
+     * @param boolean $notificationMessage
+     *
+     * @return User
+     */
+    public function setNotificationMessage($notificationMessage)
+    {
+        $this->notification_message = $notificationMessage;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationMessage
+     *
+     * @return boolean
+     */
+    public function getNotificationMessage()
+    {
+        return $this->notification_message;
+    }
+
+    /**
+     * Set notificationPost
+     *
+     * @param boolean $notificationPost
+     *
+     * @return User
+     */
+    public function setNotificationPost($notificationPost)
+    {
+        $this->notification_post = $notificationPost;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationPost
+     *
+     * @return boolean
+     */
+    public function getNotificationPost()
+    {
+        return $this->notification_post;
+    }
+
+    /**
+     * Set cart
+     *
+     * @param \AppBundle\Entity\Order $cart
+     *
+     * @return User
+     */
+    public function setCart(\AppBundle\Entity\Order $cart = null)
+    {
+        $this->cart = $cart;
+
+        return $this;
+    }
+
+    /**
+     * Get cart
+     *
+     * @return \AppBundle\Entity\Order
+     */
+    public function getCart()
+    {
+        return $this->cart;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return User
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param string $rating
+     *
+     * @return User
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return string
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * Set cities
+     *
+     * @param string $cities
+     *
+     * @return User
+     */
+    public function setCities($cities)
+    {
+        $this->cities = $cities;
+
+        return $this;
+    }
+
+    /**
+     * Get cities
+     *
+     * @return string
+     */
+    public function getCities()
+    {
+        return $this->cities;
+    }
+
+    /**
+     * Add credential
+     *
+     * @param \AppBundle\Entity\PageCredentials $credential
+     *
+     * @return User
+     */
+    public function addCredential(\AppBundle\Entity\PageCredentials $credential)
+    {
+        $this->credentials[] = $credential;
+
+        return $this;
+    }
+
+    /**
+     * Remove credential
+     *
+     * @param \AppBundle\Entity\PageCredentials $credential
+     */
+    public function removeCredential(\AppBundle\Entity\PageCredentials $credential)
+    {
+        $this->credentials->removeElement($credential);
+    }
+
+    /**
+     * Get credentials
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCredentials()
+    {
+        return $this->credentials;
+    }
+
+    /**
+     * Set discount
+     *
+     * @param string $discount
+     *
+     * @return User
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Get discount
+     *
+     * @return string
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * Add product
+     *
+     * @param \AppBundle\Entity\UserProduct $product
+     *
+     * @return User
+     */
+    public function addProduct(\AppBundle\Entity\UserProduct $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AppBundle\Entity\UserProduct $product
+     */
+    public function removeProduct(\AppBundle\Entity\UserProduct $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * Add createdUserProduct
+     *
+     * @param \AppBundle\Entity\UserProduct $createdUserProduct
+     *
+     * @return User
+     */
+    public function addCreatedUserProduct(\AppBundle\Entity\UserProduct $createdUserProduct)
+    {
+        $this->created_user_products[] = $createdUserProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdUserProduct
+     *
+     * @param \AppBundle\Entity\UserProduct $createdUserProduct
+     */
+    public function removeCreatedUserProduct(\AppBundle\Entity\UserProduct $createdUserProduct)
+    {
+        $this->created_user_products->removeElement($createdUserProduct);
+    }
+
+    /**
+     * Get createdUserProducts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedUserProducts()
+    {
+        return $this->created_user_products;
+    }
+
+    /**
+     * Add createdCodeGroup
+     *
+     * @param \AppBundle\Entity\CodeGroup $createdCodeGroup
+     *
+     * @return User
+     */
+    public function addCreatedCodeGroup(\AppBundle\Entity\CodeGroup $createdCodeGroup)
+    {
+        $this->created_code_groups[] = $createdCodeGroup;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdCodeGroup
+     *
+     * @param \AppBundle\Entity\CodeGroup $createdCodeGroup
+     */
+    public function removeCreatedCodeGroup(\AppBundle\Entity\CodeGroup $createdCodeGroup)
+    {
+        $this->created_code_groups->removeElement($createdCodeGroup);
+    }
+
+    /**
+     * Get createdCodeGroups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedCodeGroups()
+    {
+        return $this->created_code_groups;
+    }
+
+    /**
+     * Add createdCredential
+     *
+     * @param \AppBundle\Entity\PageCredentials $createdCredential
+     *
+     * @return User
+     */
+    public function addCreatedCredential(\AppBundle\Entity\PageCredentials $createdCredential)
+    {
+        $this->created_credentials[] = $createdCredential;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdCredential
+     *
+     * @param \AppBundle\Entity\PageCredentials $createdCredential
+     */
+    public function removeCreatedCredential(\AppBundle\Entity\PageCredentials $createdCredential)
+    {
+        $this->created_credentials->removeElement($createdCredential);
+    }
+
+    /**
+     * Get createdCredentials
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedCredentials()
+    {
+        return $this->created_credentials;
+    }
+
+    /**
+     * Add createdOrderProduct
+     *
+     * @param \AppBundle\Entity\OrderProduct $createdOrderProduct
+     *
+     * @return User
+     */
+    public function addCreatedOrderProduct(\AppBundle\Entity\OrderProduct $createdOrderProduct)
+    {
+        $this->created_order_products[] = $createdOrderProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdOrderProduct
+     *
+     * @param \AppBundle\Entity\OrderProduct $createdOrderProduct
+     */
+    public function removeCreatedOrderProduct(\AppBundle\Entity\OrderProduct $createdOrderProduct)
+    {
+        $this->created_order_products->removeElement($createdOrderProduct);
+    }
+
+    /**
+     * Get createdOrderProducts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedOrderProducts()
+    {
+        return $this->created_order_products;
+    }
+
+    /**
+     * Add createdPageCategory
+     *
+     * @param \AppBundle\Entity\PageCategory $createdPageCategory
+     *
+     * @return User
+     */
+    public function addCreatedPageCategory(\AppBundle\Entity\PageCategory $createdPageCategory)
+    {
+        $this->created_page_categories[] = $createdPageCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdPageCategory
+     *
+     * @param \AppBundle\Entity\PageCategory $createdPageCategory
+     */
+    public function removeCreatedPageCategory(\AppBundle\Entity\PageCategory $createdPageCategory)
+    {
+        $this->created_page_categories->removeElement($createdPageCategory);
+    }
+
+    /**
+     * Get createdPageCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedPageCategories()
+    {
+        return $this->created_page_categories;
+    }
+
+    /**
+     * Add createdPageType
+     *
+     * @param \AppBundle\Entity\PageType $createdPageType
+     *
+     * @return User
+     */
+    public function addCreatedPageType(\AppBundle\Entity\PageType $createdPageType)
+    {
+        $this->created_page_types[] = $createdPageType;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdPageType
+     *
+     * @param \AppBundle\Entity\PageType $createdPageType
+     */
+    public function removeCreatedPageType(\AppBundle\Entity\PageType $createdPageType)
+    {
+        $this->created_page_types->removeElement($createdPageType);
+    }
+
+    /**
+     * Get createdPageTypes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedPageTypes()
+    {
+        return $this->created_page_types;
+    }
+
+    /**
+     * Add createdProductCategory
+     *
+     * @param \AppBundle\Entity\ProductCategory $createdProductCategory
+     *
+     * @return User
+     */
+    public function addCreatedProductCategory(\AppBundle\Entity\ProductCategory $createdProductCategory)
+    {
+        $this->created_product_categories[] = $createdProductCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdProductCategory
+     *
+     * @param \AppBundle\Entity\ProductCategory $createdProductCategory
+     */
+    public function removeCreatedProductCategory(\AppBundle\Entity\ProductCategory $createdProductCategory)
+    {
+        $this->created_product_categories->removeElement($createdProductCategory);
+    }
+
+    /**
+     * Get createdProductCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedProductCategories()
+    {
+        return $this->created_product_categories;
+    }
+
+    /**
+     * Add createdProductConnection
+     *
+     * @param \AppBundle\Entity\ProductConnection $createdProductConnection
+     *
+     * @return User
+     */
+    public function addCreatedProductConnection(\AppBundle\Entity\ProductConnection $createdProductConnection)
+    {
+        $this->created_product_connections[] = $createdProductConnection;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdProductConnection
+     *
+     * @param \AppBundle\Entity\ProductConnection $createdProductConnection
+     */
+    public function removeCreatedProductConnection(\AppBundle\Entity\ProductConnection $createdProductConnection)
+    {
+        $this->created_product_connections->removeElement($createdProductConnection);
+    }
+
+    /**
+     * Get createdProductConnections
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedProductConnections()
+    {
+        return $this->created_product_connections;
+    }
+
+    /**
+     * Add createdProductType
+     *
+     * @param \AppBundle\Entity\ProductType $createdProductType
+     *
+     * @return User
+     */
+    public function addCreatedProductType(\AppBundle\Entity\ProductType $createdProductType)
+    {
+        $this->created_product_types[] = $createdProductType;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdProductType
+     *
+     * @param \AppBundle\Entity\ProductType $createdProductType
+     */
+    public function removeCreatedProductType(\AppBundle\Entity\ProductType $createdProductType)
+    {
+        $this->created_product_types->removeElement($createdProductType);
+    }
+
+    /**
+     * Get createdProductTypes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedProductTypes()
+    {
+        return $this->created_product_types;
+    }
+
+    /**
+     * Add createdPayment
+     *
+     * @param \AppBundle\Entity\Payment $createdPayment
+     *
+     * @return User
+     */
+    public function addCreatedPayment(\AppBundle\Entity\Payment $createdPayment)
+    {
+        $this->created_payments[] = $createdPayment;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdPayment
+     *
+     * @param \AppBundle\Entity\Payment $createdPayment
+     */
+    public function removeCreatedPayment(\AppBundle\Entity\Payment $createdPayment)
+    {
+        $this->created_payments->removeElement($createdPayment);
+    }
+
+    /**
+     * Get createdPayments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedPayments()
+    {
+        return $this->created_payments;
+    }
+
+    /**
+     * Add createdStatusHistory
+     *
+     * @param \AppBundle\Entity\OrderStatusHistory $createdStatusHistory
+     *
+     * @return User
+     */
+    public function addCreatedStatusHistory(\AppBundle\Entity\OrderStatusHistory $createdStatusHistory)
+    {
+        $this->created_status_histories[] = $createdStatusHistory;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdStatusHistory
+     *
+     * @param \AppBundle\Entity\OrderStatusHistory $createdStatusHistory
+     */
+    public function removeCreatedStatusHistory(\AppBundle\Entity\OrderStatusHistory $createdStatusHistory)
+    {
+        $this->created_status_histories->removeElement($createdStatusHistory);
+    }
+
+    /**
+     * Get createdStatusHistories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedStatusHistories()
+    {
+        return $this->created_status_histories;
+    }
+
+    /**
+     * Add createdMessage
+     *
+     * @param \AppBundle\Entity\Message $createdMessage
+     *
+     * @return User
+     */
+    public function addCreatedMessage(\AppBundle\Entity\Message $createdMessage)
+    {
+        $this->created_messages[] = $createdMessage;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdMessage
+     *
+     * @param \AppBundle\Entity\Message $createdMessage
+     */
+    public function removeCreatedMessage(\AppBundle\Entity\Message $createdMessage)
+    {
+        $this->created_messages->removeElement($createdMessage);
+    }
+
+    /**
+     * Get createdMessages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedMessages()
+    {
+        return $this->created_messages;
+    }
+
+    /**
+     * Add recivedMessage
+     *
+     * @param \AppBundle\Entity\Message $recivedMessage
+     *
+     * @return User
+     */
+    public function addRecivedMessage(\AppBundle\Entity\Message $recivedMessage)
+    {
+        $this->recived_messages[] = $recivedMessage;
+
+        return $this;
+    }
+
+    /**
+     * Remove recivedMessage
+     *
+     * @param \AppBundle\Entity\Message $recivedMessage
+     */
+    public function removeRecivedMessage(\AppBundle\Entity\Message $recivedMessage)
+    {
+        $this->recived_messages->removeElement($recivedMessage);
+    }
+
+    /**
+     * Get recivedMessages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecivedMessages()
+    {
+        return $this->recived_messages;
+    }
+
+    /**
+     * Add updatedMessage
+     *
+     * @param \AppBundle\Entity\Message $updatedMessage
+     *
+     * @return User
+     */
+    public function addUpdatedMessage(\AppBundle\Entity\Message $updatedMessage)
+    {
+        $this->updated_messages[] = $updatedMessage;
+
+        return $this;
+    }
+
+    /**
+     * Remove updatedMessage
+     *
+     * @param \AppBundle\Entity\Message $updatedMessage
+     */
+    public function removeUpdatedMessage(\AppBundle\Entity\Message $updatedMessage)
+    {
+        $this->updated_messages->removeElement($updatedMessage);
+    }
+
+    /**
+     * Get updatedMessages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUpdatedMessages()
+    {
+        return $this->updated_messages;
+    }
+
+    /**
+     * Add createdGroup
+     *
+     * @param \AppBundle\Entity\Group $createdGroup
+     *
+     * @return User
+     */
+    public function addCreatedGroup(\AppBundle\Entity\Group $createdGroup)
+    {
+        $this->created_groups[] = $createdGroup;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdGroup
+     *
+     * @param \AppBundle\Entity\Group $createdGroup
+     */
+    public function removeCreatedGroup(\AppBundle\Entity\Group $createdGroup)
+    {
+        $this->created_groups->removeElement($createdGroup);
+    }
+
+    /**
+     * Get createdGroups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedGroups()
+    {
+        return $this->created_groups;
+    }
+
+    /**
+     * Add createdPost
+     *
+     * @param \AppBundle\Entity\Post $createdPost
+     *
+     * @return User
+     */
+    public function addCreatedPost(\AppBundle\Entity\Post $createdPost)
+    {
+        $this->created_posts[] = $createdPost;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdPost
+     *
+     * @param \AppBundle\Entity\Post $createdPost
+     */
+    public function removeCreatedPost(\AppBundle\Entity\Post $createdPost)
+    {
+        $this->created_posts->removeElement($createdPost);
+    }
+
+    /**
+     * Get createdPosts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedPosts()
+    {
+        return $this->created_posts;
+    }
+
+    /**
+     * Add createdMail
+     *
+     * @param \AppBundle\Entity\Mail $createdMail
+     *
+     * @return User
+     */
+    public function addCreatedMail(\AppBundle\Entity\Mail $createdMail)
+    {
+        $this->created_mails[] = $createdMail;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdMail
+     *
+     * @param \AppBundle\Entity\Mail $createdMail
+     */
+    public function removeCreatedMail(\AppBundle\Entity\Mail $createdMail)
+    {
+        $this->created_mails->removeElement($createdMail);
+    }
+
+    /**
+     * Get createdMails
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedMails()
+    {
+        return $this->created_mails;
+    }
+
+    /**
+     * Add createdProduct
+     *
+     * @param \AppBundle\Entity\Product $createdProduct
+     *
+     * @return User
+     */
+    public function addCreatedProduct(\AppBundle\Entity\Product $createdProduct)
+    {
+        $this->created_products[] = $createdProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdProduct
+     *
+     * @param \AppBundle\Entity\Product $createdProduct
+     */
+    public function removeCreatedProduct(\AppBundle\Entity\Product $createdProduct)
+    {
+        $this->created_products->removeElement($createdProduct);
+    }
+
+    /**
+     * Get createdProducts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedProducts()
+    {
+        return $this->created_products;
+    }
+
+    /**
+     * Add createdOrderStatus
+     *
+     * @param \AppBundle\Entity\OrderStatus $createdOrderStatus
+     *
+     * @return User
+     */
+    public function addCreatedOrderStatus(\AppBundle\Entity\OrderStatus $createdOrderStatus)
+    {
+        $this->created_order_statuses[] = $createdOrderStatus;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdOrderStatus
+     *
+     * @param \AppBundle\Entity\OrderStatus $createdOrderStatus
+     */
+    public function removeCreatedOrderStatus(\AppBundle\Entity\OrderStatus $createdOrderStatus)
+    {
+        $this->created_order_statuses->removeElement($createdOrderStatus);
+    }
+
+    /**
+     * Get createdOrderStatuses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedOrderStatuses()
+    {
+        return $this->created_order_statuses;
+    }
+
+    /**
+     * Add createdPage
+     *
+     * @param \AppBundle\Entity\Page $createdPage
+     *
+     * @return User
+     */
+    public function addCreatedPage(\AppBundle\Entity\Page $createdPage)
+    {
+        $this->created_pages[] = $createdPage;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdPage
+     *
+     * @param \AppBundle\Entity\Page $createdPage
+     */
+    public function removeCreatedPage(\AppBundle\Entity\Page $createdPage)
+    {
+        $this->created_pages->removeElement($createdPage);
+    }
+
+    /**
+     * Get createdPages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedPages()
+    {
+        return $this->created_pages;
+    }
+
+    /**
+     * Add createdOrder
+     *
+     * @param \AppBundle\Entity\Order $createdOrder
+     *
+     * @return User
+     */
+    public function addCreatedOrder(\AppBundle\Entity\Order $createdOrder)
+    {
+        $this->created_orders[] = $createdOrder;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdOrder
+     *
+     * @param \AppBundle\Entity\Order $createdOrder
+     */
+    public function removeCreatedOrder(\AppBundle\Entity\Order $createdOrder)
+    {
+        $this->created_orders->removeElement($createdOrder);
+    }
+
+    /**
+     * Get createdOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedOrders()
+    {
+        return $this->created_orders;
+    }
+
+    /**
+     * Add createdAddress
+     *
+     * @param \AppBundle\Entity\Address $createdAddress
+     *
+     * @return User
+     */
+    public function addCreatedAddress(\AppBundle\Entity\Address $createdAddress)
+    {
+        $this->created_addresses[] = $createdAddress;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdAddress
+     *
+     * @param \AppBundle\Entity\Address $createdAddress
+     */
+    public function removeCreatedAddress(\AppBundle\Entity\Address $createdAddress)
+    {
+        $this->created_addresses->removeElement($createdAddress);
+    }
+
+    /**
+     * Get createdAddresses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedAddresses()
+    {
+        return $this->created_addresses;
+    }
+
+    /**
+     * Add createdUser
+     *
+     * @param \AppBundle\Entity\User $createdUser
+     *
+     * @return User
+     */
+    public function addCreatedUser(\AppBundle\Entity\User $createdUser)
+    {
+        $this->created_users[] = $createdUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdUser
+     *
+     * @param \AppBundle\Entity\User $createdUser
+     */
+    public function removeCreatedUser(\AppBundle\Entity\User $createdUser)
+    {
+        $this->created_users->removeElement($createdUser);
+    }
+
+    /**
+     * Get createdUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedUsers()
+    {
+        return $this->created_users;
+    }
+
+    /**
+     * Set provision
+     *
+     * @param string $provision
+     *
+     * @return User
+     */
+    public function setProvision($provision)
+    {
+        $this->provision = $provision;
+
+        return $this;
+    }
+
+    /**
+     * Get provision
+     *
+     * @return string
+     */
+    public function getProvision()
+    {
+        return $this->provision;
+    }
+
+    /**
+     * Set parentPartnerCode
+     *
+     * @param string $parentPartnerCode
+     *
+     * @return User
+     */
+    public function setParentPartnerCode($parentPartnerCode)
+    {
+        $this->parent_partner_code = $parentPartnerCode;
+
+        return $this;
+    }
+
+    /**
+     * Get parentPartnerCode
+     *
+     * @return string
+     */
+    public function getParentPartnerCode()
+    {
+        return $this->parent_partner_code;
+    }
+
+    /**
+     * Add parentPartnerOrder
+     *
+     * @param \AppBundle\Entity\Order $parentPartnerOrder
+     *
+     * @return User
+     */
+    public function addParentPartnerOrder(\AppBundle\Entity\Order $parentPartnerOrder)
+    {
+        $this->parent_partner_orders[] = $parentPartnerOrder;
+
+        return $this;
+    }
+
+    /**
+     * Remove parentPartnerOrder
+     *
+     * @param \AppBundle\Entity\Order $parentPartnerOrder
+     */
+    public function removeParentPartnerOrder(\AppBundle\Entity\Order $parentPartnerOrder)
+    {
+        $this->parent_partner_orders->removeElement($parentPartnerOrder);
+    }
+
+    /**
+     * Get parentPartnerOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParentPartnerOrders()
+    {
+        return $this->parent_partner_orders;
+    }
+
+    /**
+     * Add partner
+     *
+     * @param \AppBundle\Entity\User $partner
+     *
+     * @return User
+     */
+    public function addPartner(\AppBundle\Entity\User $partner)
+    {
+        $this->partners[] = $partner;
+
+        return $this;
+    }
+
+    /**
+     * Remove partner
+     *
+     * @param \AppBundle\Entity\User $partner
+     */
+    public function removePartner(\AppBundle\Entity\User $partner)
+    {
+        $this->partners->removeElement($partner);
+    }
+
+    /**
+     * Get partners
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPartners()
+    {
+        return $this->partners;
+    }
+
+    /**
+     * Set parentPartner
+     *
+     * @param \AppBundle\Entity\User $parentPartner
+     *
+     * @return User
+     */
+    public function setParentPartner(\AppBundle\Entity\User $parentPartner = null)
+    {
+        $this->parent_partner = $parentPartner;
+
+        return $this;
+    }
+
+    /**
+     * Get parentPartner
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getParentPartner()
+    {
+        return $this->parent_partner;
+    }
+
+    /**
+     * Add partnerOrder
+     *
+     * @param \AppBundle\Entity\Order $partnerOrder
+     *
+     * @return User
+     */
+    public function addPartnerOrder(\AppBundle\Entity\Order $partnerOrder)
+    {
+        $this->partner_orders[] = $partnerOrder;
+
+        return $this;
+    }
+
+    /**
+     * Remove partnerOrder
+     *
+     * @param \AppBundle\Entity\Order $partnerOrder
+     */
+    public function removePartnerOrder(\AppBundle\Entity\Order $partnerOrder)
+    {
+        $this->partner_orders->removeElement($partnerOrder);
+    }
+
+    /**
+     * Get partnerOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPartnerOrders()
+    {
+        return $this->partner_orders;
+    }
+
+    /**
+     * Set ads
+     *
+     * @param boolean $ads
+     *
+     * @return User
+     */
+    public function setAds($ads)
+    {
+        $this->ads = $ads;
+
+        return $this;
+    }
+
+    /**
+     * Get ads
+     *
+     * @return boolean
+     */
+    public function getAds()
+    {
+        return $this->ads;
+    }
+
+    /**
+     * Set adsShow
+     *
+     * @param boolean $adsShow
+     *
+     * @return User
+     */
+    public function setAdsShow($adsShow)
+    {
+        $this->ads_show = $adsShow;
+
+        return $this;
+    }
+
+    /**
+     * Get adsShow
+     *
+     * @return boolean
+     */
+    public function getAdsShow()
+    {
+        return $this->ads_show;
+    }
+
+    /**
+     * Set adsName
+     *
+     * @param string $adsName
+     *
+     * @return User
+     */
+    public function setAdsName($adsName)
+    {
+        $this->ads_name = $adsName;
+
+        return $this;
+    }
+
+    /**
+     * Get adsName
+     *
+     * @return string
+     */
+    public function getAdsName()
+    {
+        return $this->ads_name;
+    }
+
+    /**
+     * Set adsDescription
+     *
+     * @param string $adsDescription
+     *
+     * @return User
+     */
+    public function setAdsDescription($adsDescription)
+    {
+        $this->ads_description = $adsDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get adsDescription
+     *
+     * @return string
+     */
+    public function getAdsDescription()
+    {
+        return $this->ads_description;
+    }
+
+    /**
+     * Set adMobile
+     *
+     * @param string $adMobile
+     *
+     * @return User
+     */
+    public function setAdMobile($adMobile)
+    {
+        $this->ad_mobile = $adMobile;
+
+        return $this;
+    }
+
+    /**
+     * Get adMobile
+     *
+     * @return string
+     */
+    public function getAdMobile()
+    {
+        return $this->ad_mobile;
+    }
+
+    /**
+     * Set adDesktop
+     *
+     * @param string $adDesktop
+     *
+     * @return User
+     */
+    public function setAdDesktop($adDesktop)
+    {
+        $this->ad_desktop = $adDesktop;
+
+        return $this;
+    }
+
+    /**
+     * Get adDesktop
+     *
+     * @return string
+     */
+    public function getAdDesktop()
+    {
+        return $this->ad_desktop;
+    }
+}
