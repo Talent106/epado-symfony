@@ -191,7 +191,7 @@ class __TwigTemplate_9296ddb41c850c29869bc0e698aeda878ce0164fed518c724785ee5364d
      
                 <h1>";
         // line 70
-        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("Czym jest Epado"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("Czym jest Ememoria"), "html", null, true);
         echo "</h1>
                 <div class=\"elements boxes\">
                    <div class=\"element delay1 triggerAnimation\" data-animate=\"fadeInUp\">
@@ -648,7 +648,7 @@ class __TwigTemplate_9296ddb41c850c29869bc0e698aeda878ce0164fed518c724785ee5364d
             \$('.facebook-slider').find('div[id^=default]').each(function() {
                 finddefault = \$(this).html();
                 if (finddefault.indexOf(\"scontent\") >= 0) {
-                    \$(this).html('<img class=\"attachment\" src=\"/images/epado.png\" style=\"display: block; width: auto; height: 180px; margin: 0 auto;\">');
+                    \$(this).html('<img class=\"attachment\" src=\"/images/ememoria.png\" style=\"display: block; width: auto; height: 180px; margin: 0 auto;\">');
                     \$(this).css('background-color', '#F26F21');
                 }
             });
@@ -802,7 +802,7 @@ class __TwigTemplate_9296ddb41c850c29869bc0e698aeda878ce0164fed518c724785ee5364d
 /*    */
 /* */
 /*      */
-/*                 <h1>{{ 'Czym jest Epado'|trans }}</h1>*/
+/*                 <h1>{{ 'Czym jest Ememoria'|trans }}</h1>*/
 /*                 <div class="elements boxes">*/
 /*                    <div class="element delay1 triggerAnimation" data-animate="fadeInUp">*/
 /*                        <div class="inside box">*/
@@ -1037,7 +1037,7 @@ class __TwigTemplate_9296ddb41c850c29869bc0e698aeda878ce0164fed518c724785ee5364d
 /*             $('.facebook-slider').find('div[id^=default]').each(function() {*/
 /*                 finddefault = $(this).html();*/
 /*                 if (finddefault.indexOf("scontent") >= 0) {*/
-/*                     $(this).html('<img class="attachment" src="/images/epado.png" style="display: block; width: auto; height: 180px; margin: 0 auto;">');*/
+/*                     $(this).html('<img class="attachment" src="/images/ememoria.png" style="display: block; width: auto; height: 180px; margin: 0 auto;">');*/
 /*                     $(this).css('background-color', '#F26F21');*/
 /*                 }*/
 /*             });*/

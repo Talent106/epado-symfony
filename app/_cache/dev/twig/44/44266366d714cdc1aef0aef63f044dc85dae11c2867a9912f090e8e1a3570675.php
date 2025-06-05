@@ -402,7 +402,7 @@ class __TwigTemplate_7188c0a4016a92bb3a63597130c0f9b3827fc331b63d39e6776bb094236
         } else {
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("homepage_locale", array("_locale" => $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "request", array()), "locale", array()))), "html", null, true);
         }
-        echo "\"><img src=\"/images/epado.png\"></a>
+        echo "\"><img src=\"/images/ememoria.png\"></a>
                     <div class=\"nav\">
                     <div class=\"ico navmobile\"><i class=\"fa fa-bars\"></i></div>    
                     <ul>";
@@ -1784,7 +1784,7 @@ class __TwigTemplate_7188c0a4016a92bb3a63597130c0f9b3827fc331b63d39e6776bb094236
 /*                 */
 /*             <div class="main">*/
 /*                 <div class="size">*/
-/*                     <a class="home" href="{% if( app.request.locale==default_locale )  %}{{ path('homepage') }}{% else  %}{{ path('homepage_locale',{'_locale':app.request.locale}) }}{% endif  %}"><img src="/images/epado.png"></a>*/
+/*                     <a class="home" href="{% if( app.request.locale==default_locale )  %}{{ path('homepage') }}{% else  %}{{ path('homepage_locale',{'_locale':app.request.locale}) }}{% endif  %}"><img src="/images/ememoria.png"></a>*/
 /*                     <div class="nav">*/
 /*                     <div class="ico navmobile"><i class="fa fa-bars"></i></div>    */
 /*                     <ul>{% set user = app.user %}*/
